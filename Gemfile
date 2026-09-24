@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 gem "bootsnap", require: false
+gem "json", "~> 2.18"
 gem "js-routes", "~> 2.4"
 gem "pg", "~> 1.1"
 gem "propshaft"
