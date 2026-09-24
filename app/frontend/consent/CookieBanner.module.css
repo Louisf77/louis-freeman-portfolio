@@ -35,6 +35,12 @@
   padding: 0;
 }
 
+.legend {
+  font-weight: 600;
+  margin-bottom: 4px;
+  padding: 0;
+}
+
 .category {
   display: grid;
   gap: 4px 8px;
@@ -63,13 +69,26 @@
   padding: 10px 16px;
 }
 
-.secondaryButton {
-  background: transparent;
-  border: 1px solid #1a1a1a;
-  border-radius: 999px;
+.linkButton,
+.inlineLinkButton {
+  background: none;
+  border: 0;
   color: #1a1a1a;
   cursor: pointer;
-  flex: 1 1 100%;
   font: inherit;
-  padding: 10px 16px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.linkButton {
+  flex: 1 1 100%;
+  padding: 10px 0;
+  text-align: left;
+}
+
+.linkButton:focus-visible,
+.inlineLinkButton:focus-visible,
+.choiceButton:focus-visible {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 2px;
 }
