@@ -1,0 +1,29 @@
+databases:
+  - databaseName: portfolio_production
+    name: portfolio-db
+    plan: free
+    postgresMajorVersion: "18"
+    region: frankfurt
+    user: portfolio
+
+services:
+  - autoDeployTrigger: checksPass
+    buildCommand: ./bin/render-build.sh
+    envVars:
+      - key: BUNDLE_WITHOUT
+        value: development:test
+      - fromDatabase:
+          name: portfolio-db
+          property: connectionString
+        key: DATABASE_URL
+      - key: RAILS_ENV
+        value: production
+      - generateValue: true
+        key: SECRET_KEY_BASE
+    healthCheckPath: /up
+    name: portfolio-web
+    plan: free
+    region: frankfurt
+    runtime: ruby
+    startCommand: ./bin/thrust ./bin/rails server
+    type: web

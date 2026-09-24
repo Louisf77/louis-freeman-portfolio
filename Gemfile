@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby file: ".ruby-version"
+
 gem "bootsnap", require: false
 gem "js-routes", "~> 2.4"
 gem "pg", "~> 1.1"
