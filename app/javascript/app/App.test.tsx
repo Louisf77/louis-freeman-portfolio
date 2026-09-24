@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
-import App from "~/App";
+import App from "~/app/App";
 
 const BOOTSTRAP = { queries: {}, ui: { hello_heading: "Hello from the bootstrap" } };
 

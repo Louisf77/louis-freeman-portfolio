@@ -16,6 +16,5 @@ module Portfolio
     config.autoload_lib(ignore: %w[assets tasks])
 
     config.generators.system_tests = nil
-    config.javascript_path = "frontend"
   end
 end

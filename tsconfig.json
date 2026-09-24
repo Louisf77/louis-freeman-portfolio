@@ -15,7 +15,7 @@
     "noUnusedParameters": true,
     "paths": {
       "@test/*": ["./test/*"],
-      "~/*": ["./app/frontend/*"]
+      "~/*": ["./app/javascript/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -23,5 +23,5 @@
     "target": "ES2022",
     "types": ["vite/client"]
   },
-  "include": ["app/frontend", "test", "vite.config.ts", "vitest.config.ts", "eslint.config.js"]
+  "include": ["app/javascript", "test", "vite.config.ts", "vitest.config.ts", "eslint.config.js"]
 }
