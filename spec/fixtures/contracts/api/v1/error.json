@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "field": null,
+      "message": "Hero section has not been seeded"
+    }
+  ]
+}

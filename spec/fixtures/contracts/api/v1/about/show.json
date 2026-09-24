@@ -1,0 +1,217 @@
+{
+  "about": {
+    "intro": {
+      "heading": "Hello! I'm Louis Freeman.",
+      "subline": "Senior Full Stack Engineer · London"
+    },
+    "conversation": [
+      {
+        "id": 1,
+        "question": "So, what do you do?",
+        "answer": "I'm a full-stack engineer working across React/TypeScript and Ruby on Rails on a multi-region fintech platform. I joined Hnry as one of the first two engineers on the UK team and have helped grow it to eight. My work centres on end-to-end ownership of hard integrations: a UK banking and card provider, identity verification across three countries, and HMRC, along with the product surfaces built on top of them.",
+        "highlights": [
+          "full-stack engineer",
+          "one of the first two engineers on the UK team",
+          "end-to-end ownership of hard integrations"
+        ],
+        "position": 1
+      },
+      {
+        "id": 2,
+        "question": "And beyond the code?",
+        "answer": "I line-manage three engineers, run engineering chapter sessions for the wider team, and lead AI engineering for the UK business, working with operations and marketing as well as engineering.",
+        "highlights": ["line-manage three engineers", "lead AI engineering for the UK business"],
+        "position": 2
+      },
+      {
+        "id": 3,
+        "question": "How did you get into software?",
+        "answer": "Before software I studied Product Design & Manufacture Engineering at the University of Nottingham, which still shapes how I think about building things people actually use.",
+        "highlights": ["Product Design & Manufacture Engineering"],
+        "position": 3
+      }
+    ],
+    "hobbies": {
+      "items": [
+        {
+          "id": 1,
+          "name": "Rugby",
+          "image_path": "/images/hobbies/rugby.png",
+          "photo": false,
+          "position": 1
+        },
+        {
+          "id": 2,
+          "name": "Golf",
+          "image_path": "/images/hobbies/golf.png",
+          "photo": false,
+          "position": 2
+        },
+        {
+          "id": 3,
+          "name": "Football",
+          "image_path": "/images/hobbies/football.png",
+          "photo": false,
+          "position": 3
+        },
+        {
+          "id": 4,
+          "name": "Surfing",
+          "image_path": "/images/hobbies/surfing.png",
+          "photo": false,
+          "position": 4
+        },
+        {
+          "id": 5,
+          "name": "Cooking",
+          "image_path": "/images/hobbies/cooking.png",
+          "photo": false,
+          "position": 5
+        },
+        {
+          "id": 6,
+          "name": "Photography",
+          "image_path": "/images/hobbies/photography.png",
+          "photo": false,
+          "position": 6
+        },
+        {
+          "id": 7,
+          "name": "Travelling",
+          "image_path": "/images/hobbies/travelling.png",
+          "photo": false,
+          "position": 7
+        }
+      ],
+      "earlier_roles": [
+        {
+          "id": 1,
+          "text": "Led a team of court attendants at the Wimbledon Championships.",
+          "position": 1
+        },
+        {
+          "id": 2,
+          "text": "Spectator services at the Rio 2016 Olympics.",
+          "position": 2
+        }
+      ]
+    },
+    "timeline": [
+      {
+        "id": 1,
+        "company": "Hnry",
+        "role": "Senior Software Engineer",
+        "dates_label": "Jan 2024 — Present",
+        "year_label": "Now",
+        "duration_label": null,
+        "summary": "Multi-region financial services platform (UK, Australia, New Zealand) handling customers' income, tax and payments. One of the first two members of the UK engineering team, now eight strong within a 70-person engineering function.",
+        "highlights": [
+          "Owned the integration of a new UK banking and card provider end to end, from SOAP provisioning to virtual card issuing, real-time transaction processing and settlement reconciliation",
+          "Rolled out a third-party identity verification provider across the UK, Australia and New Zealand",
+          "Led full-stack delivery of the UK Self Assessment tax return",
+          "Built an HMRC API client gem; delivered Confirmation of Payee and Return-to-Payor across two jurisdictions",
+          "Line-manage three engineers and run team-wide engineering chapter sessions",
+          "Lead AI engineering for the UK business across engineering, operations and marketing"
+        ],
+        "subs": [
+          {
+            "date_label": "Dec 2025",
+            "label": "Promoted to Senior Software Engineer"
+          },
+          {
+            "date_label": "Jan 2024",
+            "label": "Joined as Intermediate Software Engineer"
+          }
+        ],
+        "tags": ["Ruby on Rails", "React", "TypeScript", "PostgreSQL", "AWS", "Terraform"],
+        "watermark": null,
+        "education": false,
+        "position": 1
+      },
+      {
+        "id": 2,
+        "company": "Soho House",
+        "role": "Junior Ruby Developer",
+        "dates_label": "Nov 2021 — Dec 2023",
+        "year_label": "2021",
+        "duration_label": "2 years, 2 months",
+        "summary": "Global members' club and hospitality group; in-house engineering team working on internal platforms and integrations.",
+        "highlights": [
+          "Built internal developer tooling, including automating the GitHub review process",
+          "Implemented security measures and took part in code review as author and reviewer",
+          "Worked across databases and third-party API integrations in a multidisciplinary team"
+        ],
+        "subs": [],
+        "tags": ["Ruby", "Rails", "PostgreSQL", "GitHub Actions"],
+        "watermark": null,
+        "education": false,
+        "position": 2
+      },
+      {
+        "id": 3,
+        "company": "Academy",
+        "role": "Founding Scholar & Trainee Software Engineer",
+        "dates_label": "2021",
+        "year_label": "2021",
+        "duration_label": null,
+        "summary": "Intensive software engineering programme.",
+        "highlights": [],
+        "subs": [],
+        "tags": ["React", "Node.js", "TypeScript", "PostgreSQL"],
+        "watermark": null,
+        "education": false,
+        "position": 3
+      },
+      {
+        "id": 4,
+        "company": "NHS",
+        "role": "Digital Integration & Support Liaison Officer",
+        "dates_label": "Nov 2020 — May 2021",
+        "year_label": "2020",
+        "duration_label": "7 months",
+        "summary": "National programme helping care homes adopt NHS digital technology.",
+        "highlights": [
+          "Led a small data and analytics team building a dashboard that combined large data sets",
+          "Delivered real-time performance indicators at London, borough and care-home level"
+        ],
+        "subs": [],
+        "tags": [],
+        "watermark": null,
+        "education": false,
+        "position": 4
+      },
+      {
+        "id": 5,
+        "company": "MediaVision",
+        "role": "Digital Product Performance Executive",
+        "dates_label": "Sep — Nov 2020",
+        "year_label": "2020",
+        "duration_label": "3 months",
+        "summary": "SEO team at a digital performance agency; analysed client traffic and wrote Python scripts, making recommendations that improved user interaction.",
+        "highlights": [],
+        "subs": [],
+        "tags": ["Python"],
+        "watermark": null,
+        "education": false,
+        "position": 5
+      },
+      {
+        "id": 6,
+        "company": "University of Nottingham",
+        "role": "MEng Product Design & Manufacture Engineering, 2:1",
+        "dates_label": "2016 — 2020 · Education",
+        "year_label": "2016",
+        "duration_label": "4 years",
+        "summary": "Integrated master's degree in product design and manufacturing engineering.",
+        "highlights": [
+          "Final year project: a consumer product that turns rainwater into clean drinking water"
+        ],
+        "subs": [],
+        "tags": ["Engineering maths", "CAD", "3D visualisation", "UI/UX design"],
+        "watermark": "UON",
+        "education": true,
+        "position": 6
+      }
+    ]
+  }
+}

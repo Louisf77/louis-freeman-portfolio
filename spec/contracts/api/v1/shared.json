@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://louisfreeman.co.uk/contracts/api/v1/shared.json",
+  "$defs": {
+    "CaseStudy": {
+      "type": "object",
+      "required": [
+        "id",
+        "slug",
+        "number",
+        "title",
+        "years_label",
+        "headline",
+        "description",
+        "role",
+        "tags",
+        "diagram_key",
+        "metric",
+        "position"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "integer" },
+        "slug": { "type": "string" },
+        "number": { "type": "string" },
+        "title": { "type": "string" },
+        "years_label": { "type": "string" },
+        "headline": { "type": "string" },
+        "description": { "type": "string" },
+        "role": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "diagram_key": { "enum": ["cards", "identity", "tax", "ai"] },
+        "metric": { "type": ["string", "null"] },
+        "position": { "type": "integer" }
+      }
+    },
+    "Experience": {
+      "type": "object",
+      "required": [
+        "id",
+        "company",
+        "role",
+        "dates_label",
+        "year_label",
+        "duration_label",
+        "summary",
+        "highlights",
+        "subs",
+        "tags",
+        "watermark",
+        "education",
+        "position"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "integer" },
+        "company": { "type": "string" },
+        "role": { "type": "string" },
+        "dates_label": { "type": "string" },
+        "year_label": { "type": "string" },
+        "duration_label": { "type": ["string", "null"] },
+        "summary": { "type": "string" },
+        "highlights": { "type": "array", "items": { "type": "string" } },
+        "subs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date_label", "label"],
+            "additionalProperties": false,
+            "properties": {
+              "date_label": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "watermark": { "type": ["string", "null"] },
+        "education": { "type": "boolean" },
+        "position": { "type": "integer" }
+      }
+    },
+    "LabelItem": {
+      "type": "object",
+      "required": ["id", "label", "position"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "integer" },
+        "label": { "type": "string" },
+        "position": { "type": "integer" }
+      }
+    },
+    "ListItem": {
+      "type": "object",
+      "required": ["id", "text", "position"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "integer" },
+        "text": { "type": "string" },
+        "position": { "type": "integer" }
+      }
+    }
+  }
+}
