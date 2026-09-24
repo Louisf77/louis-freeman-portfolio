@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://louisfreeman.co.uk/contracts/api/v1/work/show.json",
+  "type": "object",
+  "required": ["work"],
+  "additionalProperties": false,
+  "properties": {
+    "work": {
+      "type": "object",
+      "required": ["header", "case_studies"],
+      "additionalProperties": false,
+      "properties": {
+        "header": {
+          "type": "object",
+          "required": ["intro"],
+          "additionalProperties": false,
+          "properties": {
+            "intro": { "type": "string" }
+          }
+        },
+        "case_studies": { "type": "array", "items": { "$ref": "../shared.json#/$defs/CaseStudy" } }
+      }
+    }
+  }
+}
