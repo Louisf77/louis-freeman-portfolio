@@ -1,0 +1,106 @@
+concurrency:
+  cancel-in-progress: true
+  group: ci-${{ github.ref }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - uses: actions/setup-node@v7
+        with:
+          cache: npm
+          node-version-file: .node-version
+      - run: npm ci
+      - env:
+          RAILS_ENV: production
+          SECRET_KEY_BASE_DUMMY: 1
+        run: bin/rails assets:precompile
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - uses: actions/setup-node@v7
+        with:
+          cache: npm
+          node-version-file: .node-version
+      - run: npm ci
+      - run: bin/rails js:routes
+      - run: bundle exec rubocop --parallel
+      - run: bundle exec erb_lint --lint-all
+      - run: bin/lint-yaml-keys
+      - run: npx eslint .
+      - run: npx prettier --check .
+      - run: npx tsc --noEmit
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - uses: actions/setup-node@v7
+        with:
+          cache: npm
+          node-version-file: .node-version
+      - run: bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error
+      - run: bin/bundler-audit check --update
+      - run: npm audit --omit=dev --audit-level=high
+
+  test:
+    env:
+      CI: "true"
+      PGHOST: localhost
+      PGPASSWORD: postgres
+      PGUSER: postgres
+      RAILS_ENV: test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        env:
+          POSTGRES_PASSWORD: postgres
+        image: postgres:18
+        options: >-
+          --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - uses: actions/setup-node@v7
+        with:
+          cache: npm
+          node-version-file: .node-version
+      - run: npm ci
+      - run: bin/rails js:routes
+      - run: bin/rails db:prepare
+      - if: hashFiles('db/migrate/*.rb') != ''
+        run: bin/rails db:migrate:redo
+      - run: bundle exec rspec
+      - run: npx vitest run
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: capybara-screenshots
+          path: tmp/capybara
+          retention-days: 7
+
+name: CI
+
+"on":
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
