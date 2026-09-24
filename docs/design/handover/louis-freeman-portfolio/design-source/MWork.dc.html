@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Louis Freeman — Work (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&amp;family=Karla:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+:root{--disp:'Sora','Helvetica Neue',sans-serif;--body:'Karla','Helvetica Neue',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#F4F2EC;color:#17160F;font-family:var(--body);-webkit-font-smoothing:antialiased}
+a{color:#2F5D45}a:hover{color:#1F4232}
+h1,h2,h3,p,ul,ol,figure{margin:0}ul,ol{padding:0;list-style:none}
+:focus-visible{outline:2px solid #2F5D45;outline-offset:3px}
+.k{font:600 10.5px/1.4 var(--disp);letter-spacing:.16em;text-transform:uppercase;color:#5B584F}
+.tagm{font:400 11.5px/1 var(--mono);padding:7px 10px;border:1px solid #CFC9BA;border-radius:999px;color:#3E3C35;white-space:nowrap}
+.card{background:#FBFAF6;border:1px solid #D6D1C4;border-radius:22px}
+.mark{background:linear-gradient(transparent 62%,#D7E4D6 62%,#D7E4D6 94%,transparent 94%);color:#17160F;font-weight:600;padding:0 2px}
+.h2{font:600 40px/1.02 var(--disp);letter-spacing:-.04em}
+.sec{padding:64px 16px;display:flex;flex-direction:column;gap:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border:1px solid #17160F;border-radius:999px;color:#17160F;text-decoration:none;font:600 14px/1 var(--disp)}
+.btn:hover{background:#17160F;color:#F4F2EC}
+/* nav */
+.mnav{position:sticky;top:0;z-index:50;display:flex;justify-content:center;padding:12px;pointer-events:none}
+.mpill{position:relative;pointer-events:auto;display:flex;align-items:center;gap:2px;padding:4px;border:1px solid rgba(23,22,15,.14);border-radius:999px;background:rgba(244,242,236,.86);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);transition:box-shadow .4s}
+.mnav.is-scrolled .mpill{box-shadow:0 16px 34px -24px rgba(23,22,15,.5)}
+.mpill > a,.mpill > button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:transparent;font:500 15px/1 var(--body);color:#17160F;text-decoration:none;cursor:pointer}
+.mpill > a[aria-current=page]{background:#17160F;color:#F4F2EC}
+.mpill > a.home{padding:0 12px}.mpill > a.home img{height:22px;display:block}
+.mpill > a.home[aria-current=page]{background:rgba(23,22,15,.09)}
+.mpill > button[aria-expanded=true]{background:#17160F;color:#F4F2EC}
+.plus{position:relative;width:10px;height:10px}
+.plus::before,.plus::after{content:'';position:absolute;left:0;top:4.5px;width:10px;height:1.5px;background:currentColor;transition:transform .35s}
+.plus::after{transform:rotate(90deg)}[aria-expanded=true] .plus::after{transform:rotate(0)}
+.mmenu{position:absolute;right:0;top:calc(100% + 8px);width:220px;padding:8px;display:flex;flex-direction:column;background:#FBFAF6;border:1px solid #D6D1C4;border-radius:20px;box-shadow:0 24px 44px -28px rgba(23,22,15,.5);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .25s,transform .3s,visibility .3s}
+.mmenu.open{opacity:1;visibility:visible;transform:none}
+.mmenu a{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:0 14px;border-radius:14px;color:#17160F;text-decoration:none;font:500 16px/1 var(--body)}
+.mmenu a:hover{background:rgba(23,22,15,.06)}
+/* experience + work cards */
+.xc{position:relative;overflow:hidden;padding:22px 20px 24px;display:flex;flex-direction:column;gap:14px}
+.xc > :not(.dmark){position:relative;z-index:1}
+.dmark{position:absolute;right:-6px;bottom:-20px;font:600 96px/1 var(--disp);letter-spacing:-.065em;color:rgba(23,22,15,.05);white-space:nowrap;pointer-events:none}
+.dmark.sm{font-size:74px}
+.hl{display:flex;gap:10px;font-size:14px;line-height:1.5;color:#2A2923}
+.hl i{flex-shrink:0;width:6px;height:6px;margin-top:7px;border-radius:50%;background:#2F5D45}
+.viz{position:relative;height:209px;border-radius:16px;overflow:hidden;background:#EAE6DC}
+.viz > div{position:absolute;left:0;top:0;width:720px;height:440px;transform:scale(.4889);transform-origin:0 0}
+.metric{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border:1px dashed #B9B2A0;border-radius:12px}
+.capc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:24px 18px;background:#FBFAF6;border:1px solid #D6D1C4;border-radius:20px}
+.capc h3{font-size:22px!important}
+.capc ul,.dom ul{justify-content:center}
+.marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq-track{display:flex;width:max-content;animation:mq 50s linear infinite}
+.mq-item{display:flex;align-items:center;gap:22px;padding-right:22px;font:600 30px/1.2 var(--disp);letter-spacing:-.03em;white-space:nowrap}
+.mq-dot{width:7px;height:7px;border:1px solid #17160F;transform:rotate(45deg)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.caret{display:inline-block;width:3px;height:.9em;margin-left:4px;background:#2F5D45;transform:translateY(2px)}
+.caret.is-hold{animation:blink .9s steps(1) infinite}@keyframes blink{50%{opacity:0}}
+.cue-line{position:relative;width:1px;height:36px;background:rgba(23,22,15,.18);overflow:hidden}
+.cue-line::after{content:'';position:absolute;left:0;top:-40%;width:1px;height:40%;background:#17160F;animation:cue 2.2s cubic-bezier(.6,0,.2,1) infinite}
+@keyframes cue{to{top:100%}}
+/* card stacking (Play only) */
+.is-live .stk{position:sticky;box-shadow:0 -26px 40px -30px rgba(23,22,15,.45)}
+.is-live .pinmain{padding-bottom:0!important}
+.is-live .pinmain .stk-list{padding-bottom:100vh}
+.is-live .pinmain ~ footer{margin-top:-100vh;position:relative;z-index:20;background:#F4F2EC;min-height:calc(100vh - 110px);border-radius:32px 32px 0 0;border-top:0;box-shadow:0 -30px 50px -36px rgba(23,22,15,.5)}
+/* experience deck */
+.mdeck{position:relative;height:600px;margin-right:20px;touch-action:pan-y}
+.mdc{position:absolute;inset:0;overflow:hidden;padding:22px 20px 24px;display:flex;flex-direction:column;gap:13px;background:#FBFAF6;border:1px solid #D6D1C4;border-radius:22px;transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .5s,background .5s,box-shadow .5s;will-change:transform}
+.mdc > :not(.dmark){position:relative;z-index:1}
+.mdc.top{border-color:#17160F;box-shadow:0 26px 44px -34px rgba(23,22,15,.55)}
+.mdc.n1{transform:translate(10px,12px);background:#EFEBE2}
+.mdc.n2{transform:translate(20px,24px);background:#E6E2D7}
+.mdc.far{transform:translate(20px,24px);opacity:0}
+.mdc.gone{transform:translateX(-115%) rotate(-7deg);opacity:0;pointer-events:none}
+.mdc .sum{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.dnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px}
+.dnav button{width:48px;height:48px;border:1px solid #17160F;border-radius:50%;background:transparent;color:#17160F;font:500 18px/1 var(--body);cursor:pointer}
+.dnav button:hover{background:#17160F;color:#F4F2EC}
+.dnav button:disabled{opacity:.3;cursor:default;background:transparent;color:#17160F}
+.dbar{display:flex;gap:6px;flex-grow:1;justify-content:center}
+.dbar i{width:18px;height:3px;border-radius:2px;background:#CFC9BA;transition:width .3s,background .3s}
+.dbar i.on{width:34px;background:#2F5D45}
+/* hobbies row */
+.hrow{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 6px;scrollbar-width:none}
+.hrow::-webkit-scrollbar{display:none}
+.hrow > li{flex:0 0 190px;scroll-snap-align:start}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-80px;z-index:100;background:#17160F;color:#F4F2EC;padding:12px 18px;border-radius:999px;font:500 14px/1 var(--body);text-decoration:none}.skip:focus{top:10px;color:#F4F2EC}
+.foot-links{display:flex;flex-wrap:wrap;gap:10px}
+.foot-links a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid #17160F;border-radius:999px;color:#17160F;text-decoration:none;font:500 15px/1 var(--body)}
+.bub-q{align-self:flex-end;max-width:80%;padding:11px 16px;border-radius:20px 20px 6px 20px;background:#17160F;color:#F4F2EC;font:600 14px/1.3 var(--disp)}
+@keyframes pgIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+main > *,main ~ footer{animation:pgIn .8s cubic-bezier(.2,.7,.2,1) both}
+main > *:nth-child(2){animation-delay:.1s}main > *:nth-child(n+3),main ~ footer{animation-delay:.18s}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div id="top" class="{{liveCls}}" style="position: relative; width: 100%; max-width: 430px; margin: 0 auto; min-height: 3900px; display: flex; flex-direction: column; background: #F4F2EC; overflow-x: clip;">
+<a class="skip" href="#main">Skip to main content</a>
+<header class="mnav {{navCls}}">
+<nav class="mpill" aria-label="Primary">
+<a class="home" href="MHome.dc.html" aria-label="Louis Freeman, home"><img src="/_blob/fdb51469796b01eb2b9a5f74f75d9dd9" alt=""></a>
+<a href="MWork.dc.html" aria-current="page">Work</a>
+<a href="MAbout.dc.html">About</a>
+<button type="button" aria-expanded="{{cOpen}}" aria-controls="mmenu" onClick="{{toggleContact}}">Contact<span class="plus" aria-hidden="true"></span></button>
+<div id="mmenu" class="mmenu {{cCls}}"><a href="mailto:hello@louisfreeman.co.uk">Email <span aria-hidden="true">→</span></a><a href="https://www.linkedin.com/in/louis-freeman7/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/Louisf77" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></div>
+</nav>
+</header>
+<main id="main" class="pinmain" style="display: flex; flex-direction: column; gap: 28px; padding: 24px 16px 72px;">
+<section style="display: flex; flex-direction: column; gap: 14px; padding-bottom: 22px; border-bottom: 1px solid #17160F;">
+<h1 style="font: 600 64px/1 var(--disp); letter-spacing: -0.05em;">Work</h1>
+<p style="font-size: 15.5px; line-height: 1.55; color: #3E3C35;">Case studies from Hnry. The work is confidential fintech, so the visuals are diagrams and interface fragments rather than screenshots.</p>
+</section>
+<div class="stk-list" style="display: flex; flex-direction: column; gap: 16px;">
+<article class="card stk" style="top: 72px; z-index: 1; background: #FBFAF6; padding: 12px 12px 22px; display: flex; flex-direction: column; gap: 16px;">
+<div class="viz" aria-hidden="false"><div><dc-import name="VizCards" hint-size="720px,440px"></dc-import></div></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 0 6px;"><p class="k" style="display: flex; justify-content: space-between;"><span>01</span><span>2024–25</span></p>
+<h3 style="font: 600 26px/1.05 var(--disp); letter-spacing: -0.035em;">Card Issuing, End to End</h3>
+<p style="font: 500 16px/1.45 var(--disp);">Replacing an incumbent banking and card provider from API client to the card in the customer's hand.</p>
+<p style="font-size: 14.5px; line-height: 1.6; color: #3E3C35;">SOAP provisioning chain in the payments gem, virtual card issuing, real-time card transaction processing, a settlement reconciliation pipeline (SFTP retrieval, PGP decryption, per-transaction processing), and automated compliance reporting.</p>
+<p style="font-size: 14px;"><span class="k" style="margin-right: 10px;">Role</span>Lead engineer</p>
+<ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Rails</li><li class="tagm">SOAP</li><li class="tagm">SFTP/PGP</li><li class="tagm">React</li></ul>
+<div class="metric"><span class="k" style="font-size: 10px;">Metric</span><span style="font-size: 14px; color: #3E3C35;">[PLACEHOLDER — Louis to add a real metric]</span></div>
+</div></article>
+<article class="card stk" style="top: 86px; z-index: 2; background: #EFEBE2; padding: 12px 12px 22px; display: flex; flex-direction: column; gap: 16px;">
+<div class="viz" aria-hidden="false"><div><dc-import name="VizIdentity" hint-size="720px,440px"></dc-import></div></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 0 6px;"><p class="k" style="display: flex; justify-content: space-between;"><span>02</span><span>2024–25</span></p>
+<h3 style="font: 600 26px/1.05 var(--disp); letter-spacing: -0.035em;">Identity Verification in Three Countries</h3>
+<p style="font: 500 16px/1.45 var(--disp);">One identity verification rollout across the UK, Australia and New Zealand.</p>
+<p style="font-size: 14.5px; line-height: 1.6; color: #3E3C35;">Backend integration, decision and ongoing-monitoring webhooks, customer flow, and admin tooling, wired into two separate onboarding implementations (a React tour and a legacy server-rendered flow). Closed compliance gaps found during rollout.</p>
+<p style="font-size: 14px;"><span class="k" style="margin-right: 10px;">Role</span>Lead engineer</p>
+<ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Rails</li><li class="tagm">React</li><li class="tagm">Webhooks</li><li class="tagm">AML/KYC</li></ul>
+<div class="metric"><span class="k" style="font-size: 10px;">Metric</span><span style="font-size: 14px; color: #3E3C35;">[PLACEHOLDER — Louis to add a real metric]</span></div>
+</div></article>
+<article class="card stk" style="top: 100px; z-index: 3; background: #FBFAF6; padding: 12px 12px 22px; display: flex; flex-direction: column; gap: 16px;">
+<div class="viz" aria-hidden="false"><div><dc-import name="VizTax" hint-size="720px,440px"></dc-import></div></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 0 6px;"><p class="k" style="display: flex; justify-content: space-between;"><span>03</span><span>2025</span></p>
+<h3 style="font: 600 26px/1.05 var(--disp); letter-spacing: -0.035em;">UK Self Assessment Tax Return</h3>
+<p style="font: 500 16px/1.45 var(--disp);">A full-stack tax return, designed to be reused across jurisdictions.</p>
+<p style="font-size: 14.5px; line-height: 1.6; color: #3E3C35;">Data model using single-table inheritance, a polymorphic filing-obligation link and full auditing. A React Hook Form wizard with seven independently toggled sections, a stage stepper, save-and-continue vs submit, and an admin review side with a reusable notes API. HMRC API client gem with per-request OAuth and fraud-prevention headers.</p>
+<p style="font-size: 14px;"><span class="k" style="margin-right: 10px;">Role</span>Full-stack lead</p>
+<ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">React</li><li class="tagm">React Hook Form</li><li class="tagm">Rails</li><li class="tagm">HMRC APIs</li></ul>
+<div class="metric"><span class="k" style="font-size: 10px;">Metric</span><span style="font-size: 14px; color: #3E3C35;">[PLACEHOLDER — Louis to add a real metric]</span></div>
+</div></article>
+<article class="card stk" style="top: 114px; z-index: 4; background: #EFEBE2; padding: 12px 12px 22px; display: flex; flex-direction: column; gap: 16px;">
+<div class="viz" aria-hidden="false"><div><dc-import name="VizAI" hint-size="720px,440px"></dc-import></div></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 0 6px;"><p class="k" style="display: flex; justify-content: space-between;"><span>04</span><span>2025–26</span></p>
+<h3 style="font: 600 26px/1.05 var(--disp); letter-spacing: -0.035em;">AI Engineering &amp; Developer Tooling</h3>
+<p style="font: 500 16px/1.45 var(--disp);">Getting practical value out of AI across engineering, operations and marketing.</p>
+<p style="font-size: 14.5px; line-height: 1.6; color: #3E3C35;">Four internal developer plugins covering on-call triage, the coding-task lifecycle (intake → planning → per-commit lint and spec gating → pre-PR validation) and coding-style resolution, designed to be squad-agnostic through shared configuration.</p>
+<p style="font-size: 14px;"><span class="k" style="margin-right: 10px;">Role</span>AI engineering lead, UK</p>
+<ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Claude Code</li><li class="tagm">Plugins &amp; hooks</li><li class="tagm">MCP</li><li class="tagm">Agent workflows</li></ul>
+<div class="metric"><span class="k" style="font-size: 10px;">Metric</span><span style="font-size: 14px; color: #3E3C35;">[PLACEHOLDER — Louis to add a real metric]</span></div>
+</div></article>
+</div>
+</main>
+<footer id="contact" style="padding: 72px 16px 28px; display: flex; flex-direction: column; gap: 48px; border-top: 1px solid #D6D1C4;">
+<div style="display: flex; flex-direction: column; gap: 22px;">
+<h2 style="font: 600 64px/.92 var(--disp); letter-spacing: -0.05em;">Let's <span style="color: #2F5D45;">connect.</span></h2>
+<a href="mailto:hello@louisfreeman.co.uk" style="align-self: flex-start; font: 600 20px/1.2 var(--disp); color: #17160F; text-decoration: none; border-bottom: 1px solid #17160F; padding-bottom: 4px;">hello@louisfreeman.co.uk</a>
+<div class="foot-links"><a href="https://www.linkedin.com/in/louis-freeman7/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/Louisf77" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></div>
+<p style="font-size: 15px; line-height: 1.6; color: #5B584F;">Based in London. Happy to talk about fintech integrations, engineering leadership or AI tooling.</p>
+</div>
+<div class="k" style="display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid #17160F;"><span style="display: flex; align-items: center; gap: 10px;"><img src="/_blob/fdb51469796b01eb2b9a5f74f75d9dd9" alt="" style="height: 20px; width: auto;">© 2026 Louis Freeman</span><a href="#top" style="color: #17160F; text-decoration: none; min-height: 44px; display: flex; align-items: center;">Top ↑</a></div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { scrolled: false, cOpen: false, live: false }; }
+  componentDidMount() {
+    var self = this;
+    this.onS = function () { var s = (window.scrollY || 0) > 8; if (s !== self.state.scrolled) self.setState({ scrolled: s }); };
+    window.addEventListener("scroll", this.onS, { passive: true });
+    this.reduced = false;
+    try { this.reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    this.onR = function () { var live = !self.reduced && window.innerHeight < 1500; if (live !== self.state.live) self.setState({ live: live }); };
+    this.onR(); this.poll = setInterval(this.onR, 700);
+    if (this.mount) this.mount();
+  }
+  componentWillUnmount() { window.removeEventListener("scroll", this.onS); clearInterval(this.poll); if (this.unmount) this.unmount(); }
+  baseVals() { var s = this.state, self = this;
+    return { liveCls: s.live ? "is-live" : "", navCls: s.scrolled ? "is-scrolled" : "", cOpen: s.cOpen ? "true" : "false", cCls: s.cOpen ? "open" : "",
+      toggleContact: function () { self.setState({ cOpen: !self.state.cOpen }); } }; }
+
+  renderVals() { return Object.assign(this.baseVals(), {}); }
+}
+</script>
+</body>
+</html>
