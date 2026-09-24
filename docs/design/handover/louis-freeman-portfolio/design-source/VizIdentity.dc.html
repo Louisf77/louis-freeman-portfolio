@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fig. 02 — Identity verification</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&amp;family=Karla:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div role="img" aria-label="Diagram: the UK, Australia and New Zealand connect to one identity verification provider, fed by two onboarding flows, returning decision and monitoring webhooks, with admin tooling for review." style="position: relative; width: 720px; height: 440px; overflow: hidden; background-color: #EAE6DC; background-image: radial-gradient(rgba(23,22,15,0.16) 1px, transparent 1px); background-size: 24px 24px; font-family: 'Karla','Helvetica Neue',sans-serif; color: #17160F;">
+
+<svg width="720" height="440" aria-hidden="true" style="position: absolute; left: 0; top: 0; pointer-events: none;">
+<path d="M108 112 C188 112 188 216 267 216" fill="none" stroke="#17160F"></path>
+<path d="M108 216 H267" fill="none" stroke="#17160F"></path>
+<path d="M108 320 C188 320 188 216 267 216" fill="none" stroke="#17160F"></path>
+<path d="M262 212 L267 216 L262 220" fill="none" stroke="#17160F"></path>
+<path d="M298 90 V165" fill="none" stroke="#17160F" style="stroke-dasharray: 3 4;"></path>
+<path d="M422 90 V165" fill="none" stroke="#17160F" style="stroke-dasharray: 3 4;"></path>
+<path d="M360 266 V320" fill="none" stroke="#17160F"></path>
+<path d="M452 196 C488 196 484 138 515 138" fill="none" stroke="#2F5D45" style="stroke-width: 1.5;"></path>
+<path d="M510 134 L515 138 L510 142" fill="none" stroke="#2F5D45" style="stroke-width: 1.5;"></path>
+<path d="M452 236 C488 236 484 294 515 294" fill="none" stroke="#2F5D45" style="stroke-width: 1.5;"></path>
+<path d="M510 290 L515 294 L510 298" fill="none" stroke="#2F5D45" style="stroke-width: 1.5;"></path>
+<path d="M604 314 C604 350 540 356 500 346" fill="none" stroke="#5B584F" style="stroke-dasharray: 2 4;"></path>
+</svg>
+
+<div style="position: absolute; left: 36px; top: 76px; width: 72px; height: 72px; border: 1px solid #17160F; border-radius: 50%; background: #F4F2EC; display: flex; align-items: center; justify-content: center; font-family: 'Sora','Helvetica Neue',sans-serif; font-size: 22px; font-style: normal;">UK</div>
+<div style="position: absolute; left: 36px; top: 180px; width: 72px; height: 72px; border: 1px solid #17160F; border-radius: 50%; background: #F4F2EC; display: flex; align-items: center; justify-content: center; font-family: 'Sora','Helvetica Neue',sans-serif; font-size: 22px; font-style: normal;">AU</div>
+<div style="position: absolute; left: 36px; top: 284px; width: 72px; height: 72px; border: 1px solid #17160F; border-radius: 50%; background: #F4F2EC; display: flex; align-items: center; justify-content: center; font-family: 'Sora','Helvetica Neue',sans-serif; font-size: 22px; font-style: normal;">NZ</div>
+
+<div style="position: absolute; left: 242px; top: 34px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #5B584F;">ONBOARDING × 2</div>
+<div style="position: absolute; left: 242px; top: 56px; width: 112px; height: 34px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 999px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">React tour</div>
+<div style="position: absolute; left: 366px; top: 56px; width: 112px; height: 34px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 999px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Server-rendered</div>
+
+<div style="position: absolute; left: 268px; top: 166px; width: 184px; height: 100px; box-sizing: border-box; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 10px; background: #17160F; color: #F4F2EC;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #B9C9BC;">PROVIDER</span>
+<span style="font-size: 17px; line-height: 1.2; font-weight: 500;">Identity verification</span>
+</div>
+
+<div style="position: absolute; left: 296px; top: 320px; width: 128px; height: 34px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Admin tooling</div>
+
+<div style="position: absolute; left: 516px; top: 118px; width: 176px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #2F5D45; border-radius: 6px; background: #DCE5DB; color: #1F4232; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">decision webhook</div>
+<div style="position: absolute; left: 516px; top: 274px; width: 176px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #2F5D45; border-radius: 6px; background: #DCE5DB; color: #1F4232; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">monitoring webhook</div>
+<div style="position: absolute; left: 516px; top: 356px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #5B584F;">ONGOING</div>
+
+<div style="position: absolute; left: 28px; top: 408px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #5B584F;">FIG. 02 — ONE ROLLOUT, THREE JURISDICTIONS</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":720,"height":440}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

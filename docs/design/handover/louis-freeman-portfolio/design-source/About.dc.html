@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Louis Freeman — About</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&amp;family=Karla:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+:root{--disp:'Sora','Helvetica Neue',sans-serif;--body:'Karla','Helvetica Neue',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#F4F2EC;color:#17160F;font-family:var(--body);-webkit-font-smoothing:antialiased}
+a{color:#2F5D45}a:hover{color:#1F4232}
+h1,h2,h3,p,ul,ol,figure{margin:0}ul,ol{padding:0;list-style:none}
+:focus-visible{outline:2px solid #2F5D45;outline-offset:3px}
+.k{font:600 11px/1.4 var(--disp);letter-spacing:.16em;text-transform:uppercase;color:#5B584F}
+.h2m{font:600 60px/1.02 var(--disp);letter-spacing:-.035em}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font:600 15px/1 var(--disp);text-decoration:none;transition:background .25s,color .25s,border-color .25s}
+.btn-primary{background:#17160F;color:#F4F2EC;border:1px solid #17160F}.btn-primary:hover{background:#2F5D45;border-color:#2F5D45;color:#F4F2EC}
+.btn-ghost{border:1px solid #17160F;color:#17160F}.btn-ghost:hover{background:#17160F;color:#F4F2EC}
+.tagm{font:400 12px/1 var(--mono);padding:8px 12px;border:1px solid #CFC9BA;border-radius:999px;color:#3E3C35;white-space:nowrap;background:transparent}
+.card{background:#FBFAF6;border:1px solid #D6D1C4;border-radius:20px}
+.lift{transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s,border-color .3s}
+.lift:hover{transform:translateY(-6px);box-shadow:0 26px 40px -30px rgba(23,22,15,.5);border-color:#17160F}
+.mark{background:linear-gradient(transparent 62%,#D7E4D6 62%,#D7E4D6 94%,transparent 94%);color:#17160F;font-weight:600;padding:0 2px}
+.toon{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;border:1.5px dashed #B9B2A0;border-radius:16px;color:#5B584F;font:600 14px/1.3 var(--disp);padding:16px}
+.toon small{font:400 11px/1.3 var(--mono);opacity:.8}
+.hob:hover .hob-img{transform:scale(1.06)}
+.float{animation:float 5s ease-in-out infinite}@keyframes float{50%{transform:translateY(-8px)}}
+.more{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;border:1px solid #17160F;border-radius:999px;background:transparent;color:#17160F;font:600 14px/1 var(--disp);cursor:pointer;transition:background .25s,color .25s}
+.more:hover{background:#17160F;color:#F4F2EC}
+.foot-mail{font:600 32px/1.1 var(--disp);color:#17160F;text-decoration:none;border-bottom:1px solid #17160F;padding-bottom:6px}
+.foot-mail:hover{color:#2F5D45;border-bottom-color:#2F5D45}
+/* page transition — content eases in under a fixed nav */
+@keyframes pgIn{from{opacity:0;transform:translateY(28px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes pgVeil{from{opacity:1}to{opacity:0;visibility:hidden}}
+#main > *,#main ~ footer{animation:pgIn .9s cubic-bezier(.2,.7,.2,1) both}
+#main > *:nth-child(2){animation-delay:.12s}
+#main > *:nth-child(3){animation-delay:.22s}
+#main > *:nth-child(n+4),#main ~ footer{animation-delay:.3s}
+#top::before{content:'';position:fixed;inset:0;z-index:40;background:#F4F2EC;pointer-events:none;animation:pgVeil .45s ease-out both}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+/* nav — one sticky pill; Contact slides out Email / LinkedIn / GitHub */
+.skip{position:absolute;left:16px;top:-80px;z-index:100;background:#17160F;color:#F4F2EC;padding:14px 20px;border-radius:999px;font:500 14px/1 var(--body);text-decoration:none;transition:top .2s}
+.skip:focus{top:12px;color:#F4F2EC}
+.nav{position:sticky;top:0;z-index:50;display:flex;justify-content:center;padding:20px 64px;pointer-events:none;transition:transform .18s ease-out}
+.is-tall .nav{transform:translateY(var(--nav-y,0px))}
+.nav-links{pointer-events:auto;display:flex;align-items:center;gap:4px;padding:5px;border:1px solid rgba(23,22,15,.14);border-radius:999px;background:rgba(244,242,236,.82);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);transition:box-shadow .4s,border-color .4s}
+.nav.is-scrolled .nav-links{box-shadow:0 18px 40px -26px rgba(23,22,15,.45);border-color:rgba(23,22,15,.22)}
+.nav-links a,.nav-contact{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:transparent;font:500 15px/1 var(--body);color:#17160F;text-decoration:none;cursor:pointer;white-space:nowrap;transition:background .25s,color .25s}
+.nav-links a:hover,.nav-contact:hover{background:rgba(23,22,15,.07);color:#17160F}
+.nav-links a[aria-current=page]{background:#17160F;color:#F4F2EC}
+.nav-links a.home{padding:0 16px}
+.nav-links a.home img{height:24px;width:auto;display:block}
+.nav-links a.home[aria-current=page]{background:rgba(23,22,15,.09)}
+.nav-contact[aria-expanded=true]{background:#17160F;color:#F4F2EC}
+.nav-contact .plus{position:relative;width:10px;height:10px}
+.nav-contact .plus::before,.nav-contact .plus::after{content:'';position:absolute;left:0;top:4.5px;width:10px;height:1.5px;background:currentColor;transition:transform .35s}
+.nav-contact .plus::after{transform:rotate(90deg)}
+.nav-contact[aria-expanded=true] .plus::after{transform:rotate(0)}
+.nav-more{display:flex;align-items:center;gap:2px;max-width:0;overflow:hidden;opacity:0;visibility:hidden;transition:max-width .55s cubic-bezier(.2,.8,.2,1),opacity .3s,visibility .55s}
+.nav-more.open{max-width:380px;opacity:1;visibility:visible}
+.nav-more a{padding:0 16px;color:#2F5D45}
+.snt-wrap{position:absolute;left:0;top:0;width:1px;pointer-events:none;visibility:hidden;z-index:-1}
+.snt{display:block;width:1px;height:80px}
+.foot-links{display:flex;flex-wrap:wrap;gap:10px}
+.foot-links a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid #17160F;border-radius:999px;color:#17160F;text-decoration:none;font:500 15px/1 var(--body);transition:background .25s,color .25s}
+.foot-links a:hover{background:#17160F;color:#F4F2EC}
+@media (max-width:900px){.nav{padding:12px}.nav-links a,.nav-contact{padding:0 12px}}
+
+.hi-sec{position:relative}
+.hi-pin{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px}
+.hi-fig{grid-column:5 / span 8;grid-row:1;position:relative;height:1420px;margin:-40px -64px 0 0;display:flex;justify-content:flex-start;align-items:flex-start;pointer-events:none}
+.hi-fig img{display:block;height:100%;width:auto;max-width:none;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+.hi-text{grid-column:1 / span 6;grid-row:1;position:relative;z-index:2;display:flex;flex-direction:column;gap:18px;padding-top:40px}
+.hi-text h1{font:600 124px/.9 var(--disp);letter-spacing:-.055em}
+.chat{margin-top:56px;max-width:540px}
+.chat-list{display:flex;flex-direction:column;gap:14px}
+.bub.off{display:none}
+.bub.on{animation:bubIn .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes bubIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.chat-hint{display:none}
+.hi-sec.is-live{height:calc(100vh + 1700px)}
+.is-live .hi-pin{position:sticky;top:0;height:100vh;padding-top:96px;overflow:hidden}
+.is-live .hi-fig{position:absolute;grid-column:auto;grid-row:auto;left:max(24px, min(calc(50% - 230px), calc(100% - (100vh + 80px) * 0.69 - 16px)));right:auto;top:48px;height:calc(100vh + 80px);width:auto;margin:0}
+.is-live .hi-text h1{font-size:100px}
+.is-live .chat{margin-top:24px;height:calc(100vh - 560px);min-height:240px;overflow:hidden;position:relative;display:block;-webkit-mask-image:linear-gradient(transparent,#000 24%);mask-image:linear-gradient(transparent,#000 24%)}
+.is-live .chat-list{position:absolute;left:0;right:0;top:0;will-change:transform}.is-live .bub{will-change:opacity,transform;transform-origin:50% 100%}.is-live .bub.on{animation:none}
+.is-live .chat-hint{display:block}
+</style>
+</helmet>
+<div id="top" style="position: relative; width: 100%; min-height: 4500px; display: flex; flex-direction: column; background: #F4F2EC; overflow-x: clip;">
+<div class="snt-wrap" aria-hidden="true"><sc-for list="{{snt}}" as="x" hint-placeholder-count="0"><i class="snt"></i></sc-for></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="nav {{navCls}}">
+<nav class="nav-links" aria-label="Primary">
+<a class="home" href="Main.dc.html" aria-label="Louis Freeman, home"><img src="/_blob/fdb51469796b01eb2b9a5f74f75d9dd9" alt=""></a>
+<a href="Work.dc.html">Work</a>
+<a href="About.dc.html" aria-current="page">About</a>
+<button type="button" class="nav-contact" aria-expanded="{{cOpen}}" aria-controls="nav-more" onClick="{{toggleContact}}">Contact<span class="plus" aria-hidden="true"></span></button>
+<span id="nav-more" class="nav-more {{cCls}}"><a href="mailto:hello@louisfreeman.co.uk">Email</a><a href="https://www.linkedin.com/in/louis-freeman7/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/Louisf77" target="_blank" rel="noopener">GitHub ↗</a></span>
+</nav>
+</header>
+<main id="main" style="display: flex; flex-direction: column; gap: 128px; padding: 24px 64px 120px;">
+<section id="hi" class="hi-sec {{liveCls}}" aria-label="Introduction">
+<div class="hi-pin">
+<figure class="hi-fig"><img src="/_blob/d6c0cdcbc723b81048d5fb9da1469eaa" alt="Cartoon illustration of Louis waving, wearing a green polo shirt"></figure>
+<div class="hi-text">
+<h1>Hello!<br>I'm Louis<br><span style="color: #2F5D45;">Freeman.</span></h1>
+<p style="font: 500 18px/1.3 var(--body); color: #3E3C35;">Senior Full Stack Engineer · London</p>
+<div class="chat" aria-live="polite"><ul class="chat-list" aria-label="About me, in questions">
+<li class="bub {{b0}}" style="align-self: flex-end; padding: 12px 18px; border-radius: 20px 20px 6px 20px; background: #17160F; color: #F4F2EC; font: 600 15px/1.3 var(--disp);">So, what do you do?</li>
+<li class="bub card {{b1}}" style="padding: 22px 26px; border-radius: 22px 22px 22px 6px; font-size: 17px; line-height: 1.6; color: #2A2923; box-shadow: 0 30px 50px -36px rgba(23,22,15,.45);">I'm a <span class="mark">full-stack engineer</span> working across React/TypeScript and Ruby on Rails on a multi-region fintech platform. I joined Hnry as <span class="mark">one of the first two engineers on the UK team</span> and have helped grow it to eight. My work centres on <span class="mark">end-to-end ownership of hard integrations</span>: a UK banking and card provider, identity verification across three countries, and HMRC, along with the product surfaces built on top of them.</li>
+<li class="bub {{b2}}" style="align-self: flex-end; padding: 12px 18px; border-radius: 20px 20px 6px 20px; background: #17160F; color: #F4F2EC; font: 600 15px/1.3 var(--disp);">And beyond the code?</li>
+<li class="bub card {{b3}}" style="padding: 22px 26px; border-radius: 22px 22px 22px 6px; font-size: 17px; line-height: 1.6; color: #2A2923; box-shadow: 0 30px 50px -36px rgba(23,22,15,.45);">I <span class="mark">line-manage three engineers</span>, run engineering chapter sessions for the wider team, and <span class="mark">lead AI engineering for the UK business</span>, working with operations and marketing as well as engineering.</li>
+<li class="bub {{b4}}" style="align-self: flex-end; padding: 12px 18px; border-radius: 20px 20px 6px 20px; background: #17160F; color: #F4F2EC; font: 600 15px/1.3 var(--disp);">How did you get into software?</li>
+<li class="bub card {{b5}}" style="padding: 22px 26px; border-radius: 22px 22px 22px 6px; font-size: 17px; line-height: 1.6; color: #2A2923; box-shadow: 0 30px 50px -36px rgba(23,22,15,.45);">Before software I studied <span class="mark">Product Design &amp; Manufacture Engineering</span> at the University of Nottingham, which still shapes how I think about building things people actually use.</li>
+</ul></div>
+<p class="k chat-hint">Keep scrolling to chat ↓</p>
+</div>
+</div>
+</section>
+<section aria-labelledby="out-t" style="display: flex; flex-direction: column; gap: 44px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 24px; border-bottom: 1px solid #17160F;"><h2 id="out-t" class="h2m">When I'm not coding…</h2></div>
+<ul style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;">
+<li class="card lift hob" style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 18px;"><div style="height: 280px; border-radius: 14px; overflow: hidden; background: #E2E9E1; display: flex; align-items: flex-end; justify-content: center; padding-top: 14px;"><img src="/_blob/bf87d27c47c10565b343d7fe7d401a99" alt="Cartoon of Louis — rugby" class="hob-img" style="display: block; max-width: 92%; max-height: 100%; object-fit: contain; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); transform-origin: 50% 100%;"></div><span style="font: 600 19px/1 var(--disp); padding-left: 6px;">Rugby</span></li>
+<li class="card lift hob" style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 18px;"><div style="height: 280px; border-radius: 14px; overflow: hidden; background: #ECE6D8; display: flex; align-items: flex-end; justify-content: center; padding-top: 14px;"><img src="/_blob/8ddb44cf289f1cc388c8aba2e274bce7" alt="Cartoon of Louis — golf" class="hob-img" style="display: block; max-width: 92%; max-height: 100%; object-fit: contain; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); transform-origin: 50% 100%;"></div><span style="font: 600 19px/1 var(--disp); padding-left: 6px;">Golf</span></li>
+<li class="card lift hob" style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 18px;"><div style="height: 280px; border-radius: 14px; overflow: hidden;"><img src="/_blob/8eb3c596f21baf349510f76f6acf9edd" alt="Cartoon of Louis — football" style="display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.7,.2,1);" class="hob-img"></div><span style="font: 600 19px/1 var(--disp); padding-left: 6px;">Football</span></li>
+<li class="card lift hob" style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 18px;"><div style="height: 280px; border-radius: 14px; overflow: hidden; background: #E2E9E1; display: flex; align-items: flex-end; justify-content: center; padding-top: 14px;"><img src="/_blob/809af02536fc97586e72804cf0c5a688" alt="Cartoon of Louis — surfing" class="hob-img" style="display: block; max-width: 92%; max-height: 100%; object-fit: contain; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); transform-origin: 50% 100%;"></div><span style="font: 600 19px/1 var(--disp); padding-left: 6px;">Surfing</span></li>
+<li class="card lift hob" style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 18px;"><div style="height: 280px; border-radius: 14px; overflow: hidden;"><img src="/_blob/04eecf4335e73b7ff2b14f1a2a87f1c6" alt="Cartoon of Louis — cooking" style="display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.7,.2,1);" class="hob-img"></div><span style="font: 600 19px/1 var(--disp); padding-left: 6px;">Cooking</span></li>
+<li class="card lift hob" style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 18px;"><div style="height: 280px; border-radius: 14px; overflow: hidden; background: #EAE6DC; display: flex; align-items: flex-end; justify-content: center; padding-top: 14px;"><img src="/_blob/0133370f8d9342373d47e8d43fcd170c" alt="Cartoon of Louis — photography" class="hob-img" style="display: block; max-width: 92%; max-height: 100%; object-fit: contain; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); transform-origin: 50% 100%;"></div><span style="font: 600 19px/1 var(--disp); padding-left: 6px;">Photography</span></li>
+<li class="card lift hob" style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 18px;"><div style="height: 280px; border-radius: 14px; overflow: hidden; background: #E2E9E1; display: flex; align-items: flex-end; justify-content: center; padding-top: 14px;"><img src="/_blob/c42687b9a876e0b8053037d9087ae087" alt="Cartoon of Louis — travelling" class="hob-img" style="display: block; max-width: 92%; max-height: 100%; object-fit: contain; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); transform-origin: 50% 100%;"></div><span style="font: 600 19px/1 var(--disp); padding-left: 6px;">Travelling</span></li>
+<li class="card" style="display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 28px; background: #17160F; border-color: #17160F; color: #F4F2EC;"><span class="k" style="color: #B9C9BC;">Earlier</span><p style="font: 500 18px/1.4 var(--disp);">Led a team of court attendants at the Wimbledon Championships.</p><p style="font: 500 18px/1.4 var(--disp);">Spectator services at the Rio 2016 Olympics.</p></li>
+</ul>
+</section>
+<section aria-labelledby="exp-t" style="display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 24px; border-bottom: 1px solid #17160F;"><h2 id="exp-t" class="h2m">Where I've been</h2><p class="k">Most recent first</p></div>
+<ul id="xl" style="display: flex; flex-direction: column; gap: 12px;">
+<li class="card lift" style="display: grid; grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1.3fr) 280px; align-items: center; column-gap: 24px; padding: 22px 28px; border-radius: 16px;"><span style="font: 600 30px/1 var(--disp); letter-spacing: -0.04em; color: #2F5D45;">Now</span><span style="font: 600 22px/1.1 var(--disp);">Hnry</span><span style="font-size: 16px; color: #3E3C35;">Senior Software Engineer</span><span style="font: 400 12px/1.4 var(--mono); color: #5B584F; text-align: right;">Jan 2024 — Present · Senior since Dec 2025</span></li>
+<li class="card lift" style="display: grid; grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1.3fr) 280px; align-items: center; column-gap: 24px; padding: 22px 28px; border-radius: 16px;"><span style="font: 600 30px/1 var(--disp); letter-spacing: -0.04em; color: #2F5D45;">2021</span><span style="font: 600 22px/1.1 var(--disp);">Soho House</span><span style="font-size: 16px; color: #3E3C35;">Junior Ruby Developer</span><span style="font: 400 12px/1.4 var(--mono); color: #5B584F; text-align: right;">Nov 2021 — Dec 2023</span></li>
+<li class="card lift" style="display: grid; grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1.3fr) 280px; align-items: center; column-gap: 24px; padding: 22px 28px; border-radius: 16px;"><span style="font: 600 30px/1 var(--disp); letter-spacing: -0.04em; color: #2F5D45;">2021</span><span style="font: 600 22px/1.1 var(--disp);">Academy</span><span style="font-size: 16px; color: #3E3C35;">Founding Scholar &amp; Trainee Software Engineer</span><span style="font: 400 12px/1.4 var(--mono); color: #5B584F; text-align: right;">2021</span></li>
+<sc-if value="{{all}}" hint-placeholder-val="{{ false }}">
+<li class="card lift" style="display: grid; grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1.3fr) 280px; align-items: center; column-gap: 24px; padding: 22px 28px; border-radius: 16px;"><span style="font: 600 30px/1 var(--disp); letter-spacing: -0.04em; color: #2F5D45;">2020</span><span style="font: 600 22px/1.1 var(--disp);">NHS</span><span style="font-size: 16px; color: #3E3C35;">Digital Integration &amp; Support Liaison Officer</span><span style="font: 400 12px/1.4 var(--mono); color: #5B584F; text-align: right;">Nov 2020 — May 2021</span></li>
+<li class="card lift" style="display: grid; grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1.3fr) 280px; align-items: center; column-gap: 24px; padding: 22px 28px; border-radius: 16px;"><span style="font: 600 30px/1 var(--disp); letter-spacing: -0.04em; color: #2F5D45;">2020</span><span style="font: 600 22px/1.1 var(--disp);">MediaVision</span><span style="font-size: 16px; color: #3E3C35;">Digital Product Performance Executive</span><span style="font: 400 12px/1.4 var(--mono); color: #5B584F; text-align: right;">Sep — Nov 2020</span></li>
+</sc-if>
+<li class="card lift" style="display: grid; grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1.3fr) 280px; align-items: center; column-gap: 24px; padding: 22px 28px; border-radius: 16px; border-style: dashed; background: transparent;"><span style="font: 600 30px/1 var(--disp); letter-spacing: -0.04em; color: #2F5D45;">2016</span><span style="font: 600 22px/1.1 var(--disp);">University of Nottingham</span><span style="font-size: 16px; color: #3E3C35;">MEng Product Design &amp; Manufacture Engineering, 2:1</span><span style="font: 400 12px/1.4 var(--mono); color: #5B584F; text-align: right;">2016 — 2020 · Education</span></li>
+</ul>
+<div><button type="button" class="more" aria-expanded="{{exp}}" aria-controls="xl" onClick="{{toggle}}">{{label}}</button></div>
+</section>
+</main>
+<footer id="contact" style="flex-grow: 1; padding: 110px 64px 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 72px; border-top: 1px solid #D6D1C4;">
+<div style="display: flex; flex-direction: column; gap: 26px;">
+<h2 style="font: 600 128px/.92 var(--disp); letter-spacing: -0.05em;">Let's <span style="color: #2F5D45;">connect.</span></h2>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-top: 12px;">
+<div style="display: flex; flex-direction: column; gap: 18px; align-items: flex-start;"><a class="foot-mail" href="mailto:hello@louisfreeman.co.uk">hello@louisfreeman.co.uk</a>
+<div class="foot-links"><a href="https://www.linkedin.com/in/louis-freeman7/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/Louisf77" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></div></div>
+<p style="max-width: 360px; font-size: 16px; line-height: 1.6; color: #5B584F;">Based in London. Happy to talk about fintech integrations, engineering leadership or AI tooling.</p>
+</div>
+</div>
+<div class="k" style="display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #17160F;"><span style="display: flex; align-items: center; gap: 12px;"><img src="/_blob/fdb51469796b01eb2b9a5f74f75d9dd9" alt="" style="height: 22px; width: auto;">© 2026 Louis Freeman</span><a href="#top" style="color: #17160F; text-decoration: none; min-height: 44px; display: flex; align-items: center;">Back to top ↑</a></div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1440, "height": 4500}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { all: false, scrolled: false, cOpen: false, live: false, k: 6 }; }
+  componentDidMount() {
+    var self = this; this.reduced = false;
+    try { this.reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    this.onR = function () {
+      var live = !self.reduced && window.innerHeight < 1500;
+      if (live !== self.state.live) self.setState({ live: live }, function () { self.cur = null; self.clearChat(); self.onS(); });
+    };
+    this.onS = function () {
+      var y = window.scrollY || 0, s = y > 12;
+      if (s !== self.state.scrolled) self.setState({ scrolled: s });
+      if (!self.state.live) return;
+      var sec = document.getElementById("hi"); if (!sec) return;
+      var total = Math.max(1, sec.offsetHeight - window.innerHeight);
+      self.target = Math.min(1, Math.max(0, -sec.getBoundingClientRect().top / total));
+      if (!self.raf) self.raf = requestAnimationFrame(self.tick);
+    };
+    // eased, scroll-linked chat: the list glides up and each bubble fades in as it enters
+    this.tick = function () {
+      self.raf = 0;
+      if (!self.state.live) return;
+      var t = self.target || 0;
+      if (self.cur == null) self.cur = t;
+      self.cur += (t - self.cur) * 0.14;
+      if (Math.abs(t - self.cur) < 0.0005) self.cur = t;
+      self.layoutChat(self.cur);
+      if (self.cur !== t) self.raf = requestAnimationFrame(self.tick);
+    };
+    window.addEventListener("scroll", this.onS, { passive: true });
+    window.addEventListener("resize", this.onR);
+    this.onR();
+    this.poll = setInterval(this.onR, 700);
+  }
+  layoutChat(p) {
+    var win = document.querySelector(".is-live .chat"), list = win && win.querySelector(".chat-list");
+    if (!list) return;
+    var bubs = list.querySelectorAll(".bub"); if (!bubs.length) return;
+    var W = win.clientHeight, L = list.scrollHeight, first = bubs[0].offsetHeight;
+    var y = W - first - p * Math.max(0, L - first);
+    list.style.transform = "translate3d(0," + y.toFixed(1) + "px,0)";
+    for (var i = 0; i < bubs.length; i++) {
+      var b = bubs[i], h = b.offsetHeight, over = y + b.offsetTop + h - W;
+      var v = Math.max(0, Math.min(1, 1 - over / (h * 0.9 + 24)));
+      b.style.opacity = v.toFixed(3);
+      b.style.transform = "translate3d(0," + ((1 - v) * 22).toFixed(1) + "px,0) scale(" + (0.96 + 0.04 * v).toFixed(4) + ")";
+    }
+  }
+  clearChat() {
+    var list = document.querySelector(".chat-list"); if (!list) return;
+    list.style.transform = "";
+    Array.prototype.forEach.call(list.querySelectorAll(".bub"), function (b) { b.style.opacity = ""; b.style.transform = ""; });
+  }
+  componentWillUnmount() { window.removeEventListener("scroll", this.onS); window.removeEventListener("resize", this.onR); clearInterval(this.poll); if (this.raf) cancelAnimationFrame(this.raf); }
+  renderVals() { var s = this.state, self = this;
+    var v = { snt: [], navCls: s.scrolled ? "is-scrolled" : "", liveCls: s.live ? "is-live" : "", cOpen: s.cOpen ? "true" : "false", cCls: s.cOpen ? "open" : "", toggleContact: function () { self.setState({ cOpen: !self.state.cOpen }); },
+      all: s.all, exp: s.all ? "true" : "false", label: s.all ? "Show less" : "Show more (2)", toggle: function () { self.setState({ all: !self.state.all }); } };
+    for (var i = 0; i < 6; i++) v["b" + i] = i < s.k ? "on" : "off";
+    return v; }
+}
+</script>
+</body>
+</html>

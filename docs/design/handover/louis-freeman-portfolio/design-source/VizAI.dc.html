@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fig. 04 — AI developer tooling</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&amp;family=Karla:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div role="img" aria-label="Diagram: a coding-task pipeline of intake, planning, a per-commit lint and spec gate, pre-PR validation and PR, driven by internal plugins for on-call triage, task lifecycle and style resolution, all reading one shared configuration." style="position: relative; width: 720px; height: 440px; overflow: hidden; background-color: #EAE6DC; background-image: linear-gradient(rgba(23,22,15,0.055) 1px, transparent 1px); background-size: 24px 24px; font-family: 'Karla','Helvetica Neue',sans-serif; color: #17160F;">
+
+<svg width="720" height="440" aria-hidden="true" style="position: absolute; left: 0; top: 0; pointer-events: none;">
+<path d="M152 84 H175" fill="none" stroke="#17160F"></path><path d="M170 80 L175 84 L170 88" fill="none" stroke="#17160F"></path>
+<path d="M300 84 H323" fill="none" stroke="#17160F"></path><path d="M318 80 L323 84 L318 88" fill="none" stroke="#17160F"></path>
+<path d="M448 84 H471" fill="none" stroke="#17160F"></path><path d="M466 80 L471 84 L466 88" fill="none" stroke="#17160F"></path>
+<path d="M596 84 H619" fill="none" stroke="#17160F"></path><path d="M614 80 L619 84 L614 88" fill="none" stroke="#17160F"></path>
+<path d="M352 63 C352 30 420 30 420 63" fill="none" stroke="#2F5D45" style="stroke-width: 1.5;"></path>
+<path d="M416 58 L420 63 L424 58" fill="none" stroke="#2F5D45" style="stroke-width: 1.5;"></path>
+<path d="M90 105 V122 H656 V105" fill="none" stroke="#17160F" style="stroke-dasharray: 3 4;"></path>
+<path d="M360 122 V175" fill="none" stroke="#17160F"></path>
+<path d="M130 264 V315" fill="none" stroke="#17160F"></path>
+<path d="M360 264 V315" fill="none" stroke="#17160F"></path>
+<path d="M590 264 V315" fill="none" stroke="#17160F"></path>
+</svg>
+
+<div style="position: absolute; left: 306px; top: 12px; width: 160px; text-align: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; color: #1F4232;">lint + spec, per commit</div>
+
+<div style="position: absolute; left: 28px; top: 64px; width: 124px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Intake</div>
+<div style="position: absolute; left: 176px; top: 64px; width: 124px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Planning</div>
+<div style="position: absolute; left: 324px; top: 64px; width: 124px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #2F5D45; border-radius: 6px; background: #DCE5DB; color: #1F4232; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Commit gate</div>
+<div style="position: absolute; left: 472px; top: 64px; width: 124px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Pre-PR check</div>
+<div style="position: absolute; left: 620px; top: 64px; width: 72px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 6px; background: #17160F; color: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">PR</div>
+
+<div style="position: absolute; left: 488px; top: 134px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #5B584F;">CODING-TASK LIFECYCLE</div>
+
+<div style="position: absolute; left: 28px; top: 176px; width: 204px; height: 88px; box-sizing: border-box; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #17160F; border-radius: 8px; background: #F4F2EC;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #5B584F;">PLUGIN</span><span style="font-size: 17px; font-weight: 500;">On-call triage</span>
+</div>
+<div style="position: absolute; left: 258px; top: 176px; width: 204px; height: 88px; box-sizing: border-box; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #17160F; border-radius: 8px; background: #F4F2EC;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #5B584F;">PLUGIN</span><span style="font-size: 17px; font-weight: 500;">Task lifecycle</span>
+</div>
+<div style="position: absolute; left: 488px; top: 176px; width: 204px; height: 88px; box-sizing: border-box; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #17160F; border-radius: 8px; background: #F4F2EC;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #5B584F;">PLUGIN</span><span style="font-size: 17px; font-weight: 500;">Style resolution</span>
+</div>
+
+<div style="position: absolute; left: 28px; top: 316px; width: 664px; height: 44px; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; padding: 0 18px; border-radius: 8px; background: #17160F; color: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em;">
+<span>shared configuration</span><span style="color: #B9C9BC;">squad-agnostic</span>
+</div>
+
+<div style="position: absolute; left: 28px; top: 408px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #5B584F;">FIG. 04 — PLUGINS, HOOKS, GATES</div>
+<div style="position: absolute; right: 28px; top: 400px; display: flex; gap: 6px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px;">
+<span style="padding: 5px 9px; border: 1px solid #A8A395; border-radius: 999px;">hooks</span><span style="padding: 5px 9px; border: 1px solid #A8A395; border-radius: 999px;">skills</span><span style="padding: 5px 9px; border: 1px solid #A8A395; border-radius: 999px;">MCP</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":720,"height":440}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

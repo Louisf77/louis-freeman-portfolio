@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Louis Freeman — Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Instrument+Serif:ital@0;1&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400..700;1,400..700&amp;family=Source+Sans+3:wght@400;500;600&amp;family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Manrope:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&amp;family=Public+Sans:wght@400;500;600&amp;family=Libre+Caslon+Display&amp;family=Libre+Franklin:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@400..800&amp;family=Work+Sans:wght@400;500;600&amp;family=Bricolage+Grotesque:opsz,wght@12..96,400..700&amp;family=Figtree:wght@400;500;600&amp;family=Montserrat:ital,wght@0,400..700;1,400..700&amp;family=Karla:wght@400;500;600&amp;family=Jost:ital,wght@0,400..700;1,400..700&amp;family=Outfit:wght@400..700&amp;family=Urbanist:wght@400..700&amp;family=Sora:wght@400..700&amp;family=Plus+Jakarta+Sans:wght@400..700&amp;family=League+Spartan:wght@400..700&amp;family=Unbounded:wght@400..700&amp;family=Red+Hat+Display:wght@400..700&amp;family=Red+Hat+Text:wght@400;500;600&amp;display=swap">
+<style>
+:root{--dw:500;--display:'Sora','Helvetica Neue',sans-serif;--body:'Karla','Helvetica Neue',sans-serif;--it:normal}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#F4F2EC;color:#17160F;font-family:var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:#2F5D45}a:hover{color:#1F4232}
+h1,h2,h3,p,ul,ol,figure,dl,dd{margin:0}
+ul,ol{padding:0;list-style:none}
+:focus-visible{outline:2px solid #2F5D45;outline-offset:4px;border-radius:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-80px;z-index:100;background:#17160F;color:#F4F2EC;padding:14px 20px;border-radius:999px;font:500 14px/1 var(--body);text-decoration:none;transition:top .2s}
+.skip:focus{top:12px;color:#F4F2EC}
+
+/* nav — one sticky pill; Contact slides out Email / LinkedIn / GitHub */
+.skip{position:absolute;left:16px;top:-80px;z-index:100;background:#17160F;color:#F4F2EC;padding:14px 20px;border-radius:999px;font:500 14px/1 var(--body);text-decoration:none;transition:top .2s}
+.skip:focus{top:12px;color:#F4F2EC}
+.nav{position:sticky;top:0;z-index:50;display:flex;justify-content:center;padding:20px 64px;pointer-events:none;transition:transform .18s ease-out}
+.is-tall .nav{transform:translateY(var(--nav-y,0px))}
+.nav-links{pointer-events:auto;display:flex;align-items:center;gap:4px;padding:5px;border:1px solid rgba(23,22,15,.14);border-radius:999px;background:rgba(244,242,236,.82);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);transition:box-shadow .4s,border-color .4s}
+.nav.is-scrolled .nav-links{box-shadow:0 18px 40px -26px rgba(23,22,15,.45);border-color:rgba(23,22,15,.22)}
+.nav-links a,.nav-contact{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:transparent;font:500 15px/1 var(--body);color:#17160F;text-decoration:none;cursor:pointer;white-space:nowrap;transition:background .25s,color .25s}
+.nav-links a:hover,.nav-contact:hover{background:rgba(23,22,15,.07);color:#17160F}
+.nav-links a[aria-current=page]{background:#17160F;color:#F4F2EC}
+.nav-links a.home{padding:0 16px}
+.nav-links a.home img{height:24px;width:auto;display:block}
+.nav-links a.home[aria-current=page]{background:rgba(23,22,15,.09)}
+.nav-contact[aria-expanded=true]{background:#17160F;color:#F4F2EC}
+.nav-contact .plus{position:relative;width:10px;height:10px}
+.nav-contact .plus::before,.nav-contact .plus::after{content:'';position:absolute;left:0;top:4.5px;width:10px;height:1.5px;background:currentColor;transition:transform .35s}
+.nav-contact .plus::after{transform:rotate(90deg)}
+.nav-contact[aria-expanded=true] .plus::after{transform:rotate(0)}
+.nav-more{display:flex;align-items:center;gap:2px;max-width:0;overflow:hidden;opacity:0;visibility:hidden;transition:max-width .55s cubic-bezier(.2,.8,.2,1),opacity .3s,visibility .55s}
+.nav-more.open{max-width:380px;opacity:1;visibility:visible}
+.nav-more a{padding:0 16px;color:#2F5D45}
+.snt-wrap{position:absolute;left:0;top:0;width:1px;pointer-events:none;visibility:hidden;z-index:-1}
+.snt{display:block;width:1px;height:80px}
+.foot-links{display:flex;flex-wrap:wrap;gap:10px}
+.foot-links a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid #17160F;border-radius:999px;color:#17160F;text-decoration:none;font:500 15px/1 var(--body);transition:background .25s,color .25s}
+.foot-links a:hover{background:#17160F;color:#F4F2EC}
+@media (max-width:900px){.nav{padding:12px}.nav-links a,.nav-contact{padding:0 12px}}
+
+.kicker{font:500 11px/1.5 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;gap:12px;min-height:54px;padding:0 28px;border-radius:999px;font:500 16px/1 var(--body);text-decoration:none;transition:background .25s,color .25s,border-color .25s}
+.btn-primary{background:#17160F;color:#F4F2EC;border:1px solid #17160F}.btn-primary:hover{background:#2F5D45;border-color:#2F5D45;color:#F4F2EC}
+.btn-ghost{border:1px solid #17160F;color:#17160F}.btn-ghost:hover{background:#17160F;color:#F4F2EC}
+.btn .arr{transition:transform .3s}.btn:hover .arr{transform:translateX(4px)}
+.tag{font:400 12px/1 'JetBrains Mono',ui-monospace,monospace;padding:8px 12px;border:1px solid #CFC9BA;border-radius:999px;color:#3E3C35;white-space:nowrap}
+
+/* hero */
+.hero{position:relative;z-index:1;height:920px}
+.is-anim .hero{height:920px}
+.hero-inner{transform-origin:50% 0;will-change:transform,opacity}
+.is-anim .hero-inner{transform:translateY(calc(var(--hp,0) * 180px)) scale(calc(1 - var(--hp,0) * 0.1));opacity:calc(1 - var(--hp,0) * 1.1)}
+.is-anim .hero-media{transform:translateY(calc(var(--hp,0) * -70px))}
+.greet{position:relative;z-index:2;font-family:var(--display);font-style:var(--it);font-weight:var(--dw,400);font-size:88px;line-height:1.02;letter-spacing:-.025em;color:#17160F;text-wrap:balance}
+.tagline{font:500 18px/1.3 var(--body);letter-spacing:.02em;color:#3E3C35}
+.caret{display:inline-block;width:3px;height:.95em;margin-left:6px;background:#17160F;transform:translateY(2px)}
+.caret.is-typing{background:#17160F}
+.caret.is-hold{background:#2F5D45;animation:blink .9s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.frame{position:relative;overflow:hidden;background:#F4F2EC}
+.frame video,.frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 56%;mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 66% 64% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 66% 64% at 50% 50%,#000 58%,transparent 100%)}
+.cue-line{position:relative;width:1px;height:64px;background:rgba(23,22,15,.18);overflow:hidden}
+.cue-line::after{content:'';position:absolute;left:0;top:-40%;width:1px;height:40%;background:#17160F;animation:cue 2.2s cubic-bezier(.6,0,.2,1) infinite}
+@keyframes cue{to{top:100%}}
+
+/* hero B — arch niche */
+.hb-scene{position:absolute;inset:0;pointer-events:none}
+.hb-arch{position:absolute;right:104px;width:660px;top:96px;bottom:148px;border-radius:330px 330px 0 0;background:#E8E3D8}
+.hb-shadow{display:none;position:absolute;right:146px;width:580px;bottom:122px;height:28px;border-radius:50%;background:radial-gradient(closest-side,rgba(23,22,15,.18),transparent)}
+.hb-stage{position:absolute;right:24px;bottom:91px;width:820px;height:750px;overflow:hidden;margin:0}
+.hb-stage video,.hb-stage img{display:block;width:820px;height:820px;margin-top:-70px;object-fit:cover;-webkit-mask-image:linear-gradient(transparent 8.5%,#000 15%,#000 93%,transparent 99.5%),linear-gradient(90deg,transparent 2%,#000 16%,#000 84%,transparent 98%);-webkit-mask-composite:source-in;mask-image:linear-gradient(transparent 8.5%,#000 15%,#000 93%,transparent 99.5%),linear-gradient(90deg,transparent 2%,#000 16%,#000 84%,transparent 98%);mask-composite:intersect}
+.hb-greet{position:absolute;left:64px;bottom:170px;width:calc(100% - 868px);max-width:640px;z-index:2}
+.hb-foot{position:absolute;left:64px;right:64px;bottom:66px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+@media (max-width:900px){.hero-inner{min-height:780px}.hb-arch{right:20px;width:calc(100% - 40px);top:88px;bottom:260px;border-radius:999px 999px 0 0}.hb-shadow{right:50%;margin-right:-160px;width:320px;bottom:248px}.hb-stage{right:50%;margin-right:-200px;width:400px;height:365px;bottom:232px}.hb-stage video,.hb-stage img{width:400px;height:400px;margin-top:-35px}.hb-greet{left:20px;right:20px;width:auto;bottom:120px}.hb-foot{left:20px;right:20px;bottom:40px}}
+/* timeline */
+.tl-sec{position:relative;z-index:2;background:#141410;color:#EDEAE1}
+.is-tall{min-height:4800px}
+.is-anim .tl-track{height:calc(100vh + 3400px)}
+.is-anim .tl-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.is-static .tl-pin{padding:128px 0 136px}
+.tl-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;padding:0 64px}
+.is-anim .tl-grid{height:100%}
+.tl-left{grid-column:1 / span 4;display:flex;flex-direction:column;gap:28px}
+.is-anim .tl-left{justify-content:center;padding-top:40px}
+.is-static .tl-left{align-self:start}
+.is-static:not(.is-tall) .tl-left{position:sticky;top:120px}
+.is-tall .tl-left{transform:translateY(var(--tl-follow,0px));transition:transform .25s ease-out}
+.is-static .tl-entry.is-dim{opacity:.34}
+.is-static .tl-entry.is-live{animation:tlIn .9s cubic-bezier(.2,.7,.2,1)}
+@keyframes tlIn{from{opacity:.2;transform:translateY(26px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.tl-year.ya{animation:yA .7s cubic-bezier(.2,.7,.2,1)}.tl-year.yb{animation:yB .7s cubic-bezier(.2,.7,.2,1)}
+@keyframes yA{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes yB{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.tl-right{grid-column:5 / span 8;position:relative}
+.is-anim .tl-right{padding-top:26vh}
+.tl-col{position:relative;display:flex;flex-direction:column;gap:56px}
+.is-anim .tl-col{transform:translateY(var(--tl-y,0px));will-change:transform}
+.tl-line{position:absolute;left:20px;top:12px;bottom:0;width:1px;background:#34332C}
+.tl-fill{position:absolute;left:19.5px;top:12px;width:2px;background:#9ACBA6;height:var(--tl-fill,0px)}
+.is-static .tl-fill{height:var(--tl-fill-s,16px);transition:height .6s cubic-bezier(.2,.7,.2,1)}
+.tl-entry{position:relative;padding-left:76px;transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),filter .8s}
+.is-anim .tl-entry.is-future{opacity:0;transform:translateY(36px);filter:blur(10px)}
+.is-anim .tl-entry.is-next{opacity:.16;transform:translateY(18px);filter:blur(4px)}
+.is-anim .tl-entry.is-past{opacity:.2;filter:blur(1px)}
+.is-anim .tl-entry.is-live{opacity:1;transform:none;filter:none}
+.tl-node{position:absolute;left:12px;top:6px;width:18px;height:18px;border-radius:50%;background:#141410;border:1.5px solid #6B685F;transition:background .5s,border-color .5s,box-shadow .5s}
+.tl-node.is-lit{background:#9ACBA6;border-color:#9ACBA6;box-shadow:0 0 0 7px rgba(154,203,166,.14)}
+.tl-node.is-edu{background:#141410}
+.tl-node.is-edu.is-lit{background:#141410;border-color:#9ACBA6;border-width:2px}
+.tl-dates{color:#A29E92}
+.tl-company{font-family:var(--display);font-weight:var(--dw,400);font-size:44px;line-height:1.05;margin-top:10px}
+.tl-role{font-size:18px;font-weight:500;margin-top:8px;color:#EDEAE1}
+.tl-summary{font-size:17px;line-height:1.6;color:#C9C5B9;margin-top:18px;max-width:720px;text-wrap:pretty}
+.tl-hl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px;row-gap:14px;margin-top:22px;max-width:780px}
+.tl-hl li{position:relative;padding-left:18px;font-size:15px;line-height:1.55;color:#DAD6CB;text-wrap:pretty}
+.tl-hl li::before{content:'';position:absolute;left:0;top:.72em;width:8px;height:1px;background:#9ACBA6}
+.tl-subs{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+.tl-subs li{position:relative;display:flex;align-items:baseline;gap:14px;font-size:15px;color:#DAD6CB}
+.tl-subnode{position:absolute;left:-60px;top:5px;width:10px;height:10px;border-radius:50%;background:#141410;border:1.5px solid #9ACBA6}
+.tl-subs .kicker{color:#9ACBA6;min-width:92px}
+.tl-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tl-tags .tag{border-color:#3F3E36;color:#C9C5B9}
+.tl-year{font-family:var(--display);font-style:var(--it);font-weight:var(--dw,400);font-size:176px;line-height:.9;color:#9ACBA6;font-variant-numeric:lining-nums;letter-spacing:-.02em}
+.tl-bar{position:relative;height:1px;background:#34332C;width:100%}
+.tl-bar::after{content:'';position:absolute;left:0;top:0;height:1px;width:100%;background:#9ACBA6;transform-origin:left;transform:scaleX(var(--tl-p,1))}
+.is-anim .tl-bar::after{transform:scaleX(var(--tl-p,0))}
+
+/* features */
+.feat{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:center;color:#17160F;text-decoration:none}
+.feat:hover{color:#17160F}
+.vis{position:relative;height:440px;border-radius:4px;overflow:hidden;background:#EAE6DC;display:flex;align-items:center;justify-content:center}
+.vis-inner{transition:transform 1.8s cubic-bezier(.2,.7,.2,1)}
+.feat:hover .vis-inner,.feat:focus-visible .vis-inner{transform:scale(1.06)}
+.feat-title{font-family:var(--display);font-weight:var(--dw,400);font-size:46px;line-height:1.02;letter-spacing:-.01em;transition:color .3s}
+.feat:hover .feat-title{color:#2F5D45}
+.metric{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border:1px dashed #A8A395;border-radius:4px}
+.read-cursor{position:fixed;left:0;top:0;z-index:60;pointer-events:none;display:none;transform:translate3d(var(--cx,-200px),var(--cy,-200px),0)}
+.read-cursor span{display:flex;align-items:center;justify-content:center;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:50%;background:#17160F;color:#F4F2EC;font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;transform:scale(0);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.read-cursor.is-on span{transform:scale(1)}
+@media (pointer:fine){.is-anim .read-cursor{display:block}.is-anim .feat{cursor:none}}
+.link-u{color:#17160F;text-decoration:none;background-image:linear-gradient(#17160F,#17160F);background-size:100% 1px;background-repeat:no-repeat;background-position:0 100%;padding-bottom:4px;transition:background-size .4s}
+.link-u:hover{color:#17160F;background-size:0 1px;background-position:100% 100%}
+
+/* capabilities */
+.cap li{font-size:16px;line-height:1.75;color:#3E3C35}
+.marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq-track{display:flex;width:max-content;animation:mq 70s linear infinite}
+.marquee:hover .mq-track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.capc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;padding:32px 28px;background:#FBFAF6;border:1px solid #D6D1C4;border-radius:20px;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s,border-color .3s}
+.capc:hover{transform:translateY(-6px);box-shadow:0 26px 40px -30px rgba(23,22,15,.5);border-color:#17160F}
+.mq-item{display:flex;align-items:center;gap:40px;padding-right:40px;font-family:var(--display);font-weight:600;letter-spacing:-.03em;font-size:60px;line-height:1.2;white-space:nowrap;transition:color .3s}
+.mq-item:hover{color:#2F5D45}
+.mq-italic{font-style:var(--it)}
+.mq-dot{width:9px;height:9px;border:1px solid #17160F;transform:rotate(45deg)}
+
+/* footer */
+.foot-mail{display:inline-block;font-family:var(--display);font-size:36px;color:#17160F;text-decoration:none;border-bottom:1px solid #17160F;padding-bottom:6px}
+.foot-mail:hover{color:#2F5D45;border-bottom-color:#2F5D45}
+
+
+/* experience deck */
+.k{font:600 11px/1.4 var(--display);letter-spacing:.16em;text-transform:uppercase;color:#5B584F}
+.h2m{font:600 60px/1.02 var(--display);letter-spacing:-.035em}
+.tagm{font:400 12px/1 'JetBrains Mono',ui-monospace,monospace;padding:8px 12px;border:1px solid #CFC9BA;border-radius:999px;color:#3E3C35;white-space:nowrap;background:transparent}
+.dk-sec{position:relative;z-index:2;background:#F4F2EC;border-top:1px solid #D6D1C4}
+#work{border-top:1px solid #D6D1C4}
+.dk-stage{height:900px;display:grid;grid-template-columns:280px minmax(0,1fr);column-gap:56px;padding:88px 64px 80px;overflow:hidden}
+.is-anim .dk-track{height:calc(100vh + 3000px)}
+.is-anim .dk-stage{position:sticky;top:0;height:100vh;min-height:820px;padding-top:120px}
+.deck{position:relative;height:640px;margin-top:28px;margin-right:40px}
+.dcard{position:absolute;inset:0;padding:40px 44px;display:flex;flex-direction:column;gap:18px;background:#FBFAF6;border:1px solid #D6D1C4;border-radius:24px;overflow:hidden;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .6s,background .6s,box-shadow .6s;will-change:transform}
+.dcard.top{transform:none;border-color:#17160F;box-shadow:0 34px 60px -44px rgba(23,22,15,.55)}
+.dcard.gone{transform:translateY(-118%) rotate(-4deg);opacity:0}
+.dcard.n1{transform:translate(20px,22px);background:#EFEBE2}
+.dcard.n2{transform:translate(40px,44px);background:#E6E2D7}
+.dcard.far{transform:translate(40px,44px);opacity:0}
+.dotn{width:44px;height:36px;border:0;background:transparent;display:flex;align-items:center;gap:12px;cursor:pointer;padding:0;color:#5B584F;font:600 13px/1 var(--display);width:auto}
+.dotn i{width:22px;height:2px;background:#CFC9BA;transition:width .35s,background .35s}
+.dotn.on{color:#17160F}.dotn.on i{width:44px;background:#2F5D45}
+.yr-a{animation:yA .6s cubic-bezier(.2,.8,.2,1)}.yr-b{animation:yB .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes yA{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}@keyframes yB{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.dmark{position:absolute;right:-10px;bottom:-34px;font:600 172px/1 var(--display);letter-spacing:-.065em;color:rgba(23,22,15,.05);white-space:nowrap;pointer-events:none;display:block;max-width:none}
+.dcard .dmark.sm{font-size:146px}
+.dcard > :not(.dmark){position:relative;z-index:1}
+.dcard.sparse .dsum{font:500 26px/1.4 var(--display)!important;letter-spacing:-.015em;color:#17160F!important;max-width:760px!important;margin-top:20px}
+.dlen{display:none;align-items:baseline;gap:14px;font:500 16px/1.4 var(--body);color:#3E3C35}
+.dcard.sparse .dlen{display:flex}
+/* selected work accordion */
+.acc{display:flex;gap:12px;height:600px}
+.ap{position:relative;flex:1 1 0;min-width:0;border:1px solid #D6D1C4;border-radius:24px;overflow:hidden;background:#EAE6DC;transition:flex-grow .8s cubic-bezier(.2,.8,.2,1),background .5s,border-color .4s}
+.ap:hover{background:#E3DED2}
+.ap.open{flex-grow:6;background:#FBFAF6;border-color:#17160F}
+.ap .hit{position:absolute;inset:0;border:0;background:transparent;cursor:pointer;z-index:3}
+.ap.open .hit{display:none}
+.ap .num{position:absolute;top:26px;left:0;right:0;text-align:center;font:400 12px/1 var(--mono);color:#5B584F;transition:opacity .3s}
+.ap .vt{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:center;transition:opacity .3s}
+.ap .vt b{writing-mode:vertical-rl;transform:rotate(180deg);font:600 22px/1 var(--display);letter-spacing:-.01em;white-space:nowrap}
+.ap.open .vt,.ap.open .num{opacity:0}
+.ap .body{position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;gap:22px;opacity:0;transform:translateY(12px);transition:opacity .35s,transform .5s;pointer-events:none;min-width:840px}
+.ap.open .body{opacity:1;transform:none;transition-delay:.3s;pointer-events:auto}
+.ap .vis{height:360px;border-radius:16px;overflow:hidden;background:#EAE6DC;display:flex;align-items:center;justify-content:center}
+.ap .vis > *{transform:scale(.8);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.ap.open:hover .vis > *{transform:scale(.84)}
+.btn-ghost.sm{min-height:48px;padding:0 22px;font-size:15px}
+
+/* sections as stacked cards on scroll */
+.sc-card{border-radius:44px 44px 0 0;box-shadow:0 -34px 70px -46px rgba(23,22,15,.5)}
+.sc-card::after{content:'';position:absolute;inset:0;border-radius:inherit;background:#17160F;opacity:calc(var(--cv,0) * .22);pointer-events:none;z-index:45}
+.hero.sc-card{border-radius:0;box-shadow:none}
+.hero.sc-card::after{display:none}
+.is-anim .sc-card{position:sticky}
+/* page transition — content eases in under a fixed nav */
+@keyframes pgIn{from{opacity:0;transform:translateY(28px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes pgVeil{from{opacity:1}to{opacity:0;visibility:hidden}}
+#main > *,#main ~ footer{animation:pgIn .9s cubic-bezier(.2,.7,.2,1) both}
+#main > *:nth-child(2){animation-delay:.12s}
+#main > *:nth-child(3){animation-delay:.22s}
+#main > *:nth-child(n+4),#main ~ footer{animation-delay:.3s}
+#top::before{content:'';position:fixed;inset:0;z-index:40;background:#F4F2EC;pointer-events:none;animation:pgVeil .45s ease-out both}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media (max-width:900px){
+.nav,.nav.is-scrolled{padding-left:20px!important;padding-right:20px!important}
+.brand-word{display:none}
+.nav-links{gap:18px}
+.pad{padding-left:20px!important;padding-right:20px!important}
+.stack{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:32px!important}
+.stack > *{grid-column:auto!important;width:auto!important;max-width:none!important;padding-left:0!important}
+.hide-sm{display:none!important}
+.h-xl{font-size:56px!important}.h-lg{font-size:40px!important}.h-md{font-size:34px!important}
+.tl-grid{display:block;padding:0 20px}.is-anim .tl-left{display:none}.tl-left{position:static!important;margin-bottom:48px}
+.tl-hl{grid-template-columns:minmax(0,1fr)}
+.tl-year{font-size:96px}
+.hero{height:auto!important}
+.frame{height:420px!important}
+.cap-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;row-gap:40px!important}
+.mq-item{font-size:40px}
+}
+</style>
+</helmet>
+
+<div id="top" class="page {{modeCls}}" style="position: relative; display: flex; flex-direction: column; background: #F4F2EC; overflow-x: clip;">
+<div class="snt-wrap" aria-hidden="true"><sc-for list="{{snt}}" as="x" hint-placeholder-count="0"><i class="snt"></i></sc-for></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="nav {{navCls}}">
+<nav class="nav-links" aria-label="Primary">
+<a class="home" href="Main.dc.html" aria-label="Louis Freeman, home" aria-current="page"><img src="/_blob/fdb51469796b01eb2b9a5f74f75d9dd9" alt=""></a>
+<a href="Work.dc.html">Work</a>
+<a href="About.dc.html">About</a>
+<button type="button" class="nav-contact" aria-expanded="{{cOpen}}" aria-controls="nav-more" onClick="{{toggleContact}}">Contact<span class="plus" aria-hidden="true"></span></button>
+<span id="nav-more" class="nav-more {{cCls}}"><a href="mailto:hello@louisfreeman.co.uk">Email</a><a href="https://www.linkedin.com/in/louis-freeman7/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/Louisf77" target="_blank" rel="noopener">GitHub ↗</a></span>
+</nav>
+</header>
+
+<main id="main" style="display: flex; flex-direction: column;">
+
+<section id="hero" class="hero sc-card" aria-labelledby="hero-title">
+<div class="hero-inner pad" style="position: relative; height: 100%; padding: 0 64px; background: #F4F2EC;">
+<div class="hero-media hb-scene">
+<div class="hb-shadow" aria-hidden="true"></div>
+<figure class="hb-stage">
+<sc-if value="{{showVideo}}" hint-placeholder-val="{{ false }}">
+<video id="hero-video" src="/_blob/c864ef3237f8f0e0a81ec2ee3954d363" poster="/_blob/dc53cadcce8ff630c8dd5405dc83ec48" muted="" loop="" playsinline="" autoplay="" preload="auto" aria-label="Animated illustration of Louis coding at a laptop"></video>
+</sc-if>
+<sc-if value="{{showStill}}" hint-placeholder-val="{{ true }}">
+<img src="/_blob/dc53cadcce8ff630c8dd5405dc83ec48" alt="Illustration of Louis coding at a laptop at a round wooden table">
+</sc-if>
+</figure>
+</div>
+<div class="hb-greet">
+<h1 id="hero-title" class="greet h-xl" style="text-wrap: balance;"><span class="sr">Hi, I'm Louis — a senior software engineer and problem solver.</span><span aria-hidden="true">{{typed}}</span><span class="caret {{caretCls}}" aria-hidden="true"></span></h1>
+</div>
+<div class="hb-foot">
+<p class="tagline">Senior Full Stack Engineer</p>
+<a href="#experience" class="kicker hide-sm" style="display: flex; align-items: center; gap: 14px; color: #17160F; text-decoration: none; min-height: 44px;"><span>Scroll</span><span class="cue-line" aria-hidden="true" style="height: 44px;"></span></a>
+</div>
+</div>
+</section>
+
+<section id="experience" class="dk-sec sc-card" aria-labelledby="exp-title">
+<div id="dk-track" class="dk-track">
+<div class="dk-stage">
+<div style="display: flex; flex-direction: column; gap: 22px; padding-top: 28px;">
+<h2 id="exp-title" class="h2m" style="font-size: 48px;">Experience</h2>
+<p class="{{dpop}}" aria-hidden="true" style="font: 600 128px/.9 var(--display); letter-spacing: -0.06em; color: #2F5D45; margin-top: 28px;">{{dyear}}</p>
+<div style="display: flex; flex-direction: column; margin-top: 12px;">
+<sc-for list="{{ddots}}" as="d" hint-placeholder-count="6"><button type="button" class="dotn {{d.cls}}" aria-label="Show {{d.name}}" onClick="{{d.pick}}"><i></i>{{d.name}}</button></sc-for>
+</div>
+<p class="k" style="margin-top: auto;">Scroll to flip through</p>
+</div>
+<div class="deck" aria-live="polite">
+<article class="dcard {{k0}} {{c0.cardCls}}" style="z-index: 10;">
+<span class="dmark {{c0.markCls}}" aria-hidden="true">{{c0.mark}}</span>
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="font: 600 42px/1 var(--display); letter-spacing: -0.035em;">{{c0.company}}</h3><p style="font: 500 18px/1.3 var(--display); color: #3E3C35;">{{c0.role}}</p></div>
+<span class="tagm" style="flex-shrink: 0; border-color: #17160F; color: #17160F;">{{c0.dates}}</span>
+</div>
+<sc-if value="{{c0.hasSummary}}" hint-placeholder-val="{{ true }}"><p class="dsum" style="font-size: 16px; line-height: 1.55; color: #3E3C35; max-width: 820px;">{{c0.summary}}</p></sc-if>
+<sc-if value="{{c0.hasLen}}" hint-placeholder-val="{{ false }}"><p class="dlen"><span class="k">Time there</span><span>{{c0.len}}</span></p></sc-if>
+<sc-if value="{{c0.hasHl}}" hint-placeholder-val="{{ false }}"><ul style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 32px;"><sc-for list="{{c0.hl}}" as="h" hint-placeholder-count="3"><li style="display: flex; gap: 12px; font-size: 14.5px; line-height: 1.5; color: #2A2923;"><span style="flex-shrink: 0; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: #2F5D45;"></span><span>{{h.t}}</span></li></sc-for></ul></sc-if>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-top: auto;">
+<sc-if value="{{c0.hasTags}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-wrap: wrap; gap: 8px;" aria-label="Technologies"><sc-for list="{{c0.tg}}" as="t" hint-placeholder-count="4"><li class="tagm">{{t.t}}</li></sc-for></ul></sc-if>
+<sc-if value="{{c0.hasSubs}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;"><sc-for list="{{c0.subs}}" as="s" hint-placeholder-count="2"><li style="font-size: 13px; color: #3E3C35;"><span class="k" style="color: #2F5D45; margin-right: 8px;">{{s.date}}</span>{{s.label}}</li></sc-for></ul></sc-if>
+</div>
+</article>
+<article class="dcard {{k1}} {{c1.cardCls}}" style="z-index: 9;">
+<span class="dmark {{c1.markCls}}" aria-hidden="true">{{c1.mark}}</span>
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="font: 600 42px/1 var(--display); letter-spacing: -0.035em;">{{c1.company}}</h3><p style="font: 500 18px/1.3 var(--display); color: #3E3C35;">{{c1.role}}</p></div>
+<span class="tagm" style="flex-shrink: 0; border-color: #17160F; color: #17160F;">{{c1.dates}}</span>
+</div>
+<sc-if value="{{c1.hasSummary}}" hint-placeholder-val="{{ true }}"><p class="dsum" style="font-size: 16px; line-height: 1.55; color: #3E3C35; max-width: 820px;">{{c1.summary}}</p></sc-if>
+<sc-if value="{{c1.hasLen}}" hint-placeholder-val="{{ false }}"><p class="dlen"><span class="k">Time there</span><span>{{c1.len}}</span></p></sc-if>
+<sc-if value="{{c1.hasHl}}" hint-placeholder-val="{{ false }}"><ul style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 32px;"><sc-for list="{{c1.hl}}" as="h" hint-placeholder-count="3"><li style="display: flex; gap: 12px; font-size: 14.5px; line-height: 1.5; color: #2A2923;"><span style="flex-shrink: 0; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: #2F5D45;"></span><span>{{h.t}}</span></li></sc-for></ul></sc-if>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-top: auto;">
+<sc-if value="{{c1.hasTags}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-wrap: wrap; gap: 8px;" aria-label="Technologies"><sc-for list="{{c1.tg}}" as="t" hint-placeholder-count="4"><li class="tagm">{{t.t}}</li></sc-for></ul></sc-if>
+<sc-if value="{{c1.hasSubs}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;"><sc-for list="{{c1.subs}}" as="s" hint-placeholder-count="2"><li style="font-size: 13px; color: #3E3C35;"><span class="k" style="color: #2F5D45; margin-right: 8px;">{{s.date}}</span>{{s.label}}</li></sc-for></ul></sc-if>
+</div>
+</article>
+<article class="dcard {{k2}} {{c2.cardCls}}" style="z-index: 8;">
+<span class="dmark {{c2.markCls}}" aria-hidden="true">{{c2.mark}}</span>
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="font: 600 42px/1 var(--display); letter-spacing: -0.035em;">{{c2.company}}</h3><p style="font: 500 18px/1.3 var(--display); color: #3E3C35;">{{c2.role}}</p></div>
+<span class="tagm" style="flex-shrink: 0; border-color: #17160F; color: #17160F;">{{c2.dates}}</span>
+</div>
+<sc-if value="{{c2.hasSummary}}" hint-placeholder-val="{{ true }}"><p class="dsum" style="font-size: 16px; line-height: 1.55; color: #3E3C35; max-width: 820px;">{{c2.summary}}</p></sc-if>
+<sc-if value="{{c2.hasLen}}" hint-placeholder-val="{{ false }}"><p class="dlen"><span class="k">Time there</span><span>{{c2.len}}</span></p></sc-if>
+<sc-if value="{{c2.hasHl}}" hint-placeholder-val="{{ false }}"><ul style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 32px;"><sc-for list="{{c2.hl}}" as="h" hint-placeholder-count="3"><li style="display: flex; gap: 12px; font-size: 14.5px; line-height: 1.5; color: #2A2923;"><span style="flex-shrink: 0; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: #2F5D45;"></span><span>{{h.t}}</span></li></sc-for></ul></sc-if>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-top: auto;">
+<sc-if value="{{c2.hasTags}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-wrap: wrap; gap: 8px;" aria-label="Technologies"><sc-for list="{{c2.tg}}" as="t" hint-placeholder-count="4"><li class="tagm">{{t.t}}</li></sc-for></ul></sc-if>
+<sc-if value="{{c2.hasSubs}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;"><sc-for list="{{c2.subs}}" as="s" hint-placeholder-count="2"><li style="font-size: 13px; color: #3E3C35;"><span class="k" style="color: #2F5D45; margin-right: 8px;">{{s.date}}</span>{{s.label}}</li></sc-for></ul></sc-if>
+</div>
+</article>
+<article class="dcard {{k3}} {{c3.cardCls}}" style="z-index: 7;">
+<span class="dmark {{c3.markCls}}" aria-hidden="true">{{c3.mark}}</span>
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="font: 600 42px/1 var(--display); letter-spacing: -0.035em;">{{c3.company}}</h3><p style="font: 500 18px/1.3 var(--display); color: #3E3C35;">{{c3.role}}</p></div>
+<span class="tagm" style="flex-shrink: 0; border-color: #17160F; color: #17160F;">{{c3.dates}}</span>
+</div>
+<sc-if value="{{c3.hasSummary}}" hint-placeholder-val="{{ true }}"><p class="dsum" style="font-size: 16px; line-height: 1.55; color: #3E3C35; max-width: 820px;">{{c3.summary}}</p></sc-if>
+<sc-if value="{{c3.hasLen}}" hint-placeholder-val="{{ false }}"><p class="dlen"><span class="k">Time there</span><span>{{c3.len}}</span></p></sc-if>
+<sc-if value="{{c3.hasHl}}" hint-placeholder-val="{{ false }}"><ul style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 32px;"><sc-for list="{{c3.hl}}" as="h" hint-placeholder-count="3"><li style="display: flex; gap: 12px; font-size: 14.5px; line-height: 1.5; color: #2A2923;"><span style="flex-shrink: 0; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: #2F5D45;"></span><span>{{h.t}}</span></li></sc-for></ul></sc-if>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-top: auto;">
+<sc-if value="{{c3.hasTags}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-wrap: wrap; gap: 8px;" aria-label="Technologies"><sc-for list="{{c3.tg}}" as="t" hint-placeholder-count="4"><li class="tagm">{{t.t}}</li></sc-for></ul></sc-if>
+<sc-if value="{{c3.hasSubs}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;"><sc-for list="{{c3.subs}}" as="s" hint-placeholder-count="2"><li style="font-size: 13px; color: #3E3C35;"><span class="k" style="color: #2F5D45; margin-right: 8px;">{{s.date}}</span>{{s.label}}</li></sc-for></ul></sc-if>
+</div>
+</article>
+<article class="dcard {{k4}} {{c4.cardCls}}" style="z-index: 6;">
+<span class="dmark {{c4.markCls}}" aria-hidden="true">{{c4.mark}}</span>
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="font: 600 42px/1 var(--display); letter-spacing: -0.035em;">{{c4.company}}</h3><p style="font: 500 18px/1.3 var(--display); color: #3E3C35;">{{c4.role}}</p></div>
+<span class="tagm" style="flex-shrink: 0; border-color: #17160F; color: #17160F;">{{c4.dates}}</span>
+</div>
+<sc-if value="{{c4.hasSummary}}" hint-placeholder-val="{{ true }}"><p class="dsum" style="font-size: 16px; line-height: 1.55; color: #3E3C35; max-width: 820px;">{{c4.summary}}</p></sc-if>
+<sc-if value="{{c4.hasLen}}" hint-placeholder-val="{{ false }}"><p class="dlen"><span class="k">Time there</span><span>{{c4.len}}</span></p></sc-if>
+<sc-if value="{{c4.hasHl}}" hint-placeholder-val="{{ false }}"><ul style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 32px;"><sc-for list="{{c4.hl}}" as="h" hint-placeholder-count="3"><li style="display: flex; gap: 12px; font-size: 14.5px; line-height: 1.5; color: #2A2923;"><span style="flex-shrink: 0; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: #2F5D45;"></span><span>{{h.t}}</span></li></sc-for></ul></sc-if>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-top: auto;">
+<sc-if value="{{c4.hasTags}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-wrap: wrap; gap: 8px;" aria-label="Technologies"><sc-for list="{{c4.tg}}" as="t" hint-placeholder-count="4"><li class="tagm">{{t.t}}</li></sc-for></ul></sc-if>
+<sc-if value="{{c4.hasSubs}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;"><sc-for list="{{c4.subs}}" as="s" hint-placeholder-count="2"><li style="font-size: 13px; color: #3E3C35;"><span class="k" style="color: #2F5D45; margin-right: 8px;">{{s.date}}</span>{{s.label}}</li></sc-for></ul></sc-if>
+</div>
+</article>
+<article class="dcard {{k5}} {{c5.cardCls}}" style="z-index: 5;">
+<span class="dmark {{c5.markCls}}" aria-hidden="true">{{c5.mark}}</span>
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="font: 600 42px/1 var(--display); letter-spacing: -0.035em;">{{c5.company}}</h3><p style="font: 500 18px/1.3 var(--display); color: #3E3C35;">{{c5.role}}</p></div>
+<span class="tagm" style="flex-shrink: 0; border-color: #17160F; color: #17160F;">{{c5.dates}}</span>
+</div>
+<sc-if value="{{c5.hasSummary}}" hint-placeholder-val="{{ true }}"><p class="dsum" style="font-size: 16px; line-height: 1.55; color: #3E3C35; max-width: 820px;">{{c5.summary}}</p></sc-if>
+<sc-if value="{{c5.hasLen}}" hint-placeholder-val="{{ false }}"><p class="dlen"><span class="k">Time there</span><span>{{c5.len}}</span></p></sc-if>
+<sc-if value="{{c5.hasHl}}" hint-placeholder-val="{{ false }}"><ul style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 32px;"><sc-for list="{{c5.hl}}" as="h" hint-placeholder-count="3"><li style="display: flex; gap: 12px; font-size: 14.5px; line-height: 1.5; color: #2A2923;"><span style="flex-shrink: 0; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: #2F5D45;"></span><span>{{h.t}}</span></li></sc-for></ul></sc-if>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-top: auto;">
+<sc-if value="{{c5.hasTags}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-wrap: wrap; gap: 8px;" aria-label="Technologies"><sc-for list="{{c5.tg}}" as="t" hint-placeholder-count="4"><li class="tagm">{{t.t}}</li></sc-for></ul></sc-if>
+<sc-if value="{{c5.hasSubs}}" hint-placeholder-val="{{ false }}"><ul style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;"><sc-for list="{{c5.subs}}" as="s" hint-placeholder-count="2"><li style="font-size: 13px; color: #3E3C35;"><span class="k" style="color: #2F5D45; margin-right: 8px;">{{s.date}}</span>{{s.label}}</li></sc-for></ul></sc-if>
+</div>
+</article>
+</div>
+</div>
+</div>
+</section>
+
+<section id="work" aria-labelledby="work-title" class="pad sc-card" style="position: relative; z-index: 3; background: #FBFAF6; padding: 130px 64px 110px; display: flex; flex-direction: column; gap: 48px;" onMouseLeave="{{astop}}">
+<div class="stack" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: end; padding-bottom: 28px; border-bottom: 1px solid #17160F;">
+<div style="grid-column: 1 / span 7; display: flex; flex-direction: column; gap: 18px;"><h2 id="work-title" style="font: 600 80px/1 var(--display); letter-spacing: -0.045em;">Selected work</h2></div>
+<p style="grid-column: 9 / span 4; font-size: 17px; line-height: 1.55; color: #3E3C35;">Four projects from Hnry: two regulated integrations, one product built across the stack, and the tooling that helps the team ship them.</p>
+</div>
+<div class="acc">
+<article class="ap {{a0}}" onMouseEnter="{{pick0}}">
+<button type="button" class="hit" aria-expanded="{{x0}}" aria-label="Open Card Issuing, End to End" onClick="{{pick0}}" onFocus="{{pick0}}"></button>
+<span class="num" aria-hidden="true">01</span>
+<div class="vt" aria-hidden="true"><b>Card Issuing, End to End</b></div>
+<div class="body">
+<div class="vis"><dc-import name="VizCards" hint-size="720px,440px"></dc-import></div>
+<div style="display: flex; justify-content: space-between; gap: 32px; align-items: flex-end; padding: 0 8px;">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 560px;"><p class="k">01 · 2024–25 · Lead engineer</p><h3 style="font: 600 34px/1.04 var(--display); letter-spacing: -0.03em;">Card Issuing, End to End</h3><p style="font-size: 16.5px; line-height: 1.5; color: #3E3C35;">Replacing an incumbent banking and card provider from API client to the card in the customer's hand.</p><ul style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;" aria-label="Technologies"><li class="tagm">Rails</li><li class="tagm">SOAP</li><li class="tagm">SFTP/PGP</li><li class="tagm">React</li></ul></div>
+<a class="btn btn-ghost" href="Work.dc.html" style="flex-shrink: 0;">Read case study →</a>
+</div>
+</div>
+</article>
+<article class="ap {{a1}}" onMouseEnter="{{pick1}}">
+<button type="button" class="hit" aria-expanded="{{x1}}" aria-label="Open Identity Verification in Three Countries" onClick="{{pick1}}" onFocus="{{pick1}}"></button>
+<span class="num" aria-hidden="true">02</span>
+<div class="vt" aria-hidden="true"><b>Identity Verification in Three Countries</b></div>
+<div class="body">
+<div class="vis"><dc-import name="VizIdentity" hint-size="720px,440px"></dc-import></div>
+<div style="display: flex; justify-content: space-between; gap: 32px; align-items: flex-end; padding: 0 8px;">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 560px;"><p class="k">02 · 2024–25 · Lead engineer</p><h3 style="font: 600 34px/1.04 var(--display); letter-spacing: -0.03em;">Identity Verification in Three Countries</h3><p style="font-size: 16.5px; line-height: 1.5; color: #3E3C35;">One identity verification rollout across the UK, Australia and New Zealand.</p><ul style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;" aria-label="Technologies"><li class="tagm">Rails</li><li class="tagm">React</li><li class="tagm">Webhooks</li><li class="tagm">AML/KYC</li></ul></div>
+<a class="btn btn-ghost" href="Work.dc.html" style="flex-shrink: 0;">Read case study →</a>
+</div>
+</div>
+</article>
+<article class="ap {{a2}}" onMouseEnter="{{pick2}}">
+<button type="button" class="hit" aria-expanded="{{x2}}" aria-label="Open UK Self Assessment Tax Return" onClick="{{pick2}}" onFocus="{{pick2}}"></button>
+<span class="num" aria-hidden="true">03</span>
+<div class="vt" aria-hidden="true"><b>UK Self Assessment Tax Return</b></div>
+<div class="body">
+<div class="vis"><dc-import name="VizTax" hint-size="720px,440px"></dc-import></div>
+<div style="display: flex; justify-content: space-between; gap: 32px; align-items: flex-end; padding: 0 8px;">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 560px;"><p class="k">03 · 2025 · Full-stack lead</p><h3 style="font: 600 34px/1.04 var(--display); letter-spacing: -0.03em;">UK Self Assessment Tax Return</h3><p style="font-size: 16.5px; line-height: 1.5; color: #3E3C35;">A full-stack tax return, designed to be reused across jurisdictions.</p><ul style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;" aria-label="Technologies"><li class="tagm">React</li><li class="tagm">React Hook Form</li><li class="tagm">Rails</li><li class="tagm">HMRC APIs</li></ul></div>
+<a class="btn btn-ghost" href="Work.dc.html" style="flex-shrink: 0;">Read case study →</a>
+</div>
+</div>
+</article>
+<article class="ap {{a3}}" onMouseEnter="{{pick3}}">
+<button type="button" class="hit" aria-expanded="{{x3}}" aria-label="Open AI Engineering &amp; Developer Tooling" onClick="{{pick3}}" onFocus="{{pick3}}"></button>
+<span class="num" aria-hidden="true">04</span>
+<div class="vt" aria-hidden="true"><b>AI Engineering &amp; Developer Tooling</b></div>
+<div class="body">
+<div class="vis"><dc-import name="VizAI" hint-size="720px,440px"></dc-import></div>
+<div style="display: flex; justify-content: space-between; gap: 32px; align-items: flex-end; padding: 0 8px;">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 560px;"><p class="k">04 · 2025–26 · AI engineering lead, UK</p><h3 style="font: 600 34px/1.04 var(--display); letter-spacing: -0.03em;">AI Engineering &amp; Developer Tooling</h3><p style="font-size: 16.5px; line-height: 1.5; color: #3E3C35;">Getting practical value out of AI across engineering, operations and marketing.</p><ul style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;" aria-label="Technologies"><li class="tagm">Claude Code</li><li class="tagm">Plugins &amp; hooks</li><li class="tagm">MCP</li><li class="tagm">Agent workflows</li></ul></div>
+<a class="btn btn-ghost" href="Work.dc.html" style="flex-shrink: 0;">Read case study →</a>
+</div>
+</div>
+</article>
+</div>
+<div style="display: flex; justify-content: flex-end;"><a class="btn btn-ghost" href="Work.dc.html">View all work <span class="arr" aria-hidden="true">→</span></a></div>
+</section>
+
+<section id="capabilities" class="sc-card" aria-labelledby="cap-title" style="position: relative; z-index: 4; background: #EFEBE2; padding: 120px 0 110px; border-top: 1px solid #D6D1C4; display: flex; flex-direction: column; gap: 48px;">
+<div class="pad" style="padding: 0 64px; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center;">
+<h2 id="cap-title" style="font: 600 80px/1 var(--display); letter-spacing: -0.045em;">What I do</h2>
+<p style="max-width: 560px; font-size: 17px; line-height: 1.55; color: #3E3C35;">Leading a team, building with AI, and shipping across the whole stack.</p>
+</div>
+<div class="pad cap-grid" style="padding: 0 64px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch;">
+<div class="capc"><h3 style="font: 600 26px/1.1 var(--display); letter-spacing: -0.02em; text-align: center;">Leadership</h3><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm">Line management</li><li class="tagm">Coaching &amp; development</li><li class="tagm">Chapter sessions</li><li class="tagm">Technical direction</li></ul></div>
+<div class="capc"><h3 style="font: 600 26px/1.1 var(--display); letter-spacing: -0.02em; text-align: center;">AI</h3><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm">Claude Code</li><li class="tagm">Plugins, skills &amp; hooks</li><li class="tagm">Agent workflow design</li><li class="tagm">MCP integrations</li><li class="tagm">Internal developer tooling</li></ul></div>
+<div class="capc"><h3 style="font: 600 26px/1.1 var(--display); letter-spacing: -0.02em; text-align: center;">Front end</h3><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm">React 18</li><li class="tagm">TypeScript</li><li class="tagm">Jest</li><li class="tagm">Tailwind CSS</li><li class="tagm">Accessibility</li></ul></div>
+<div class="capc"><h3 style="font: 600 26px/1.1 var(--display); letter-spacing: -0.02em; text-align: center;">Back end &amp; platform</h3><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm">Ruby on Rails</li><li class="tagm">Gem authoring</li><li class="tagm">PostgreSQL</li><li class="tagm">RSpec</li><li class="tagm">Capybara</li><li class="tagm">REST API design</li><li class="tagm">AWS (SQS, S3)</li><li class="tagm">Terraform</li><li class="tagm">Docker</li><li class="tagm">Kubernetes</li><li class="tagm">CI/CD</li></ul></div>
+</div>
+<div class="pad" style="padding: 0 64px;"><div style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 26px 28px; border: 1px solid #D6D1C4; border-radius: 20px; text-align: center;"><span class="k">Domain</span><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">Banking &amp; card integrations</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">SOAP/REST</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">SFTP &amp; PGP</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">OAuth</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">Strong Customer Authentication</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">Confirmation of Payee</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">AML/KYC</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">Multi-jurisdiction architecture</li></ul></div></div>
+<div class="marquee" style="margin-top: 56px;" aria-label="Stack: React, TypeScript, Ruby, Rails, PostgreSQL, AWS, Terraform, Docker, Kubernetes, Tailwind, Jest, Claude" role="img">
+<div class="mq-track" aria-hidden="true">
+<sc-for list="{{stack}}" as="s" hint-placeholder-count="12">
+<span class="mq-item"><span class="mq-{{s.style}}">{{s.name}}</span><span class="mq-dot"></span></span>
+</sc-for>
+</div>
+</div>
+</section>
+</main>
+
+<footer id="contact" class="pad sc-card" style="position: relative; z-index: 5; border-top: 1px solid #D6D1C4; flex-grow: 1; background: #F4F2EC; padding: 120px 64px 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 80px;">
+<div style="display: flex; flex-direction: column; gap: 28px;">
+<h2 class="h-xl" style="font-family: var(--display); font-weight: var(--dw, 400); font-size: 168px; line-height: 0.9; letter-spacing: -0.03em;">Let's <span style="font-style: var(--it); color: #2F5D45;">connect.</span></h2>
+<div class="stack" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-top: 20px;">
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<a class="foot-mail" href="mailto:hello@louisfreeman.co.uk">hello@louisfreeman.co.uk</a>
+<div class="foot-links">
+<a href="https://www.linkedin.com/in/louis-freeman7/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+<a href="https://github.com/Louisf77" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+</div>
+</div>
+<p style="max-width: 360px; font-size: 16px; line-height: 1.6; color: #5B584F;">Based in London. Happy to talk about fintech integrations, engineering leadership or AI tooling.</p>
+</div>
+</div>
+<div class="kicker stack" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 20px; border-top: 1px solid #17160F; color: #5B584F;">
+<span style="display: flex; align-items: center; gap: 14px;"><img src="/_blob/fdb51469796b01eb2b9a5f74f75d9dd9" alt="" style="height: 22px; width: auto;"><span>© 2026 Louis Freeman</span></span>
+<span>Set in {{typeNames}}</span>
+<a href="#top" style="color: #17160F; text-decoration: none; min-height: 44px; display: flex; align-items: center;">Back to top ↑</a>
+</div>
+</footer>
+
+<div class="read-cursor {{readCls}}" aria-hidden="true"><span>Read</span></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;typeface&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Bodoni Moda (current)&quot;,&quot;01 Instrument Serif + Instrument Sans&quot;,&quot;02 Playfair Display + Source Sans 3&quot;,&quot;03 DM Serif Display + DM Sans&quot;,&quot;04 Cormorant Garamond + Manrope&quot;,&quot;05 Newsreader + Public Sans&quot;,&quot;06 Libre Caslon Display + Libre Franklin&quot;,&quot;07 Space Grotesk + IBM Plex Sans&quot;,&quot;08 Syne + Work Sans&quot;,&quot;09 Bricolage Grotesque + Figtree&quot;,&quot;10 Montserrat + Karla (matches logo)&quot;,&quot;11 Montserrat (solo)&quot;,&quot;12 Jost + Karla&quot;,&quot;13 Outfit + Karla&quot;,&quot;14 Urbanist + Manrope&quot;,&quot;15 Sora + Karla&quot;,&quot;16 Plus Jakarta Sans (solo)&quot;,&quot;17 League Spartan + Karla&quot;,&quot;18 Unbounded + Montserrat&quot;,&quot;19 Red Hat Display + Red Hat Text&quot;],&quot;default&quot;:&quot;15 Sora + Karla&quot;,&quot;section&quot;:&quot;Type&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:4800}}">
+var TYPES = {
+  "Bodoni Moda (current)": ["'Bodoni Moda',Didot,Georgia,serif", "'Hanken Grotesk','Helvetica Neue',sans-serif", "italic", "400"],
+  "01 Instrument Serif + Instrument Sans": ["'Instrument Serif',Georgia,serif", "'Instrument Sans','Helvetica Neue',sans-serif", "italic", "400"],
+  "02 Playfair Display + Source Sans 3": ["'Playfair Display',Georgia,serif", "'Source Sans 3','Helvetica Neue',sans-serif", "italic", "400"],
+  "03 DM Serif Display + DM Sans": ["'DM Serif Display',Georgia,serif", "'DM Sans','Helvetica Neue',sans-serif", "italic", "400"],
+  "04 Cormorant Garamond + Manrope": ["'Cormorant Garamond',Garamond,Georgia,serif", "'Manrope','Helvetica Neue',sans-serif", "italic", "400"],
+  "05 Newsreader + Public Sans": ["'Newsreader',Georgia,serif", "'Public Sans','Helvetica Neue',sans-serif", "italic", "400"],
+  "06 Libre Caslon Display + Libre Franklin": ["'Libre Caslon Display',Georgia,serif", "'Libre Franklin','Helvetica Neue',sans-serif", "normal", "400"],
+  "07 Space Grotesk + IBM Plex Sans": ["'Space Grotesk','Helvetica Neue',sans-serif", "'IBM Plex Sans','Helvetica Neue',sans-serif", "normal", "400"],
+  "08 Syne + Work Sans": ["'Syne','Helvetica Neue',sans-serif", "'Work Sans','Helvetica Neue',sans-serif", "normal", "400"],
+  "09 Bricolage Grotesque + Figtree": ["'Bricolage Grotesque','Helvetica Neue',sans-serif", "'Figtree','Helvetica Neue',sans-serif", "normal", "400"],
+  "10 Montserrat + Karla (matches logo)": ["'Montserrat','Helvetica Neue',sans-serif", "'Karla','Helvetica Neue',sans-serif", "normal", "500"],
+  "11 Montserrat (solo)": ["'Montserrat','Helvetica Neue',sans-serif", "'Montserrat','Helvetica Neue',sans-serif", "normal", "600"],
+  "12 Jost + Karla": ["'Jost','Futura','Helvetica Neue',sans-serif", "'Karla','Helvetica Neue',sans-serif", "normal", "500"],
+  "13 Outfit + Karla": ["'Outfit','Helvetica Neue',sans-serif", "'Karla','Helvetica Neue',sans-serif", "normal", "500"],
+  "14 Urbanist + Manrope": ["'Urbanist','Helvetica Neue',sans-serif", "'Manrope','Helvetica Neue',sans-serif", "normal", "600"],
+  "15 Sora + Karla": ["'Sora','Helvetica Neue',sans-serif", "'Karla','Helvetica Neue',sans-serif", "normal", "500"],
+  "16 Plus Jakarta Sans (solo)": ["'Plus Jakarta Sans','Helvetica Neue',sans-serif", "'Plus Jakarta Sans','Helvetica Neue',sans-serif", "normal", "600"],
+  "17 League Spartan + Karla": ["'League Spartan','Helvetica Neue',sans-serif", "'Karla','Helvetica Neue',sans-serif", "normal", "600"],
+  "18 Unbounded + Montserrat": ["'Unbounded','Helvetica Neue',sans-serif", "'Montserrat','Helvetica Neue',sans-serif", "normal", "500"],
+  "19 Red Hat Display + Red Hat Text": ["'Red Hat Display','Helvetica Neue',sans-serif", "'Red Hat Text','Helvetica Neue',sans-serif", "normal", "600"]
+};
+var TYPE_DEFAULT = "15 Sora + Karla";
+var PREFIX = "Hi, I'm ";
+var ENDINGS = ["Louis.", "a senior software engineer.", "a problem solver.", "a team lead."];
+var GREETING = PREFIX + ENDINGS[0];
+var ENTRIES = [
+  { company: "Hnry", role: "Senior Software Engineer", dates: "Jan 2024 — Present", year: "Now",
+    summary: "Multi-region financial services platform (UK, Australia, New Zealand) handling customers' income, tax and payments. One of the first two members of the UK engineering team, now eight strong within a 70-person engineering function.",
+    highlights: [
+      "Owned the integration of a new UK banking and card provider end to end, from SOAP provisioning to virtual card issuing, real-time transaction processing and settlement reconciliation",
+      "Rolled out a third-party identity verification provider across the UK, Australia and New Zealand",
+      "Led full-stack delivery of the UK Self Assessment tax return",
+      "Built an HMRC API client gem; delivered Confirmation of Payee and Return-to-Payor across two jurisdictions",
+      "Line-manage three engineers and run team-wide engineering chapter sessions",
+      "Lead AI engineering for the UK business across engineering, operations and marketing"
+    ],
+    subs: [
+      { date: "Dec 2025", label: "Promoted to Senior Software Engineer" },
+      { date: "Jan 2024", label: "Joined as Intermediate Software Engineer" }
+    ],
+    tags: ["Ruby on Rails", "React", "TypeScript", "PostgreSQL", "AWS", "Terraform"] },
+  { company: "Soho House", role: "Junior Ruby Developer", dates: "Nov 2021 — Dec 2023", year: "2021", len: "2 years, 2 months",
+    summary: "Global members' club and hospitality group; in-house engineering team working on internal platforms and integrations.",
+    highlights: [
+      "Built internal developer tooling, including automating the GitHub review process",
+      "Implemented security measures and took part in code review as author and reviewer",
+      "Worked across databases and third-party API integrations in a multidisciplinary team"
+    ],
+    tags: ["Ruby", "Rails", "PostgreSQL", "GitHub Actions"] },
+  { company: "Academy", role: "Founding Scholar & Trainee Software Engineer", dates: "2021", year: "2021",
+    summary: "Intensive software engineering programme.",
+    tags: ["React", "Node.js", "TypeScript", "PostgreSQL"] },
+  { company: "NHS", role: "Digital Integration & Support Liaison Officer", dates: "Nov 2020 — May 2021", year: "2020", len: "7 months",
+    summary: "National programme helping care homes adopt NHS digital technology.",
+    highlights: [
+      "Led a small data and analytics team building a dashboard that combined large data sets",
+      "Delivered real-time performance indicators at London, borough and care-home level"
+    ] },
+  { company: "MediaVision", role: "Digital Product Performance Executive", dates: "Sep — Nov 2020", year: "2020", len: "3 months",
+    summary: "SEO team at a digital performance agency; analysed client traffic and wrote Python scripts, making recommendations that improved user interaction.",
+    tags: ["Python"] },
+  { company: "University of Nottingham", role: "MEng Product Design & Manufacture Engineering, 2:1", dates: "2016 — 2020 · Education", year: "2016", len: "4 years", edu: true, mark: "UON",
+    summary: "Integrated master's degree in product design and manufacturing engineering.",
+    highlights: [
+      "Final year project: a consumer product that turns rainwater into clean drinking water"
+    ],
+    tags: ["Engineering maths", "CAD", "3D visualisation", "UI/UX design"] }
+];
+var STACK = ["React", "TypeScript", "Ruby", "Rails", "PostgreSQL", "AWS", "Terraform", "Docker", "Kubernetes", "Tailwind", "Jest", "Claude"];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tall: true, typed: GREETING, typing: false, scrolled: false, active: 0, mode: "static", showVideo: false, read: false, dcur: 0, dn: 0, dauto: true, acc: 0, aauto: true, cOpen: false };
+    this.tops = []; this.fv = 0;
+  }
+  componentDidMount() {
+    var reduced = false;
+    try { reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    this.reduced = reduced;
+    var self = this;
+    this.setState({ showVideo: !reduced, typed: reduced ? GREETING : "", typing: !reduced }, function () { self.kickVideo(); });
+    if (!reduced) this.startTyping();
+    this.onScroll = function () { if (self.raf) return; self.raf = requestAnimationFrame(function () { self.raf = 0; self.update(); }); };
+    this.onResize = function () { if (!self.applyMode(false)) { self.measure(); self.update(); self.follow(); } };
+    this.onMove = function (e) { var s = document.documentElement.style; s.setProperty("--cx", e.clientX + "px"); s.setProperty("--cy", e.clientY + "px"); };
+    this.onFollow = function (top, h) { self.syncStatic(top, h, true); };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    window.addEventListener("resize", this.onResize);
+    window.addEventListener("pointermove", this.onMove, { passive: true });
+    if (window.visualViewport) window.visualViewport.addEventListener("resize", this.onResize);
+    this.applyType();
+    this.applyMode(true);
+    this.poll = setInterval(function () { self.applyMode(false); var v = document.getElementById("hero-video"); if (self.state.showVideo && v && v.paused) self.kickVideo(); }, 700);
+    this.dk = setInterval(function () { if (self.state.mode !== "anim" && self.state.dauto) self.setDeck((self.state.dcur + 1) % ENTRIES.length); }, 3200);
+    this.ak = setInterval(function () { if (self.state.aauto) self.setState({ acc: (self.state.acc + 1) % 4 }); }, 4500);
+    this.late = setTimeout(this.onResize, 900);
+  }
+  applyMode(first) {
+    var self = this, tall = window.innerHeight >= 1500, mode = !this.reduced && !tall ? "anim" : "static";
+    if (!first && tall === this.state.tall && mode === this.state.mode) return false;
+    if (tall && !this.io) {
+      this.startFollow();
+      this.userT = 0;
+      clearInterval(this.auto);
+      this.auto = setInterval(function () {
+        if (Date.now() - self.userT < 6000) return;
+        var n = self.tops.length || ENTRIES.length;
+        var a = (self.state.active + 1) % n;
+        self.setState({ active: a }); self.setFill(a);
+      }, 2800);
+    }
+    if (!tall) {
+      if (this.io) { this.io.disconnect(); this.io = null; }
+      clearTimeout(this.ioT); clearInterval(this.auto); this.auto = 0;
+      document.documentElement.style.setProperty("--nav-y", "0px");
+      Array.prototype.forEach.call(document.querySelectorAll(".sc-card"), function (el) { el._t = null; });
+    }
+    this.setState({ tall: tall, mode: mode }, function () { self.measure(); self.update(); });
+    return true;
+  }
+  cardsFx(vh) {
+    var els = document.querySelectorAll(".sc-card");
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i], t = Math.min(0, vh - el.offsetHeight);
+      if (el._t !== t) { el.style.top = t + "px"; el._t = t; }
+      var nx = els[i + 1], p = 0;
+      if (nx) { var r = el.getBoundingClientRect(), ov = Math.min(r.bottom, vh) - nx.getBoundingClientRect().top; p = Math.max(0, Math.min(1, ov / Math.max(1, Math.min(el.offsetHeight, vh)))); }
+      el.style.setProperty("--cv", p.toFixed(3));
+    }
+  }
+  setDeck(i) { if (i !== this.state.dcur) this.setState({ dcur: i, dn: this.state.dn + 1 }); }
+  pickDeck(i) {
+    if (this.state.mode === "anim") {
+      var t = document.getElementById("dk-track"); if (!t) return;
+      var total = Math.max(1, t.offsetHeight - window.innerHeight);
+      var top = t.getBoundingClientRect().top + (window.scrollY || 0);
+      window.scrollTo({ top: top + (i + 0.5) / ENTRIES.length * total, behavior: "smooth" });
+    } else { this.setState({ dauto: false }); this.setDeck(i); }
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener("pointermove", this.onMove);
+    clearTimeout(this.late); clearTimeout(this.tick); clearTimeout(this.startT); clearTimeout(this.ioT); clearInterval(this.auto); clearInterval(this.poll); clearInterval(this.dk); clearInterval(this.ak);
+    if (this.io) this.io.disconnect();
+    if (this.raf) cancelAnimationFrame(this.raf);
+    if (window.visualViewport) window.visualViewport.removeEventListener("resize", this.onResize);
+  }
+  startFollow() {
+    var self = this;
+    this.recs = new Map();
+    if (!("IntersectionObserver" in window)) return;
+    var th = []; for (var k = 0; k <= 20; k++) th.push(k / 20);
+    this.io = new IntersectionObserver(function (list) {
+      list.forEach(function (r) { self.recs.set(r.target, r); });
+      self.follow();
+    }, { threshold: th });
+    this.ioT = setTimeout(function () {
+      Array.prototype.forEach.call(document.querySelectorAll(".snt"), function (el) { self.io.observe(el); });
+    }, 60);
+  }
+  follow() {
+    if (!this.io || !this.recs) return;
+    var top = Infinity, bottom = -Infinity;
+    this.recs.forEach(function (r) {
+      if (!r.isIntersecting || r.intersectionRect.height <= 0) return;
+      if (r.intersectionRect.top < top) top = r.intersectionRect.top;
+      if (r.intersectionRect.bottom > bottom) bottom = r.intersectionRect.bottom;
+    });
+    if (top === Infinity) return;
+    var v = Math.max(0, top);
+    document.documentElement.style.setProperty("--nav-y", v.toFixed(0) + "px");
+    var sc = v > 12;
+    if (sc !== this.state.scrolled) this.setState({ scrolled: sc });
+    if (this.onFollow) this.onFollow(v, bottom - top);
+  }
+  startTyping() {
+    var self = this, w = 0, len = 0, phase = "type";
+    var step = function () {
+      var full = PREFIX + ENDINGS[w];
+      if (phase === "type") {
+        len += 1;
+        self.setState({ typed: full.slice(0, len), typing: true });
+        if (len >= full.length) { phase = "del"; self.setState({ typing: false }); self.tick = setTimeout(step, 2400); return; }
+        self.tick = setTimeout(step, 60 + Math.random() * 80);
+      } else {
+        len -= 1;
+        self.setState({ typed: full.slice(0, len), typing: true });
+        if (len <= PREFIX.length) { w = (w + 1) % ENDINGS.length; phase = "type"; self.tick = setTimeout(step, 320); return; }
+        self.tick = setTimeout(step, 34);
+      }
+    };
+    this.startT = setTimeout(step, 700);
+  }
+  applyType() {
+    var t = TYPES[this.props.typeface] || TYPES[TYPE_DEFAULT];
+    var st = document.documentElement.style;
+    st.setProperty("--display", t[0]); st.setProperty("--body", t[1]); st.setProperty("--it", t[2]); st.setProperty("--dw", t[3] || "400");
+  }
+  componentDidUpdate(prev) { if (prev.typeface !== this.props.typeface) this.applyType(); }
+  setFill(a) { if (this.tops.length) document.documentElement.style.setProperty("--tl-fill-s", (this.tops[a] + 4) + "px"); }
+  kickVideo() {
+    var v = document.getElementById("hero-video");
+    if (!v) return;
+    v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
+    if (!v._kicked) {
+      v._kicked = true;
+      var again = function () { if (v.paused) { var q = v.play(); if (q && q.catch) q.catch(function () {}); } };
+      v.addEventListener("loadeddata", again); v.addEventListener("canplay", again);
+      document.addEventListener("visibilitychange", again);
+    }
+    if (v.readyState === 0) { try { v.load(); } catch (e) {} }
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+  }
+  measure() {
+    var col = document.getElementById("tl-col");
+    if (!col) return;
+    this.tops = Array.prototype.map.call(col.querySelectorAll("[data-tl-entry]"), function (el) { return el.offsetTop; });
+  }
+  syncStatic(visTop, visH, canvas) {
+    var col = document.getElementById("tl-col"), track = document.getElementById("tl-track");
+    var n = this.tops.length;
+    if (!col || !track || !n) return;
+    var sy = window.scrollY || 0;
+    var colTop = col.getBoundingClientRect().top + sy;
+    var probe = visTop + Math.min(visH * 0.4, 380);
+    var active = 0;
+    for (var i = 0; i < n; i++) if (colTop + this.tops[i] <= probe) active = i;
+    if (canvas) {
+      if (active !== this.lastSync) { this.lastSync = active; this.userT = Date.now(); this.setState({ active: active }); this.setFill(active); }
+    } else if (active !== this.state.active) { this.setState({ active: active }); this.setFill(active); }
+    if (canvas) {
+      var left = document.querySelector(".tl-left");
+      if (!left) return;
+      var l0 = left.getBoundingClientRect().top + sy - this.fv;
+      var trackTop = track.getBoundingClientRect().top + sy;
+      var max = trackTop + track.offsetHeight - 136 - left.offsetHeight - l0;
+      var fv = Math.max(0, Math.min(max, visTop + 120 - l0));
+      this.fv = fv;
+      document.documentElement.style.setProperty("--tl-follow", fv.toFixed(0) + "px");
+    }
+  }
+  update() {
+    var de = document.documentElement.style;
+    var y = window.scrollY || window.pageYOffset || 0;
+    var vh = window.innerHeight;
+    if (this.state.tall) return;
+    var scrolled = y > 12;
+    if (scrolled !== this.state.scrolled) this.setState({ scrolled: scrolled });
+    if (this.state.mode !== "anim") { this.syncStatic(y, vh, false); return; }
+    var hero = document.getElementById("hero");
+    if (hero) de.setProperty("--hp", Math.min(1, Math.max(0, y / (hero.offsetHeight * 0.9))).toFixed(4));
+    this.cardsFx(vh);
+    var track = document.getElementById("dk-track");
+    if (!track) return;
+    var r = track.getBoundingClientRect();
+    var total = Math.max(1, track.offsetHeight - vh);
+    var p = Math.min(0.9999, Math.max(0, -r.top / total));
+    this.setDeck(Math.floor(p * ENTRIES.length));
+  }
+  renderVals() {
+    var s = this.state, self = this;
+    var isStatic = s.mode !== "anim";
+    var n = ENTRIES.length;
+    var active = Math.min(n - 1, s.active);
+    var entries = ENTRIES.map(function (e, i) {
+      var cls;
+      if (isStatic) cls = i === active ? "is-live" : "is-dim";
+      else cls = i < active ? "is-past" : i === active ? "is-live" : i === active + 1 ? "is-next" : "is-future";
+      return {
+        company: e.company, role: e.role, dates: e.dates, summary: e.summary || "",
+        hasSummary: !!e.summary,
+        hl: (e.highlights || []).map(function (t) { return { t: t }; }), hasHl: !!(e.highlights && e.highlights.length),
+        subs: e.subs || [], hasSubs: !!(e.subs && e.subs.length),
+        tg: (e.tags || []).map(function (t) { return { t: t }; }), hasTags: !!(e.tags && e.tags.length),
+        cls: cls, nodeCls: (e.edu ? "is-edu " : "") + (i <= active ? "is-lit" : "")
+      };
+    });
+    var cur = ENTRIES[active];
+    var pad = function (x) { return (x < 10 ? "0" : "") + x; };
+    var snt = []; for (var k = 0; k < 100; k++) snt.push(k);
+    var v = {};
+    ENTRIES.forEach(function (e, i) {
+      v["c" + i] = { company: e.company, role: e.role, dates: e.dates, year: e.year, summary: e.summary || "", hasSummary: !!e.summary,
+        hl: (e.highlights || []).map(function (t) { return { t: t }; }), hasHl: !!(e.highlights && e.highlights.length),
+        subs: e.subs || [], hasSubs: !!(e.subs && e.subs.length),
+        tg: (e.tags || []).map(function (t) { return { t: t }; }), hasTags: !!(e.tags && e.tags.length),
+        mark: e.mark || e.company, markCls: (e.mark || e.company).length > 8 ? "sm" : "", cardCls: (e.highlights || []).length >= 3 ? "" : "sparse", len: e.len || "", hasLen: !!e.len };
+      v["k" + i] = i < s.dcur ? "gone" : i === s.dcur ? "top" : i === s.dcur + 1 ? "n1" : i === s.dcur + 2 ? "n2" : "far";
+    });
+    for (var q = 0; q < 4; q++) (function (q) { v["a" + q] = q === s.acc ? "open" : ""; v["x" + q] = q === s.acc ? "true" : "false"; v["pick" + q] = function () { self.setState({ acc: q, aauto: false }); }; })(q);
+    return Object.assign(v, {
+      modeCls: (isStatic ? "is-static" : "is-anim") + (s.tall ? " is-tall" : ""),
+      navCls: s.scrolled ? "is-scrolled" : "",
+      cOpen: s.cOpen ? "true" : "false", cCls: s.cOpen ? "open" : "", toggleContact: function () { self.setState({ cOpen: !self.state.cOpen }); },
+      snt: snt,
+      typed: s.typed,
+      yearCls: active % 2 ? "ya" : "yb",
+      typeNames: (function (t) { return t.replace(/^\d+ /, "").replace(" (current)", "").replace(" (matches logo)", "").replace(" (solo)", "").replace(" + ", " & "); })(this.props.typeface || TYPE_DEFAULT),
+      caretCls: s.typing ? "is-typing" : "is-hold",
+      showVideo: s.showVideo, showStill: !s.showVideo,
+      entries: entries,
+      year: cur.year,
+      yearLabel: cur.dates,
+      counter: pad(active + 1) + " / " + pad(n),
+      activeName: cur.company,
+      stack: STACK.concat(STACK).map(function (nm, i) { return { name: nm, style: i % 2 ? "italic" : "normal" }; }),
+      dyear: ENTRIES[s.dcur].year, dpop: s.dn % 2 ? "yr-a" : "yr-b",
+      ddots: ENTRIES.map(function (e, i) { return { name: e.company, cls: i === s.dcur ? "on" : "", pick: function () { self.pickDeck(i); } }; }),
+      astop: function () { if (self.state.aauto) self.setState({ aauto: false }); },
+      readCls: s.read ? "is-on" : "",
+      readOn: function () { self.setState({ read: true }); },
+      readOff: function () { self.setState({ read: false }); }
+    });
+  }
+}
+</script>
+</body>
+</html>

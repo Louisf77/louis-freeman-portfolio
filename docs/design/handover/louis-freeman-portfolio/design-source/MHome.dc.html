@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Louis Freeman — Home (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&amp;family=Karla:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+:root{--disp:'Sora','Helvetica Neue',sans-serif;--body:'Karla','Helvetica Neue',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#F4F2EC;color:#17160F;font-family:var(--body);-webkit-font-smoothing:antialiased}
+a{color:#2F5D45}a:hover{color:#1F4232}
+h1,h2,h3,p,ul,ol,figure{margin:0}ul,ol{padding:0;list-style:none}
+:focus-visible{outline:2px solid #2F5D45;outline-offset:3px}
+.k{font:600 10.5px/1.4 var(--disp);letter-spacing:.16em;text-transform:uppercase;color:#5B584F}
+.tagm{font:400 11.5px/1 var(--mono);padding:7px 10px;border:1px solid #CFC9BA;border-radius:999px;color:#3E3C35;white-space:nowrap}
+.card{background:#FBFAF6;border:1px solid #D6D1C4;border-radius:22px}
+.mark{background:linear-gradient(transparent 62%,#D7E4D6 62%,#D7E4D6 94%,transparent 94%);color:#17160F;font-weight:600;padding:0 2px}
+.h2{font:600 40px/1.02 var(--disp);letter-spacing:-.04em}
+.sec{padding:64px 16px;display:flex;flex-direction:column;gap:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border:1px solid #17160F;border-radius:999px;color:#17160F;text-decoration:none;font:600 14px/1 var(--disp)}
+.btn:hover{background:#17160F;color:#F4F2EC}
+/* nav */
+.mnav{position:sticky;top:0;z-index:50;display:flex;justify-content:center;padding:12px;pointer-events:none}
+.mpill{position:relative;pointer-events:auto;display:flex;align-items:center;gap:2px;padding:4px;border:1px solid rgba(23,22,15,.14);border-radius:999px;background:rgba(244,242,236,.86);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);transition:box-shadow .4s}
+.mnav.is-scrolled .mpill{box-shadow:0 16px 34px -24px rgba(23,22,15,.5)}
+.mpill > a,.mpill > button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:transparent;font:500 15px/1 var(--body);color:#17160F;text-decoration:none;cursor:pointer}
+.mpill > a[aria-current=page]{background:#17160F;color:#F4F2EC}
+.mpill > a.home{padding:0 12px}.mpill > a.home img{height:22px;display:block}
+.mpill > a.home[aria-current=page]{background:rgba(23,22,15,.09)}
+.mpill > button[aria-expanded=true]{background:#17160F;color:#F4F2EC}
+.plus{position:relative;width:10px;height:10px}
+.plus::before,.plus::after{content:'';position:absolute;left:0;top:4.5px;width:10px;height:1.5px;background:currentColor;transition:transform .35s}
+.plus::after{transform:rotate(90deg)}[aria-expanded=true] .plus::after{transform:rotate(0)}
+.mmenu{position:absolute;right:0;top:calc(100% + 8px);width:220px;padding:8px;display:flex;flex-direction:column;background:#FBFAF6;border:1px solid #D6D1C4;border-radius:20px;box-shadow:0 24px 44px -28px rgba(23,22,15,.5);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .25s,transform .3s,visibility .3s}
+.mmenu.open{opacity:1;visibility:visible;transform:none}
+.mmenu a{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:0 14px;border-radius:14px;color:#17160F;text-decoration:none;font:500 16px/1 var(--body)}
+.mmenu a:hover{background:rgba(23,22,15,.06)}
+/* experience + work cards */
+.xc{position:relative;overflow:hidden;padding:22px 20px 24px;display:flex;flex-direction:column;gap:14px}
+.xc > :not(.dmark){position:relative;z-index:1}
+.dmark{position:absolute;right:-6px;bottom:-20px;font:600 96px/1 var(--disp);letter-spacing:-.065em;color:rgba(23,22,15,.05);white-space:nowrap;pointer-events:none}
+.dmark.sm{font-size:74px}
+.hl{display:flex;gap:10px;font-size:14px;line-height:1.5;color:#2A2923}
+.hl i{flex-shrink:0;width:6px;height:6px;margin-top:7px;border-radius:50%;background:#2F5D45}
+.viz{position:relative;height:209px;border-radius:16px;overflow:hidden;background:#EAE6DC}
+.viz > div{position:absolute;left:0;top:0;width:720px;height:440px;transform:scale(.4889);transform-origin:0 0}
+.metric{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border:1px dashed #B9B2A0;border-radius:12px}
+.capc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:24px 18px;background:#FBFAF6;border:1px solid #D6D1C4;border-radius:20px}
+.capc h3{font-size:22px!important}
+.capc ul,.dom ul{justify-content:center}
+.marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq-track{display:flex;width:max-content;animation:mq 50s linear infinite}
+.mq-item{display:flex;align-items:center;gap:22px;padding-right:22px;font:600 30px/1.2 var(--disp);letter-spacing:-.03em;white-space:nowrap}
+.mq-dot{width:7px;height:7px;border:1px solid #17160F;transform:rotate(45deg)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.caret{display:inline-block;width:3px;height:.9em;margin-left:4px;background:#2F5D45;transform:translateY(2px)}
+.caret.is-hold{animation:blink .9s steps(1) infinite}@keyframes blink{50%{opacity:0}}
+.cue-line{position:relative;width:1px;height:36px;background:rgba(23,22,15,.18);overflow:hidden}
+.cue-line::after{content:'';position:absolute;left:0;top:-40%;width:1px;height:40%;background:#17160F;animation:cue 2.2s cubic-bezier(.6,0,.2,1) infinite}
+@keyframes cue{to{top:100%}}
+.hvid{-webkit-mask-image:linear-gradient(transparent 5%,#000 17%,#000 93%,transparent 99%),linear-gradient(90deg,transparent 0%,#000 13%,#000 87%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(transparent 5%,#000 17%,#000 93%,transparent 99%),linear-gradient(90deg,transparent 0%,#000 13%,#000 87%,transparent 100%);mask-composite:intersect}
+/* card stacking (Play only) */
+.is-live .stk{position:sticky;box-shadow:0 -26px 40px -30px rgba(23,22,15,.45)}
+.is-live .pinmain{padding-bottom:0!important}
+.is-live .pinmain .stk-list{padding-bottom:100vh}
+.is-live .pinmain ~ footer{margin-top:-100vh;position:relative;z-index:20;background:#F4F2EC;min-height:calc(100vh - 110px);border-radius:32px 32px 0 0;border-top:0;box-shadow:0 -30px 50px -36px rgba(23,22,15,.5)}
+/* experience deck */
+.mdeck{position:relative;height:600px;margin-right:20px;touch-action:pan-y}
+.mdc{position:absolute;inset:0;overflow:hidden;padding:22px 20px 24px;display:flex;flex-direction:column;gap:13px;background:#FBFAF6;border:1px solid #D6D1C4;border-radius:22px;transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .5s,background .5s,box-shadow .5s;will-change:transform}
+.mdc > :not(.dmark){position:relative;z-index:1}
+.mdc.top{border-color:#17160F;box-shadow:0 26px 44px -34px rgba(23,22,15,.55)}
+.mdc.n1{transform:translate(10px,12px);background:#EFEBE2}
+.mdc.n2{transform:translate(20px,24px);background:#E6E2D7}
+.mdc.far{transform:translate(20px,24px);opacity:0}
+.mdc.gone{transform:translateX(-115%) rotate(-7deg);opacity:0;pointer-events:none}
+.mdc .sum{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.dnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px}
+.dnav button{width:48px;height:48px;border:1px solid #17160F;border-radius:50%;background:transparent;color:#17160F;font:500 18px/1 var(--body);cursor:pointer}
+.dnav button:hover{background:#17160F;color:#F4F2EC}
+.dnav button:disabled{opacity:.3;cursor:default;background:transparent;color:#17160F}
+.dbar{display:flex;gap:6px;flex-grow:1;justify-content:center}
+.dbar i{width:18px;height:3px;border-radius:2px;background:#CFC9BA;transition:width .3s,background .3s}
+.dbar i.on{width:34px;background:#2F5D45}
+/* about intro: pinned conversation in Play */
+.mhi{position:relative;padding:8px 16px 40px}
+.mhi-pin{display:flex;flex-direction:column;gap:18px}
+.mhi-top{position:relative;height:430px;flex-shrink:0}
+.mhi-top img{position:absolute;right:-16px;top:0;height:100%;width:auto;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
+.mhi-top h1{position:absolute;left:0;bottom:6px;font:600 58px/.92 var(--disp);letter-spacing:-.055em}
+.mhint{display:none}
+.is-live .mhi{height:calc(100vh + 1500px);padding:0}
+.is-live .mhi-pin{position:sticky;top:0;height:100vh;gap:12px;padding:64px 16px 14px;overflow:hidden}
+.is-live .mhi-top{height:min(330px,40vh)}
+.is-live .mhi-top h1{font-size:46px}
+.is-live .mchat{position:relative;flex:1 1 auto;min-height:160px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 18%);mask-image:linear-gradient(transparent,#000 18%)}
+.is-live .mchat > ul{position:absolute;left:0;right:0;top:0;will-change:transform}
+.is-live .mchat li{will-change:opacity,transform;transform-origin:50% 100%}
+.is-live .mhint{display:block;text-align:center}
+/* hobbies row */
+.hrow{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 6px;scrollbar-width:none}
+.hrow::-webkit-scrollbar{display:none}
+.hrow > li{flex:0 0 190px;scroll-snap-align:start}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-80px;z-index:100;background:#17160F;color:#F4F2EC;padding:12px 18px;border-radius:999px;font:500 14px/1 var(--body);text-decoration:none}.skip:focus{top:10px;color:#F4F2EC}
+.foot-links{display:flex;flex-wrap:wrap;gap:10px}
+.foot-links a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid #17160F;border-radius:999px;color:#17160F;text-decoration:none;font:500 15px/1 var(--body)}
+.bub-q{align-self:flex-end;max-width:80%;padding:11px 16px;border-radius:20px 20px 6px 20px;background:#17160F;color:#F4F2EC;font:600 14px/1.3 var(--disp)}
+@keyframes pgIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+main > *,main ~ footer{animation:pgIn .8s cubic-bezier(.2,.7,.2,1) both}
+main > *:nth-child(2){animation-delay:.1s}main > *:nth-child(n+3),main ~ footer{animation-delay:.18s}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div id="top" class="{{liveCls}}" style="position: relative; width: 100%; max-width: 430px; margin: 0 auto; min-height: 5880px; display: flex; flex-direction: column; background: #F4F2EC; overflow-x: clip;">
+<a class="skip" href="#main">Skip to main content</a>
+<header class="mnav {{navCls}}">
+<nav class="mpill" aria-label="Primary">
+<a class="home" href="MHome.dc.html" aria-label="Louis Freeman, home" aria-current="page"><img src="/_blob/fdb51469796b01eb2b9a5f74f75d9dd9" alt=""></a>
+<a href="MWork.dc.html">Work</a>
+<a href="MAbout.dc.html">About</a>
+<button type="button" aria-expanded="{{cOpen}}" aria-controls="mmenu" onClick="{{toggleContact}}">Contact<span class="plus" aria-hidden="true"></span></button>
+<div id="mmenu" class="mmenu {{cCls}}"><a href="mailto:hello@louisfreeman.co.uk">Email <span aria-hidden="true">→</span></a><a href="https://www.linkedin.com/in/louis-freeman7/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/Louisf77" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></div>
+</nav>
+</header>
+<main id="main" style="display: flex; flex-direction: column;">
+<section aria-labelledby="hero-title" style="padding: 0 16px 36px; display: flex; flex-direction: column; gap: 18px;">
+<figure style="position: relative; width: 358px; max-width: 100%; height: 322px; margin: 0 auto; overflow: hidden;">
+<video id="hero-video" src="/_blob/c864ef3237f8f0e0a81ec2ee3954d363" poster="/_blob/dc53cadcce8ff630c8dd5405dc83ec48" muted="" loop="" playsinline="" autoplay="" preload="auto" aria-label="Animated illustration of Louis coding at a laptop" class="hvid" style="display: block; width: 358px; height: 358px; margin-top: -26px; object-fit: cover;"></video>
+</figure>
+<h1 id="hero-title" style="min-height: 2.1em; font: 500 44px/1.05 var(--disp); letter-spacing: -0.03em;"><span class="sr">Hi, I'm Louis — a senior software engineer and problem solver.</span><span aria-hidden="true">{{typed}}</span><span class="caret {{caretCls}}" aria-hidden="true"></span></h1>
+<div style="display: flex; justify-content: space-between; align-items: center;"><p style="font: 500 16px/1.3 var(--body); color: #3E3C35;">Senior Full Stack Engineer</p><a href="#experience" class="k" style="display: flex; align-items: center; gap: 10px; color: #17160F; text-decoration: none; min-height: 44px;">Scroll<span class="cue-line" aria-hidden="true"></span></a></div>
+</section>
+<section id="experience" class="sec" aria-labelledby="exp-title" style="border-top: 1px solid #D6D1C4; border-radius: 32px 32px 0 0; background: #F4F2EC;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><h2 id="exp-title" class="h2">Experience</h2><span class="k" aria-live="polite">{{dcount}}</span></div>
+<div class="mdeck" onTouchStart="{{tStart}}" onTouchEnd="{{tEnd}}">
+<article class="mdc {{k0}}" style="z-index: 10;" aria-hidden="{{h0}}">
+<span class="dmark" aria-hidden="true">Hnry</span>
+<div style="display: flex; flex-direction: column; gap: 9px;"><span class="tagm" style="align-self: flex-start; border-color: #17160F; color: #17160F;">Jan 2024 — Present</span><h3 style="font: 600 28px/1.02 var(--disp); letter-spacing: -0.035em;">Hnry</h3><p style="font: 500 15px/1.35 var(--disp); color: #3E3C35;">Senior Software Engineer</p></div>
+<p class="sum" style="font-size: 14.5px; line-height: 1.55; color: #3E3C35;">Multi-region financial services platform (UK, Australia, New Zealand) handling customers&#x27; income, tax and payments. One of the first two members of the UK engineering team, now eight strong within a 70-person engineering function.</p>
+<ul style="display: flex; flex-direction: column; gap: 7px;"><li class="hl"><i></i><span>Owned the integration of a new UK banking and card provider end to end, from SOAP provisioning to virtual card issuing, real-time transaction processing and settlement reconciliation</span></li><li class="hl"><i></i><span>Rolled out a third-party identity verification provider across the UK, Australia and New Zealand</span></li><li class="hl"><i></i><span>Led full-stack delivery of the UK Self Assessment tax return</span></li></ul>
+<div style="margin-top: auto;"><ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Ruby on Rails</li><li class="tagm">React</li><li class="tagm">TypeScript</li><li class="tagm">PostgreSQL</li><li class="tagm">AWS</li><li class="tagm">Terraform</li></ul></div>
+</article>
+<article class="mdc {{k1}}" style="z-index: 9;" aria-hidden="{{h1}}">
+<span class="dmark sm" aria-hidden="true">Soho House</span>
+<div style="display: flex; flex-direction: column; gap: 9px;"><span class="tagm" style="align-self: flex-start; border-color: #17160F; color: #17160F;">Nov 2021 — Dec 2023</span><h3 style="font: 600 28px/1.02 var(--disp); letter-spacing: -0.035em;">Soho House</h3><p style="font: 500 15px/1.35 var(--disp); color: #3E3C35;">Junior Ruby Developer</p></div>
+<p class="sum" style="font-size: 14.5px; line-height: 1.55; color: #3E3C35;">Global members&#x27; club and hospitality group; in-house engineering team working on internal platforms and integrations.</p>
+<p style="display: flex; gap: 12px; align-items: baseline; font-size: 14px; color: #3E3C35;"><span class="k">Time there</span>2 years, 2 months</p>
+<ul style="display: flex; flex-direction: column; gap: 7px;"><li class="hl"><i></i><span>Built internal developer tooling, including automating the GitHub review process</span></li><li class="hl"><i></i><span>Implemented security measures and took part in code review as author and reviewer</span></li><li class="hl"><i></i><span>Worked across databases and third-party API integrations in a multidisciplinary team</span></li></ul>
+<div style="margin-top: auto;"><ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Ruby</li><li class="tagm">Rails</li><li class="tagm">PostgreSQL</li><li class="tagm">GitHub Actions</li></ul></div>
+</article>
+<article class="mdc {{k2}}" style="z-index: 8;" aria-hidden="{{h2}}">
+<span class="dmark" aria-hidden="true">Academy</span>
+<div style="display: flex; flex-direction: column; gap: 9px;"><span class="tagm" style="align-self: flex-start; border-color: #17160F; color: #17160F;">2021</span><h3 style="font: 600 28px/1.02 var(--disp); letter-spacing: -0.035em;">Academy</h3><p style="font: 500 15px/1.35 var(--disp); color: #3E3C35;">Founding Scholar &amp; Trainee Software Engineer</p></div>
+<p class="sum" style="font-size: 14.5px; line-height: 1.55; color: #3E3C35;">Intensive software engineering programme.</p>
+<div style="margin-top: auto;"><ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">React</li><li class="tagm">Node.js</li><li class="tagm">TypeScript</li><li class="tagm">PostgreSQL</li></ul></div>
+</article>
+<article class="mdc {{k3}}" style="z-index: 7;" aria-hidden="{{h3}}">
+<span class="dmark" aria-hidden="true">NHS</span>
+<div style="display: flex; flex-direction: column; gap: 9px;"><span class="tagm" style="align-self: flex-start; border-color: #17160F; color: #17160F;">Nov 2020 — May 2021</span><h3 style="font: 600 28px/1.02 var(--disp); letter-spacing: -0.035em;">NHS</h3><p style="font: 500 15px/1.35 var(--disp); color: #3E3C35;">Digital Integration &amp; Support Liaison Officer</p></div>
+<p class="sum" style="font-size: 14.5px; line-height: 1.55; color: #3E3C35;">National programme helping care homes adopt NHS digital technology.</p>
+<p style="display: flex; gap: 12px; align-items: baseline; font-size: 14px; color: #3E3C35;"><span class="k">Time there</span>7 months</p>
+<ul style="display: flex; flex-direction: column; gap: 7px;"><li class="hl"><i></i><span>Led a small data and analytics team building a dashboard that combined large data sets</span></li><li class="hl"><i></i><span>Delivered real-time performance indicators at London, borough and care-home level</span></li></ul>
+</article>
+<article class="mdc {{k4}}" style="z-index: 6;" aria-hidden="{{h4}}">
+<span class="dmark sm" aria-hidden="true">MediaVision</span>
+<div style="display: flex; flex-direction: column; gap: 9px;"><span class="tagm" style="align-self: flex-start; border-color: #17160F; color: #17160F;">Sep — Nov 2020</span><h3 style="font: 600 28px/1.02 var(--disp); letter-spacing: -0.035em;">MediaVision</h3><p style="font: 500 15px/1.35 var(--disp); color: #3E3C35;">Digital Product Performance Executive</p></div>
+<p class="sum" style="font-size: 14.5px; line-height: 1.55; color: #3E3C35;">SEO team at a digital performance agency; analysed client traffic and wrote Python scripts, making recommendations that improved user interaction.</p>
+<p style="display: flex; gap: 12px; align-items: baseline; font-size: 14px; color: #3E3C35;"><span class="k">Time there</span>3 months</p>
+<div style="margin-top: auto;"><ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Python</li></ul></div>
+</article>
+<article class="mdc {{k5}}" style="z-index: 5;" aria-hidden="{{h5}}">
+<span class="dmark" aria-hidden="true">UON</span>
+<div style="display: flex; flex-direction: column; gap: 9px;"><span class="tagm" style="align-self: flex-start; border-color: #17160F; color: #17160F;">2016 — 2020 · Education</span><h3 style="font: 600 28px/1.02 var(--disp); letter-spacing: -0.035em;">University of Nottingham</h3><p style="font: 500 15px/1.35 var(--disp); color: #3E3C35;">MEng Product Design &amp; Manufacture Engineering, 2:1</p></div>
+<p class="sum" style="font-size: 14.5px; line-height: 1.55; color: #3E3C35;">Integrated master&#x27;s degree in product design and manufacturing engineering.</p>
+<p style="display: flex; gap: 12px; align-items: baseline; font-size: 14px; color: #3E3C35;"><span class="k">Time there</span>4 years</p>
+<ul style="display: flex; flex-direction: column; gap: 7px;"><li class="hl"><i></i><span>Final year project: a consumer product that turns rainwater into clean drinking water</span></li></ul>
+<div style="margin-top: auto;"><ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Engineering maths</li><li class="tagm">CAD</li><li class="tagm">3D visualisation</li><li class="tagm">UI/UX design</li></ul></div>
+</article>
+</div>
+<div class="dnav"><button type="button" aria-label="Previous role" onClick="{{prev}}" disabled="{{atStart}}">←</button><div class="dbar" aria-hidden="true"><sc-for list="{{bars}}" as="b" hint-placeholder-count="6"><i class="{{b.cls}}"></i></sc-for></div><button type="button" aria-label="Next role" onClick="{{next}}" disabled="{{atEnd}}">→</button></div>
+</section>
+<section id="work" class="sec" aria-labelledby="work-title" style="background: #FBFAF6; border-top: 1px solid #D6D1C4; border-radius: 32px 32px 0 0;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding-bottom: 20px; border-bottom: 1px solid #17160F;"><h2 id="work-title" class="h2">Selected work</h2><p style="font-size: 15.5px; line-height: 1.55; color: #3E3C35;">Four projects from Hnry: two regulated integrations, one product built across the stack, and the tooling that helps the team ship them.</p></div>
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<article class="card stk" style="top: 72px; z-index: 1; background: #FBFAF6; padding: 12px 12px 22px; display: flex; flex-direction: column; gap: 16px;">
+<div class="viz" aria-hidden="false"><div><dc-import name="VizCards" hint-size="720px,440px"></dc-import></div></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 0 6px;"><p class="k" style="display: flex; justify-content: space-between;"><span>01</span><span>2024–25</span></p>
+<h3 style="font: 600 26px/1.05 var(--disp); letter-spacing: -0.035em;">Card Issuing, End to End</h3>
+<p style="font: 500 16px/1.45 var(--disp);">Replacing an incumbent banking and card provider from API client to the card in the customer's hand.</p>
+<ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Rails</li><li class="tagm">SOAP</li><li class="tagm">SFTP/PGP</li><li class="tagm">React</li></ul>
+<a class="btn" href="MWork.dc.html" style="align-self: flex-start; margin-top: 4px;">Read case study →</a>
+</div></article>
+<article class="card stk" style="top: 86px; z-index: 2; background: #EFEBE2; padding: 12px 12px 22px; display: flex; flex-direction: column; gap: 16px;">
+<div class="viz" aria-hidden="false"><div><dc-import name="VizIdentity" hint-size="720px,440px"></dc-import></div></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 0 6px;"><p class="k" style="display: flex; justify-content: space-between;"><span>02</span><span>2024–25</span></p>
+<h3 style="font: 600 26px/1.05 var(--disp); letter-spacing: -0.035em;">Identity Verification in Three Countries</h3>
+<p style="font: 500 16px/1.45 var(--disp);">One identity verification rollout across the UK, Australia and New Zealand.</p>
+<ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Rails</li><li class="tagm">React</li><li class="tagm">Webhooks</li><li class="tagm">AML/KYC</li></ul>
+<a class="btn" href="MWork.dc.html" style="align-self: flex-start; margin-top: 4px;">Read case study →</a>
+</div></article>
+<article class="card stk" style="top: 100px; z-index: 3; background: #FBFAF6; padding: 12px 12px 22px; display: flex; flex-direction: column; gap: 16px;">
+<div class="viz" aria-hidden="false"><div><dc-import name="VizTax" hint-size="720px,440px"></dc-import></div></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 0 6px;"><p class="k" style="display: flex; justify-content: space-between;"><span>03</span><span>2025</span></p>
+<h3 style="font: 600 26px/1.05 var(--disp); letter-spacing: -0.035em;">UK Self Assessment Tax Return</h3>
+<p style="font: 500 16px/1.45 var(--disp);">A full-stack tax return, designed to be reused across jurisdictions.</p>
+<ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">React</li><li class="tagm">React Hook Form</li><li class="tagm">Rails</li><li class="tagm">HMRC APIs</li></ul>
+<a class="btn" href="MWork.dc.html" style="align-self: flex-start; margin-top: 4px;">Read case study →</a>
+</div></article>
+<article class="card stk" style="top: 114px; z-index: 4; background: #EFEBE2; padding: 12px 12px 22px; display: flex; flex-direction: column; gap: 16px;">
+<div class="viz" aria-hidden="false"><div><dc-import name="VizAI" hint-size="720px,440px"></dc-import></div></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 0 6px;"><p class="k" style="display: flex; justify-content: space-between;"><span>04</span><span>2025–26</span></p>
+<h3 style="font: 600 26px/1.05 var(--disp); letter-spacing: -0.035em;">AI Engineering &amp; Developer Tooling</h3>
+<p style="font: 500 16px/1.45 var(--disp);">Getting practical value out of AI across engineering, operations and marketing.</p>
+<ul style="display: flex; flex-wrap: wrap; gap: 6px;" aria-label="Technologies"><li class="tagm">Claude Code</li><li class="tagm">Plugins &amp; hooks</li><li class="tagm">MCP</li><li class="tagm">Agent workflows</li></ul>
+<a class="btn" href="MWork.dc.html" style="align-self: flex-start; margin-top: 4px;">Read case study →</a>
+</div></article>
+</div>
+<a class="btn" href="MWork.dc.html" style="align-self: stretch;">View all work →</a>
+</section>
+<section id="capabilities" class="sec" aria-labelledby="cap-title" style="background: #EFEBE2; border-top: 1px solid #D6D1C4; border-radius: 32px 32px 0 0; padding-left: 0; padding-right: 0;">
+<div style="padding: 0 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;"><h2 id="cap-title" class="h2">What I do</h2><p style="font-size: 15.5px; line-height: 1.55; color: #3E3C35;">Leading a team, building with AI, and shipping across the whole stack.</p></div>
+<div style="padding: 0 16px; display: flex; flex-direction: column; gap: 12px;">
+<div class="capc stk" style="top: 72px; z-index: 1;"><h3 style="font: 600 26px/1.1 var(--display); letter-spacing: -0.02em; text-align: center;">Leadership</h3><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm">Line management</li><li class="tagm">Coaching &amp; development</li><li class="tagm">Chapter sessions</li><li class="tagm">Technical direction</li></ul></div>
+<div class="capc stk" style="top: 84px; z-index: 2;"><h3 style="font: 600 26px/1.1 var(--display); letter-spacing: -0.02em; text-align: center;">AI</h3><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm">Claude Code</li><li class="tagm">Plugins, skills &amp; hooks</li><li class="tagm">Agent workflow design</li><li class="tagm">MCP integrations</li><li class="tagm">Internal developer tooling</li></ul></div>
+<div class="capc stk" style="top: 96px; z-index: 3;"><h3 style="font: 600 26px/1.1 var(--display); letter-spacing: -0.02em; text-align: center;">Front end</h3><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm">React 18</li><li class="tagm">TypeScript</li><li class="tagm">Jest</li><li class="tagm">Tailwind CSS</li><li class="tagm">Accessibility</li></ul></div>
+<div class="capc stk" style="top: 108px; z-index: 4;"><h3 style="font: 600 26px/1.1 var(--display); letter-spacing: -0.02em; text-align: center;">Back end &amp; platform</h3><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm">Ruby on Rails</li><li class="tagm">Gem authoring</li><li class="tagm">PostgreSQL</li><li class="tagm">RSpec</li><li class="tagm">Capybara</li><li class="tagm">REST API design</li><li class="tagm">AWS (SQS, S3)</li><li class="tagm">Terraform</li><li class="tagm">Docker</li><li class="tagm">Kubernetes</li><li class="tagm">CI/CD</li></ul></div>
+<div class="dom" style="display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 22px 18px; border: 1px solid #D6D1C4; border-radius: 20px; text-align: center;"><span class="k">Domain</span><ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;"><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">Banking &amp; card integrations</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">SOAP/REST</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">SFTP &amp; PGP</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">OAuth</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">Strong Customer Authentication</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">Confirmation of Payee</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">AML/KYC</li><li class="tagm" style="border-color: #B9C9BC; color: #1F4232;">Multi-jurisdiction architecture</li></ul></div>
+</div>
+<div class="marquee" style="margin-top: 20px;" role="img" aria-label="Stack: React, TypeScript, Ruby, Rails, PostgreSQL, AWS, Terraform, Docker, Kubernetes, Tailwind, Jest, Claude"><div class="mq-track" aria-hidden="true"><span class="mq-item">React<span class="mq-dot"></span></span><span class="mq-item">TypeScript<span class="mq-dot"></span></span><span class="mq-item">Ruby<span class="mq-dot"></span></span><span class="mq-item">Rails<span class="mq-dot"></span></span><span class="mq-item">PostgreSQL<span class="mq-dot"></span></span><span class="mq-item">AWS<span class="mq-dot"></span></span><span class="mq-item">Terraform<span class="mq-dot"></span></span><span class="mq-item">Docker<span class="mq-dot"></span></span><span class="mq-item">Kubernetes<span class="mq-dot"></span></span><span class="mq-item">Tailwind<span class="mq-dot"></span></span><span class="mq-item">Jest<span class="mq-dot"></span></span><span class="mq-item">Claude<span class="mq-dot"></span></span><span class="mq-item">React<span class="mq-dot"></span></span><span class="mq-item">TypeScript<span class="mq-dot"></span></span><span class="mq-item">Ruby<span class="mq-dot"></span></span><span class="mq-item">Rails<span class="mq-dot"></span></span><span class="mq-item">PostgreSQL<span class="mq-dot"></span></span><span class="mq-item">AWS<span class="mq-dot"></span></span><span class="mq-item">Terraform<span class="mq-dot"></span></span><span class="mq-item">Docker<span class="mq-dot"></span></span><span class="mq-item">Kubernetes<span class="mq-dot"></span></span><span class="mq-item">Tailwind<span class="mq-dot"></span></span><span class="mq-item">Jest<span class="mq-dot"></span></span><span class="mq-item">Claude<span class="mq-dot"></span></span></div></div>
+</section>
+</main>
+<footer id="contact" style="padding: 72px 16px 28px; display: flex; flex-direction: column; gap: 48px; border-top: 1px solid #D6D1C4;">
+<div style="display: flex; flex-direction: column; gap: 22px;">
+<h2 style="font: 600 64px/.92 var(--disp); letter-spacing: -0.05em;">Let's <span style="color: #2F5D45;">connect.</span></h2>
+<a href="mailto:hello@louisfreeman.co.uk" style="align-self: flex-start; font: 600 20px/1.2 var(--disp); color: #17160F; text-decoration: none; border-bottom: 1px solid #17160F; padding-bottom: 4px;">hello@louisfreeman.co.uk</a>
+<div class="foot-links"><a href="https://www.linkedin.com/in/louis-freeman7/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/Louisf77" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></div>
+<p style="font-size: 15px; line-height: 1.6; color: #5B584F;">Based in London. Happy to talk about fintech integrations, engineering leadership or AI tooling.</p>
+</div>
+<div class="k" style="display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid #17160F;"><span style="display: flex; align-items: center; gap: 10px;"><img src="/_blob/fdb51469796b01eb2b9a5f74f75d9dd9" alt="" style="height: 20px; width: auto;">© 2026 Louis Freeman</span><a href="#top" style="color: #17160F; text-decoration: none; min-height: 44px; display: flex; align-items: center;">Top ↑</a></div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5880}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { scrolled: false, cOpen: false, live: false, typed: "Hi, I'm Louis.", typing: false, dcur: 0, dauto: true }; }
+  componentDidMount() {
+    var self = this;
+    this.onS = function () { var s = (window.scrollY || 0) > 8; if (s !== self.state.scrolled) self.setState({ scrolled: s }); };
+    window.addEventListener("scroll", this.onS, { passive: true });
+    this.reduced = false;
+    try { this.reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    this.onR = function () { var live = !self.reduced && window.innerHeight < 1500; if (live !== self.state.live) self.setState({ live: live }); };
+    this.onR(); this.poll = setInterval(this.onR, 700);
+    if (this.mount) this.mount();
+  }
+  componentWillUnmount() { window.removeEventListener("scroll", this.onS); clearInterval(this.poll); if (this.unmount) this.unmount(); }
+  baseVals() { var s = this.state, self = this;
+    return { liveCls: s.live ? "is-live" : "", navCls: s.scrolled ? "is-scrolled" : "", cOpen: s.cOpen ? "true" : "false", cCls: s.cOpen ? "open" : "",
+      toggleContact: function () { self.setState({ cOpen: !self.state.cOpen }); } }; }
+  mount() {
+    var self = this, reduced = false;
+    try { reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    var PREFIX = "Hi, I'm ", ENDINGS = ["Louis.", "a senior software engineer.", "a problem solver.", "a team lead."];
+    var kick = function () { var v = document.getElementById("hero-video"); if (!v) return; v.muted = true; v.playsInline = true; if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } };
+    kick(); this.vk = setInterval(kick, 900);
+    this.dk = setInterval(function () { if (self.state.dauto && !reduced) self.setState({ dcur: (self.state.dcur + 1) % 6 }); }, 4200);
+    if (reduced) return;
+    var w = 0, len = PREFIX.length + ENDINGS[0].length, phase = "hold";
+    var step = function () {
+      var full = PREFIX + ENDINGS[w];
+      if (phase === "hold") { phase = "del"; self.setState({ typing: false }); self.t = setTimeout(step, 2200); return; }
+      if (phase === "del") { len -= 1; self.setState({ typed: full.slice(0, len), typing: true });
+        if (len <= PREFIX.length) { w = (w + 1) % ENDINGS.length; phase = "type"; } self.t = setTimeout(step, 34); return; }
+      full = PREFIX + ENDINGS[w]; len += 1; self.setState({ typed: full.slice(0, len), typing: true });
+      if (len >= full.length) phase = "hold";
+      self.t = setTimeout(step, 55 + Math.random() * 70);
+    };
+    this.t = setTimeout(step, 1600);
+  }
+  unmount() { clearTimeout(this.t); clearInterval(this.vk); clearInterval(this.dk); }
+  go(i) { var n = 6; i = Math.max(0, Math.min(n - 1, i)); if (i !== this.state.dcur) this.setState({ dcur: i }); }
+  deckVals() {
+    var s = this.state, self = this, v = {}, n = 6;
+    for (var i = 0; i < n; i++) {
+      v["k" + i] = i < s.dcur ? "gone" : i === s.dcur ? "top" : i === s.dcur + 1 ? "n1" : i === s.dcur + 2 ? "n2" : "far";
+      v["h" + i] = i === s.dcur ? "false" : "true";
+    }
+    var bars = []; for (var j = 0; j < n; j++) bars.push({ cls: j === s.dcur ? "on" : "" });
+    var stop = function () { self.setState({ dauto: false }); };
+    return Object.assign(v, { bars: bars, dcount: (s.dcur + 1 < 10 ? "0" : "") + (s.dcur + 1) + " / 06",
+      atStart: s.dcur === 0, atEnd: s.dcur === n - 1,
+      prev: function () { stop(); self.go(self.state.dcur - 1); }, next: function () { stop(); self.go(self.state.dcur + 1); },
+      tStart: function (e) { var t = e.touches && e.touches[0]; self.tx = t ? t.clientX : null; self.ty = t ? t.clientY : null; },
+      tEnd: function (e) { var t = e.changedTouches && e.changedTouches[0]; if (!t || self.tx == null) return;
+        var dx = t.clientX - self.tx, dy = t.clientY - self.ty; self.tx = null;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { stop(); self.go(self.state.dcur + (dx < 0 ? 1 : -1)); } } });
+  }
+  renderVals() { return Object.assign(this.baseVals(), Object.assign(this.deckVals(), { typed: this.state.typed, caretCls: this.state.typing ? "" : "is-hold" })); }
+}
+</script>
+</body>
+</html>

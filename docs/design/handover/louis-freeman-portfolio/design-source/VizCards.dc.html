@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fig. 01 — Card issuing</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&amp;family=Karla:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div role="img" aria-label="Diagram: an API client drives SOAP provisioning, virtual card issuing and real-time transactions, then settlement files are fetched over SFTP, PGP-decrypted, processed per transaction, reconciled and reported for compliance." style="position: relative; width: 720px; height: 440px; overflow: hidden; background-color: #EAE6DC; background-image: linear-gradient(rgba(23,22,15,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(23,22,15,0.055) 1px, transparent 1px); background-size: 24px 24px; font-family: 'Karla','Helvetica Neue',sans-serif; color: #17160F;">
+
+<div style="position: absolute; left: 28px; top: 36px; width: 330px; display: flex; flex-direction: column; background: #F4F2EC; border: 1px solid #17160F; border-radius: 8px; overflow: hidden;">
+<div style="display: flex; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid #17160F; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em;">
+<span>REAL-TIME TRANSACTIONS</span><span style="color: #2F5D45;">● LIVE</span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #D6D1C4; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">
+<span style="width: 8px; height: 8px; border-radius: 50%; background: #2F5D45;"></span><span style="flex-grow: 1;">AUTHORISED</span><span>£ ••.••</span><span style="color: #5B584F;">00:00:01</span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #D6D1C4; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">
+<span style="width: 8px; height: 8px; border-radius: 50%; border: 1px solid #17160F; box-sizing: border-box;"></span><span style="flex-grow: 1;">CLEARED</span><span>£ ••.••</span><span style="color: #5B584F;">00:00:04</span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">
+<span style="width: 8px; height: 8px; border-radius: 2px; background: #17160F;"></span><span style="flex-grow: 1;">SETTLED</span><span>£ ••.••</span><span style="color: #5B584F;">T+1</span>
+</div>
+</div>
+
+<div style="position: absolute; left: 372px; top: 58px; width: 272px; height: 170px; border: 1px dashed #5B584F; border-radius: 14px; transform: rotate(-12deg); opacity: 0.55;"></div>
+<div style="position: absolute; left: 412px; top: 40px; width: 272px; height: 170px; box-sizing: border-box; padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid #17160F; border-radius: 14px; background: #F4F2EC; transform: rotate(-5deg); box-shadow: 0 26px 40px -28px rgba(23,22,15,0.6);">
+<div style="display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.16em;">
+<span>VIRTUAL · DEBIT</span>
+<svg width="22" height="22" aria-hidden="true"><path d="M7 6 C10 9 10 13 7 16" fill="none" stroke="#17160F"></path><path d="M11 4 C15 8 15 14 11 18" fill="none" stroke="#17160F"></path><path d="M15 2 C20 7 20 15 15 20" fill="none" stroke="#17160F"></path></svg>
+</div>
+<div style="width: 40px; height: 30px; border: 1px solid #17160F; border-radius: 6px; background: #DDD6C4;"></div>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; font-family: 'JetBrains Mono', ui-monospace, monospace;">
+<span style="font-size: 14px; letter-spacing: 0.12em;">•••• •••• •••• 0000</span><span style="font-size: 10px; color: #5B584F;">••/••</span>
+</div>
+</div>
+
+<svg width="720" height="440" aria-hidden="true" style="position: absolute; left: 0; top: 0; pointer-events: none;">
+<path d="M178 270 H201" fill="none" stroke="#17160F"></path><path d="M196 266 L201 270 L196 274" fill="none" stroke="#17160F"></path>
+<path d="M352 270 H375" fill="none" stroke="#17160F"></path><path d="M370 266 L375 270 L370 274" fill="none" stroke="#17160F"></path>
+<path d="M526 270 H549" fill="none" stroke="#17160F"></path><path d="M544 266 L549 270 L544 274" fill="none" stroke="#17160F"></path>
+<path d="M625 290 V315 H86 V339" fill="none" stroke="#17160F" style="stroke-dasharray: 3 4;"></path><path d="M82 334 L86 339 L90 334" fill="none" stroke="#17160F"></path>
+<path d="M144 360 H167" fill="none" stroke="#17160F"></path><path d="M162 356 L167 360 L162 364" fill="none" stroke="#17160F"></path>
+<path d="M284 360 H307" fill="none" stroke="#17160F"></path><path d="M302 356 L307 360 L302 364" fill="none" stroke="#17160F"></path>
+<path d="M424 360 H447" fill="none" stroke="#17160F"></path><path d="M442 356 L447 360 L442 364" fill="none" stroke="#17160F"></path>
+<path d="M564 360 H587" fill="none" stroke="#17160F"></path><path d="M582 356 L587 360 L582 364" fill="none" stroke="#17160F"></path>
+</svg>
+
+<div style="position: absolute; left: 28px; top: 250px; width: 150px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">API client</div>
+<div style="position: absolute; left: 202px; top: 250px; width: 150px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">SOAP provisioning</div>
+<div style="position: absolute; left: 376px; top: 250px; width: 150px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Virtual card</div>
+<div style="position: absolute; left: 550px; top: 250px; width: 150px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Real-time txns</div>
+
+<div style="position: absolute; left: 28px; top: 340px; width: 116px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">SFTP fetch</div>
+<div style="position: absolute; left: 168px; top: 340px; width: 116px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">PGP decrypt</div>
+<div style="position: absolute; left: 308px; top: 340px; width: 116px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Per-txn</div>
+<div style="position: absolute; left: 448px; top: 340px; width: 116px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #17160F; border-radius: 6px; background: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Reconcile</div>
+<div style="position: absolute; left: 588px; top: 340px; width: 116px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #2F5D45; border-radius: 6px; background: #2F5D45; color: #F4F2EC; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;">Compliance</div>
+
+<div style="position: absolute; left: 28px; top: 408px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #5B584F;">FIG. 01 — ISSUING → PROCESSING → SETTLEMENT</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":720,"height":440}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
