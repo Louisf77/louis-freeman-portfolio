@@ -18,5 +18,5 @@
 .DS_Store
 *.local
 
-/app/frontend/routes.js
-/app/frontend/routes.d.ts
+/app/javascript/lib/routes.js
+/app/javascript/lib/routes.d.ts
