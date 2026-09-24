@@ -1,0 +1,65 @@
+{
+  "work": {
+    "header": {
+      "intro": "[redacted]. [redacted]."
+    },
+    "case_studies": [
+      {
+        "id": 1,
+        "slug": "[redacted]",
+        "number": "01",
+        "title": "[redacted]",
+        "years_label": "2024–25",
+        "headline": "Replacing an [redacted] [redacted].",
+        "description": "[redacted] [redacted], a [redacted] ([redacted], [redacted], [redacted]), and [redacted].",
+        "role": "Lead engineer",
+        "tags": ["Rails", "SOAP", "[redacted]", "React"],
+        "diagram_key": "cards",
+        "metric": null,
+        "position": 1
+      },
+      {
+        "id": 2,
+        "slug": "[redacted]",
+        "number": "02",
+        "title": "[redacted]",
+        "years_label": "2024–25",
+        "headline": "[redacted].",
+        "description": "[redacted], [redacted]. [redacted].",
+        "role": "Lead engineer",
+        "tags": ["Rails", "React", "Webhooks", "AML/KYC"],
+        "diagram_key": "identity",
+        "metric": null,
+        "position": 2
+      },
+      {
+        "id": 3,
+        "slug": "[redacted]",
+        "number": "03",
+        "title": "[redacted]",
+        "years_label": "2025",
+        "headline": "A full-stack tax return, [redacted].",
+        "description": "[redacted], a [redacted] [redacted] with [redacted], [redacted] with a [redacted]. [redacted] and [redacted].",
+        "role": "[redacted]",
+        "tags": ["React", "[redacted]", "Rails", "[redacted]"],
+        "diagram_key": "tax",
+        "metric": null,
+        "position": 3
+      },
+      {
+        "id": 4,
+        "slug": "[redacted]",
+        "number": "04",
+        "title": "[redacted]",
+        "years_label": "2025–26",
+        "headline": "[redacted].",
+        "description": "[redacted] [redacted], the [redacted] (intake → planning → per-commit lint and spec gating → pre-PR validation) and [redacted], designed to be [redacted] through shared configuration.",
+        "role": "[redacted]",
+        "tags": ["Claude Code", "[redacted]", "MCP", "[redacted]"],
+        "diagram_key": "ai",
+        "metric": null,
+        "position": 4
+      }
+    ]
+  }
+}

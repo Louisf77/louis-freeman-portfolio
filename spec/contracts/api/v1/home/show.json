@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://louisfreeman.co.uk/contracts/api/v1/home/show.json",
+  "type": "object",
+  "required": ["home"],
+  "additionalProperties": false,
+  "properties": {
+    "home": {
+      "type": "object",
+      "required": ["hero", "experience", "selected_work", "capabilities"],
+      "additionalProperties": false,
+      "properties": {
+        "hero": {
+          "type": "object",
+          "required": ["greeting_prefix", "tagline", "greetings"],
+          "additionalProperties": false,
+          "properties": {
+            "greeting_prefix": { "type": "string" },
+            "tagline": { "type": "string" },
+            "greetings": { "type": "array", "items": { "$ref": "../shared.json#/$defs/ListItem" } }
+          }
+        },
+        "experience": {
+          "type": "object",
+          "required": ["experiences"],
+          "additionalProperties": false,
+          "properties": {
+            "experiences": {
+              "type": "array",
+              "items": { "$ref": "../shared.json#/$defs/Experience" }
+            }
+          }
+        },
+        "selected_work": {
+          "type": "object",
+          "required": ["intro", "case_studies"],
+          "additionalProperties": false,
+          "properties": {
+            "intro": { "type": "string" },
+            "case_studies": {
+              "type": "array",
+              "items": { "$ref": "../shared.json#/$defs/CaseStudy" }
+            }
+          }
+        },
+        "capabilities": {
+          "type": "object",
+          "required": ["title", "intro", "groups", "domains", "ticker"],
+          "additionalProperties": false,
+          "properties": {
+            "title": { "type": "string" },
+            "intro": { "type": "string" },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "title", "position", "capabilities"],
+                "additionalProperties": false,
+                "properties": {
+                  "id": { "type": "integer" },
+                  "title": { "type": "string" },
+                  "position": { "type": "integer" },
+                  "capabilities": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["id", "name", "position"],
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": { "type": "integer" },
+                        "name": { "type": "string" },
+                        "position": { "type": "integer" }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "domains": { "type": "array", "items": { "$ref": "../shared.json#/$defs/LabelItem" } },
+            "ticker": { "type": "array", "items": { "$ref": "../shared.json#/$defs/LabelItem" } }
+          }
+        }
+      }
+    }
+  }
+}

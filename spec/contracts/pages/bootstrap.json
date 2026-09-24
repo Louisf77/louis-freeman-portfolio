@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://louisfreeman.co.uk/contracts/pages/bootstrap.json",
+  "type": "object",
+  "required": ["ui", "queries"],
+  "additionalProperties": false,
+  "properties": {
+    "ui": { "type": "object", "additionalProperties": { "type": "string" } },
+    "queries": {
+      "oneOf": [
+        { "$ref": "#/$defs/HomeQueries" },
+        { "$ref": "#/$defs/WorkQueries" },
+        { "$ref": "#/$defs/AboutQueries" }
+      ]
+    }
+  },
+  "$defs": {
+    "AboutQueries": {
+      "type": "object",
+      "required": ["profile", "about"],
+      "additionalProperties": false,
+      "properties": {
+        "profile": { "$ref": "../api/v1/profile/show.json" },
+        "about": { "$ref": "../api/v1/about/show.json" }
+      }
+    },
+    "HomeQueries": {
+      "type": "object",
+      "required": ["profile", "home"],
+      "additionalProperties": false,
+      "properties": {
+        "profile": { "$ref": "../api/v1/profile/show.json" },
+        "home": { "$ref": "../api/v1/home/show.json" }
+      }
+    },
+    "WorkQueries": {
+      "type": "object",
+      "required": ["profile", "work"],
+      "additionalProperties": false,
+      "properties": {
+        "profile": { "$ref": "../api/v1/profile/show.json" },
+        "work": { "$ref": "../api/v1/work/show.json" }
+      }
+    }
+  }
+}
