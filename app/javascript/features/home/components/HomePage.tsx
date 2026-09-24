@@ -1,8 +1,8 @@
-interface HomeProps {
+interface HomePageProps {
   heading: string;
 }
 
-function Home({ heading }: HomeProps) {
+function HomePage({ heading }: HomePageProps) {
   return (
     <main>
       <h1>{heading}</h1>
@@ -10,4 +10,4 @@ function Home({ heading }: HomeProps) {
   );
 }
 
-export default Home;
+export default HomePage;
