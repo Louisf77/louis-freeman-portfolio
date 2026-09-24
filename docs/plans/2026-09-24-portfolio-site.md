@@ -1,13 +1,13 @@
 # Louis Freeman Portfolio — site build
 
 Notion: https://app.notion.com/p/3e5f4750980b81e6882ff1c95860aba7 · Size: App · Planned: 2026-09-24
-Approval: APPROVED by user 2026-09-24 — "Approved, hand it off"
+Approval: APPROVED by user 2026-09-24 — "Approved, carry on" (re-plan: Umami instead of GA4 + consent; FE source → app/javascript feature-based; json gem pin; merge policy). First approval: 2026-09-24 — "Approved, hand it off"
 
 ## Summary
 Build Louis Freeman's personal portfolio (Home, Work, About) from the approved Claude Design handoff, as a Rails 8 API + React 19 SPA. Audience: hiring managers, recruiters and engineers. It must be pixel-close to the mockups at 1440px and 390px, with the full scroll/motion system and a static fallback for reduced motion. It's hosted on Render (free tier first) at louisfreeman.co.uk.
 
 ## Scope
-- **In:** `/`, `/work`, `/about` (responsive, one site); read-only content API seeded from `content.json`; server-set meta/OG/JSON-LD per page; UI chrome via Rails I18n; GA4 behind cookie consent; sitemap/robots; OG share image; styled static 404/500; CI; Render deploy + custom domain.
+- **In:** `/`, `/work`, `/about` (responsive, one site); read-only content API seeded from `content.json`; server-set meta/OG/JSON-LD per page; UI chrome via Rails I18n; cookieless analytics (Umami Cloud, no consent banner) + a short privacy note; sitemap/robots; OG share image; styled static 404/500; CI; Render deploy + custom domain.
 - **Out:** `/admin` CMS · contact form (mailto + LinkedIn + GitHub only) · case-study detail pages ("Read case study →" goes to `/work#<slug>`) · launch/marketing material · blog · dark mode · translated content (the structure is i18n-ready for chrome only).
 
 ## Measurement & SEO
@@ -27,8 +27,8 @@ page_view (home) → case_study_view → contact_click
 |---|---|---|
 | case_study_view | A case-study card becomes ≥50% visible on `/work` (once per card per page view), or the accordion panel/mobile card's "Read case study →" is clicked on Home | case_study_slug, source (`work_scroll`\|`home_link`) |
 
-### Custom dimensions to register in GA4
-- method, location, page_type, case_study_slug, source (event-scoped)
+### Event properties (Umami)
+- method, location, page_type, case_study_slug, source (sent as event data)
 
 ### SEO
 - **Audience & topics:** hiring managers/recruiters for senior full-stack roles in London; topics: senior full stack engineer London, Ruby on Rails React engineer, fintech integrations engineer, AI engineering / Claude Code tooling.
@@ -38,7 +38,7 @@ page_view (home) → case_study_view → contact_click
 - **Brand:** "Louis Freeman — Senior Full Stack Engineer"; the share image comes from BT Creative: OG share image; sameAs https://www.linkedin.com/in/louis-freeman7/, https://github.com/Louisf77
 
 ### Consent
-Categories in use: necessary, analytics. GA4 loads only after analytics is granted (Consent Mode v2, default denied). Policy text: a short cookie notice written by DevOps's consent layer; Louis to review.
+None needed. Umami is cookieless (no cookies, no localStorage, nothing stored on the device), so PECR/ePrivacy consent doesn't apply, and the site sets no other non-essential storage. GA4 was dropped because it needs consent in the UK even after the DUAA 2025 statistical exemption. A short privacy note (what Umami collects, a link to Umami's policy) sits behind a footer "Privacy" link. **Constraint:** no feature may add non-essential cookies/storage without re-planning consent.
 
 ### Release & marketing material
 - **Needed:** default OG share image only (1200×630). No launch kit.
@@ -69,6 +69,9 @@ Categories in use: necessary, analytics. GA4 loads only after analytics is grant
 | i18n | UI chrome in `config/locales/en.yml` (`en.ui.*`), content single-locale | i18n-ready without translating content |
 | Metrics | Hidden when null | No "TBC" in production |
 | React Query / API modules / js-routes | Apply fully (the preferences stand now that there's an API) | User preferences |
+| Analytics | Umami Cloud (Hobby, free), cookieless; no consent banner; GA4 dropped | GA4 needs consent in UK/EU (DUAA exemption doesn't cover it); user's choice |
+| FE source layout | `app/javascript/`, feature-based (see §Architecture) | User's choice: industry-standard layout instead of vite_rails' `app/frontend` |
+| Merging | The orchestrator squash-merges a PR once CI is green and QA passes, **except large features (L-size) and scaffolding/infra PRs, which need the user's OK first** | User's choice |
 | Hosting | Render **Free** web + **free** Postgres, Frankfurt, prod only; upgrade to Starter + Basic DB before the free DB's 30-day expiry | User's choice; content is reseedable |
 | Error pages | Styled static `public/404.html`, `public/500.html` | Work even when the app is down |
 
@@ -77,10 +80,10 @@ Categories in use: necessary, analytics. GA4 loads only after analytics is grant
 |---|---|---|
 | FE framework / rendering | React 19 + TypeScript, client-rendered SPA bundled by Vite (`vite_rails`), mounted in a Rails layout | confirmed by user |
 | Routing (FE) | React Router (v7, library/declarative mode), real paths | confirmed by user |
-| Styling & tokens | Plain CSS: `app/frontend/styles/tokens.css` + `base.css` + per-component CSS modules. No Tailwind, no UI kit | confirmed by user (brief) |
+| Styling & tokens | Plain CSS: `app/javascript/styles/tokens.css` + `base.css` + per-component CSS modules. No Tailwind, no UI kit | confirmed by user (brief) |
 | Fonts | Google Fonts `<link>` with preconnect: Sora, Karla, JetBrains Mono | confirmed by user (brief) |
 | Animation | CSS + small `requestAnimationFrame` hooks; no animation library | confirmed by user (brief) |
-| Data fetching (FE) | `@tanstack/react-query`; typed fetchers in `app/frontend/api/*.ts` using `js-routes` path helpers; queries in `*.queries.ts` | confirmed by user |
+| Data fetching (FE) | `@tanstack/react-query`; typed fetchers in `app/javascript/features/<page>/api/*.ts` + shared client in `app/javascript/lib/` using `js-routes` path helpers; queries in `*.queries.ts` | confirmed by user |
 | Back end / DB | Rails 8 (full app, API controllers under `Api::V1`), PostgreSQL | confirmed by user |
 | Tests | RSpec (models, requests) + Capybara/Cuprite system specs; Vitest + Testing Library + jsdom | confirmed by user |
 | New dependencies | rspec-rails, factory_bot_rails, capybara, cuprite, json_schemer, rubocop (+rails/rspec/capybara/factory_bot), erb_lint, brakeman, bundler-audit, strong_migrations, bullet, js-routes; vite_rails, react, react-dom, react-router, @tanstack/react-query, vitest, @testing-library/{react,jest-dom,user-event}, jsdom, eslint + typescript-eslint + eslint-plugin-react + eslint-plugin-jsx-a11y, prettier | confirmed by user |
@@ -88,7 +91,8 @@ Categories in use: necessary, analytics. GA4 loads only after analytics is grant
 | Environments | production only | confirmed by user |
 | Domain | louisfreeman.co.uk (apex) + www → apex redirect | confirmed by user |
 | Cloudflare | DNS only (nameservers moved to Cloudflare) · proxy: no | confirmed by user |
-| Analytics | GA4 via gtag behind consent (Consent Mode v2) · no GTM | confirmed by user |
+| Analytics | Umami Cloud (Hobby, free), cookieless script + `umami.track` events · no GA4, no GTM, no consent banner | confirmed by user (re-plan) |
+| FE source layout | `app/javascript/` (vite_rails `sourceCodeDir`), feature-based: `entrypoints/`, `app/` (router, providers, layout), `features/{home,work,about}/{components,hooks,api}`, `components/` (shared UI), `hooks/`, `lib/`, `styles/`, `assets/`, `types/` | confirmed by user (re-plan) |
 | Repo | public GitHub `Louisf77/louis-freeman-portfolio` (via `gh` CLI) | confirmed by user |
 
 ## Architecture
@@ -98,13 +102,14 @@ Greenfield; the architecture was settled directly with the user (no options doc 
 Browser ──GET /, /work, /about──▶ PagesController (HTML)
                                    └─ layout: meta/OG/JSON-LD + <div id="root"> + <script id="bootstrap" type="application/json">
                                          bootstrap = { ui: I18n.t("ui"), queries: { <queryKey>: <same JSON as the API> } }
-React SPA (Vite) ─ React Router ─ pages/Home|Work|About
+React SPA (Vite, app/javascript) ─ React Router ─ features/home|work|about
       └─ React Query (initialData from bootstrap) ──GET /api/v1/{profile,home,work,about}──▶ Api::V1::{Profiles,Homes,Works,Abouts}Controller#show
                                                         └─ page serializer composes section serializers ─▶ section models (one table per section)
 ```
 - **One API controller per page** (singular resources) plus `profile` for the shared nav/footer data. **One table per section** (plus item tables for a section's lists).
 - **Serializers** are plain Ruby, one per section (`app/serializers/sections/*`), composed by one per page (`app/serializers/pages/*`). The API controllers and the page shell share them, so the embedded bootstrap JSON has exactly the API's shape.
 - **Query keys** equal the bootstrap keys: `profile`, `home`, `work`, `about`.
+- **FE layout** (`app/javascript/`): `entrypoints/application.tsx` · `app/` (router, providers, `Layout` with Nav/Footer, `PageEnter`) · `features/home|work|about/` each with `components/` (incl. the page component, e.g. `features/home/components/HomePage.tsx`), `hooks/`, `api/` (`*.api.ts` fetchers + `*.queries.ts`) · `components/` shared UI (`Nav`, `Footer`, `Button`, `Tag`, `Card`, `HighlightMark`, `SectionLoadError`, `diagrams/`) · `hooks/` shared (`useReducedMotion`, `useMediaQuery`, `useScrollProgress`, `useStickyStack`) · `lib/` (api client, js-routes, `useUi`, bootstrap reader, analytics) · `styles/` · `assets/` · `types/` (contract types). Import alias `~/` → `app/javascript/`.
 - **Stack ticker** is derived from `capabilities` (`in_ticker`), not stored separately.
 - **Static assets:** the logo, hero video/poster and waving cut-out are imported by the FE through Vite (fingerprinted). Hobby images live at `public/images/hobbies/*` (cache headers set), and the API returns their paths.
 - **Diagrams** are React components (inline SVG/HTML), selected by `diagram_key`.
@@ -234,7 +239,7 @@ Assets: `assets/` → mapping in DESIGN.md §7 (`/_blob/<id>` → file).
 
 ## Preferences applied
 - RESTful controllers — https://app.notion.com/p/3e4f4750980b8129b5ffd0b0fb452f4a — `Api::V1::{Profiles,Homes,Works,Abouts}Controller#show` only
-- API calls in typed modules via generated path helpers; React Query — https://app.notion.com/p/3e4f4750980b81b490bafc431dd9bd3f — `app/frontend/api/*` + js-routes + `*.queries.ts`
+- API calls in typed modules via generated path helpers; React Query — https://app.notion.com/p/3e4f4750980b81b490bafc431dd9bd3f — `app/javascript/features/*/api/*` + `lib/` client + js-routes + `*.queries.ts`
 - No hardcoded user-facing strings — https://app.notion.com/p/3e4f4750980b81c3bd55f47deccc5544 — content from the API, chrome from `en.ui`
 - Users see error feedback in the UI — https://app.notion.com/p/3e4f4750980b81319ef8e273076a3401 — inline Retry panel
 - Migrations up/down — https://app.notion.com/p/3e4f4750980b819f88bde3ff851f09bc · explicit boolean defaults — https://app.notion.com/p/3e4f4750980b817ababef98247392f12
@@ -244,7 +249,7 @@ Assets: `assets/` → mapping in DESIGN.md §7 (`/_blob/<id>` → file).
 ## Risks & open questions
 - **Render free Postgres expires 30 days after creation.** DevOps adds a reminder to the project Outcome; upgrade before then (content is reseedable).
 - **Render free web cold starts** (~30–60s after idle) will hurt first impressions and mobile Lighthouse. Measure Lighthouse on a warm instance; the planned move to Starter fixes it.
-- **Parallel Home tasks** share `pages/Home.tsx`. The foundation task creates Home with one placeholder component per section; each Home task edits only its own component files, plus the single line that mounts it.
+- **Parallel Home tasks** share `features/home/components/HomePage.tsx`. The foundation task creates Home with one placeholder component per section; each Home task edits only its own component files, plus the single line that mounts it.
 - The `interface`-vs-type preference is unsettled (awaiting your answer). Until then, use `interface` for object shapes.
 
 ## Goals
@@ -255,10 +260,13 @@ Assets: `assets/` → mapping in DESIGN.md §7 (`/_blob/<id>` → file).
 | 1 | BT-1 | DevOps: bootstrap | DevOps | L | — |
 | 2 | BT-2 | Contracts: content API & page bootstrap | Integration | S | 1 |
 | 3 | BT-3 | Migration: create content tables | Backend | S | 1 |
-| 4 | BT-4 | Backend: content models & seeds | Backend | M | 3 |
+| 3a | BT-22 | DevOps: pin json gem | DevOps | S | 1 |
+| 3b | BT-23 | DevOps: remove cookie consent layer | DevOps | S | 1 (after PR #1 merges) |
+| 3c | BT-24 | DevOps: move React source to app/javascript (feature-based) | DevOps | M | 2, 23 |
+| 4 | BT-4 | Backend: content models & seeds | Backend | M | 3, 22 |
 | 5 | BT-6 | Backend: content API v1 | Backend | M | 2, 4 |
 | 6 | BT-13 | Backend: page shells, meta & bootstrap JSON | Backend | M | 5 |
-| 7 | BT-5 | Frontend: app shell & design foundation | Frontend | L | 2 |
+| 7 | BT-5 | Frontend: app shell & design foundation | Frontend | L | 2, 24 |
 
 ### Milestone 2 — Pages (demoable when: all three pages match the mockups at 1440/390 on real data)
 | # | ID | Task | Role | Size | Blocked by |
@@ -273,7 +281,7 @@ Assets: `assets/` → mapping in DESIGN.md §7 (`/_blob/<id>` → file).
 | 15 | BT-11 | Frontend: About hobbies & where I've been | Frontend | M | 7 |
 | 16 | BT-17 | Integrate: content | Integration | M | 6, 12, 13, 14, 15 |
 
-### Milestone 3 — Launch (demoable when: live at louisfreeman.co.uk with consent, GA4 and SEO)
+### Milestone 3 — Launch (demoable when: live at louisfreeman.co.uk with Umami analytics and SEO)
 | # | ID | Task | Role | Size | Blocked by |
 |---|---|---|---|---|---|
 | 17 | BT-12 | Creative: OG share image | Creative | S | 7 |
@@ -299,7 +307,7 @@ Role: DevOps (Bootstrap mode) · Size: L · Blocked by: —
 - Folder `~/Documents/Dev/louis-freeman-portfolio` already holds `docs/`. Scaffold the Rails app around it; don't move or delete `docs/`. Keep the original zip out of git if it's over ~5 MB (add it to `.gitignore`).
 - Repo: create **public** `Louisf77/louis-freeman-portfolio` with the `gh` CLI (the GitHub MCP is unavailable). Return NEEDS USER ACTION if `gh` isn't authenticated.
 - Stack: plan §Stack. `rails new . --database=postgresql --skip-javascript --skip-asset-pipeline=false` (or equivalent), then `vite_rails`, React 19 + TS, React Router, React Query, js-routes, and the approved baseline list only.
-- Copy `assets/logo-mark.png`, `hero.mp4`, `hero-poster.jpg`, `louis-waving.png` to `app/frontend/assets/`, and `assets/hobbies/*` to `public/images/hobbies/`. Set far-future cache headers for `/images` and Vite assets.
+- Copy `assets/logo-mark.png`, `hero.mp4`, `hero-poster.jpg`, `louis-waving.png` to `app/frontend/assets/` (moved to `app/javascript/assets/` by BT-24), and `assets/hobbies/*` to `public/images/hobbies/`. Set far-future cache headers for `/images` and Vite assets.
 
 **Scope**
 - In: scaffold; gems/packages from the approved list; RuboCop/ESLint/Prettier configured to the preferences (double quotes, trailing commas, no `any`, explicit button type via eslint react/button-has-type, alphabetical YAML keys); `rails_helper`/`spec_helper`/`spec/support` (Cuprite driver, FactoryBot); Vitest config (jsdom); `bin/setup`, `bin/dev` (Rails + Vite); cookie consent layer (necessary + analytics, Consent Mode v2 default-denied, footer "Cookie settings" reopen hook exposed for the FE); GitHub Actions CI (rubocop, erb_lint, eslint, tsc, brakeman, bundler-audit, rspec, vitest, vite build); `render.yaml` (web **free** plan, Postgres **free**, region frankfurt, build runs `db:prepare` + `db:seed`); a placeholder `PagesController#home` rendering a React "hello" via the Vite entry.
@@ -357,8 +365,52 @@ Role: Backend · Size: S · Blocked by: DevOps: bootstrap
 - [ ] `db/schema.rb` matches the contract tables column for column; strong_migrations raises no warnings
 - [ ] CI green
 
+### BT-22 — DevOps: pin json gem
+Role: DevOps (Change mode) · Size: S · Blocked by: —
+
+**Goal:** Rails can decode JSON again (jsonb columns, `ActiveSupport::JSON.decode`), with a guard so a future json bump can't silently break it.
+
+**Context:** `json 3.0.2` in Gemfile.lock changed `JSON.parse` to one argument; ActiveSupport 8.1 calls `::JSON.parse(json, options)`, so `bin/rails runner 'ActiveSupport::JSON.decode("[1]")'` raises ArgumentError. It also makes schema dumps drop jsonb tables. Found by BT-3.
+
+**Scope**
+- In: `gem "json", "~> 2.18"` in the Gemfile (keep its ordering conventions), `bundle lock`, and a DB-free spec that `ActiveSupport::JSON.decode` round-trips an array + object. Draft PR from `origin/main`.
+- Out: any other gem bumps.
+
+**Done when**
+- [ ] The repro command prints the decoded value; the new spec fails on json 3.0.2 and passes on the pin
+- [ ] CI green
+
+### BT-23 — DevOps: remove cookie consent layer
+Role: DevOps (Change mode) · Size: S · Blocked by: DevOps: bootstrap (and PR #1 merged, so its non-consent QA fixes land first)
+
+**Goal:** The site ships with no cookie banner or consent code, since it sets no non-essential cookies (plan §Measurement & SEO › Consent).
+
+**Scope**
+- In: remove the consent banner component, its CSS, the `CookieConsent` Ruby class, the consent cookie, Consent Mode defaults/gtag stubs, the footer reopen hook, the `en.ui.cookie_*` keys, and their specs/tests; add a request/system spec asserting a first visit sets no cookies except (at most) Rails' session cookie, and no banner renders. Update docs/reports/BT-1-devops.md with a note. Draft PR from `origin/main`.
+- Out: the privacy note and Umami (BT-18); moving FE files (BT-24).
+
+**Preferences that apply**
+- No code comments — https://app.notion.com/p/3e4f4750980b81bf82d1f153ed01a972
+
+**Done when**
+- [ ] `grep -ri "consent\|cookie_" app config spec test` finds nothing consent-related; the no-cookies spec passes
+- [ ] Full suite + linters + CI green
+
+### BT-24 — DevOps: move React source to app/javascript (feature-based)
+Role: DevOps (Change mode) · Size: M · Blocked by: Contracts: content API & page bootstrap; DevOps: remove cookie consent layer
+
+**Goal:** All front-end source lives in `app/javascript/` in the feature-based layout from plan §Architecture, and every tool (Vite, TS, ESLint, Prettier, Vitest, CI) points at it.
+
+**Scope**
+- In: set `sourceCodeDir: "app/javascript"` in `config/vite.json`; `git mv` everything from `app/frontend/` into the §Architecture layout (`entrypoints/`, `app/`, `features/{home,work,about}/{components,hooks,api}` with `.keep` where empty, `components/`, `hooks/`, `lib/`, `styles/`, `assets/`, `types/`); alias `~/` → `app/javascript/` in `tsconfig.json`, Vite and Vitest; update the ESLint/Prettier globs, the Vitest include/setup paths, the BT-2 contract helper imports (`test/contracts.ts`) and the layout's `vite_javascript_tag`; update `README`/docs mentions. No behaviour change. Draft PR from `origin/main` after BT-2 and BT-23 merge.
+- Out: new components or features.
+
+**Done when**
+- [ ] `app/frontend/` no longer exists; `bin/dev` serves the React hello page; the production Vite build succeeds
+- [ ] `npx vitest run`, `npx tsc --noEmit`, `npx eslint .`, `npx prettier --check .`, RSpec and CI green
+
 ### BT-4 — Backend: content models & seeds
-Role: Backend · Size: M · Blocked by: Migration: create content tables
+Role: Backend · Size: M · Blocked by: Migration: create content tables; DevOps: pin json gem
 
 **Goal:** `bin/rails db:seed` loads every piece of copy from `content.json` into the database, idempotently.
 
@@ -419,7 +471,7 @@ Role: Backend · Size: M · Blocked by: Backend: content API v1
 - [ ] `bundle exec rspec spec/requests/pages_spec.rb` green; erb_lint + rubocop pass
 
 ### BT-5 — Frontend: app shell & design foundation
-Role: Frontend · Size: L · Blocked by: Contracts: content API & page bootstrap
+Role: Frontend · Size: L · Blocked by: Contracts: content API & page bootstrap; DevOps: move React source to app/javascript (feature-based)
 
 **Goal:** The SPA has the full design system and chrome (tokens, fonts, nav with contact menu, footer, page-enter transitions, skip link, error/retry panel) and typed data access, so page tasks only build their sections.
 
@@ -428,7 +480,7 @@ Role: Frontend · Size: L · Blocked by: Contracts: content API & page bootstrap
 - Data: build against the contract fixtures in `spec/fixtures/contracts/` (mock fetch in dev/tests until Integrate); read the bootstrap from `#bootstrap` when present.
 
 **Scope**
-- In: `styles/tokens.css` (every DESIGN.md token) + `base.css`; React Router with `/`, `/work`, `/about` routes and scroll reset/hash scroll; `PageEnter` transition; `Nav` (pill, active state, scrolled shadow, desktop Contact slide-out, mobile dropdown; `aria-expanded`); `Footer` (incl. "Cookie settings" link calling DevOps's consent reopen hook, "Back to top ↑"); shared `Tag`, `Button`, `Card`, `HighlightMark`; hooks `useReducedMotion`, `useMediaQuery`, `useScrollProgress`; `api/*.ts` typed fetchers using js-routes helpers + `*.queries.ts` (React Query, `initialData` from bootstrap) with TS types matching the schemas (query keys `profile`, `home`, `work`, `about`); `SectionLoadError` inline Retry panel; `useUi()` for `en.ui` strings; `pages/Home.tsx` composing placeholder section components (`HeroSection`, `ExperienceSection`, `SelectedWorkSection`, `CapabilitiesSection`), plus `pages/Work.tsx` and `pages/About.tsx` (About composes placeholder `ConversationIntro`, `HobbiesSection`, `WhereIveBeenSection`, each edited only by its own task). Vitest specs for Nav contact menu (desktop + mobile), the Retry panel and bootstrap hydration.
+- In: `styles/tokens.css` (every DESIGN.md token) + `base.css`; React Router with `/`, `/work`, `/about` routes and scroll reset/hash scroll; `PageEnter` transition; `Nav` (pill, active state, scrolled shadow, desktop Contact slide-out, mobile dropdown; `aria-expanded`); `Footer` (incl. a "Privacy" link to a short privacy note section/dialog, content from `en.ui`, and "Back to top ↑"); shared `Tag`, `Button`, `Card`, `HighlightMark`; hooks `useReducedMotion`, `useMediaQuery`, `useScrollProgress`; `features/*/api/*.api.ts` typed fetchers (shared client in `lib/`, js-routes helpers) + `*.queries.ts` (React Query, `initialData` from bootstrap) with TS types matching the schemas (query keys `profile`, `home`, `work`, `about`); `SectionLoadError` inline Retry panel; `useUi()` for `en.ui` strings; `features/home/components/HomePage.tsx` composing placeholder section components (`HeroSection`, `ExperienceSection`, `SelectedWorkSection`, `CapabilitiesSection`), plus `features/work/components/WorkPage.tsx` and `features/about/components/AboutPage.tsx` (About composes placeholder `ConversationIntro`, `HobbiesSection`, `WhereIveBeenSection`, each edited only by its own task). Vitest specs for Nav contact menu (desktop + mobile), the Retry panel and bootstrap hydration.
 - Out: section contents, diagrams, scroll-stacking effects.
 
 **Contracts to honour:** all `/api/v1` response shapes + bootstrap — schemas in `spec/contracts/`.
@@ -453,7 +505,7 @@ Role: Frontend · Size: M · Blocked by: Frontend: app shell & design foundation
 **Context:** `VizCards.dc.html`, `VizIdentity.dc.html`, `VizTax.dc.html`, `VizAI.dc.html`; DESIGN.md §4 Diagrams (720×440 base, `--surface-3`, grid/dot pattern, ink strokes, green key path, "FIG. 0X — …" caption).
 
 **Scope**
-- In: `components/diagrams/{CardIssuingDiagram,IdentityDiagram,TaxReturnDiagram,AiToolingDiagram}.tsx`, inline SVG/HTML; a `CaseStudyDiagram` picker keyed by `diagram_key` via a module-level `Record`; a `scale` prop (0.49–1.08) that keeps the layout box correct; `role="img"` + descriptive `aria-label` (strings in `en.ui`). A Vitest spec per diagram (renders, has label) + the picker.
+- In: `app/javascript/components/diagrams/{CardIssuingDiagram,IdentityDiagram,TaxReturnDiagram,AiToolingDiagram}.tsx`, inline SVG/HTML; a `CaseStudyDiagram` picker keyed by `diagram_key` via a module-level `Record`; a `scale` prop (0.49–1.08) that keeps the layout box correct; `role="img"` + descriptive `aria-label` (strings in `en.ui`). A Vitest spec per diagram (renders, has label) + the picker.
 - Out: where they're placed (Home/Work tasks).
 
 **Preferences that apply**
@@ -511,7 +563,7 @@ Role: Frontend · Size: M · Blocked by: Frontend: case-study diagrams
 
 **Scope**
 - In: `SelectedWorkSection` (renders nothing when `case_studies` is empty; the accordion adapts to 1–4 panels) with `WorkAccordion` (4 panels, 600px, vertical titles when closed, `flex-grow: 6` open panel, diagram at .8, meta/title/headline/tags, "Read case study →" ghost button → `/work#<slug>`; opens on hover/focus/click; 4.5s autoplay until interaction) and `WorkStackMobile`; metric hidden when null. Vitest: hover/focus/click open, autoplay stops, link hrefs.
-- Out: section stacking; GA4 events (Marketing task adds them; expose the link element cleanly).
+- Out: section stacking; analytics events (Marketing task adds them; expose the link element cleanly).
 
 **Done when**
 - [ ] Screenshots at 1440 and 390 match; the accordion is fully keyboard-operable
@@ -538,8 +590,8 @@ Role: Frontend · Size: M · Blocked by: Frontend: case-study diagrams
 **Context:** `Work.dc.html` + `MWork.dc.html`; DESIGN.md §4 Case-study card. Data: `work.header`, `work.case_studies`.
 
 **Scope**
-- In: `pages/Work.tsx`, `CaseStudyCard` (`top: 104 + i×22` desktop / `72 + i×14` mobile; alternating surfaces; 640px 7/5 split alternating sides; number, years, title, headline, description, role, tags; metric box only when non-null; `id={slug}`), footer-over-last-card behaviour, `/work#<slug>` scroll-into-view. Vitest: metric hidden when null, anchor ids.
-- Out: GA4 `case_study_view` (Marketing).
+- In: `features/work/components/WorkPage.tsx`, `CaseStudyCard` (`top: 104 + i×22` desktop / `72 + i×14` mobile; alternating surfaces; 640px 7/5 split alternating sides; number, years, title, headline, description, role, tags; metric box only when non-null; `id={slug}`), footer-over-last-card behaviour, `/work#<slug>` scroll-into-view. Vitest: metric hidden when null, anchor ids.
+- Out: analytics `case_study_view` (Marketing).
 
 **Done when**
 - [ ] Screenshots/GIF at 1440 and 390 match; `/work#self-assessment` lands on card 03
@@ -610,16 +662,16 @@ Role: Creative · Size: S · Blocked by: Frontend: app shell & design foundation
 ### BT-18 — Marketing: analytics & SEO foundation
 Role: Marketing · Size: M · Blocked by: Integrate: content; Creative: OG share image
 
-**Goal:** GA4 records the plan's key and supporting events only after consent, and the SEO foundation (sitemap, robots, meta, structured data) is complete and valid.
+**Goal:** Umami records the plan's key and supporting events (cookielessly, no banner), and the SEO foundation (sitemap, robots, meta, structured data) is complete and valid.
 
 **Context:** plan §Measurement & SEO (implement exactly; propose changes in the report, don't add them).
 
 **Scope**
-- In: GA4 gtag through DevOps's consent layer (Measurement ID from `ENV["GA4_MEASUREMENT_ID"]`, absent → no GA); SPA `page_view` on route change; `contact_click` (method, location, page_type) and `case_study_view` (case_study_slug, source) per the tables; `docs/analytics/tracking-plan.md`; `sitemap.xml` (3 URLs) + `robots.txt`; verify the meta/OG/JSON-LD from the shell task (Rich Results-valid `Person`); Vitest for the event helpers, a system spec that no GA request fires before consent.
-- Out: GA4 property/Search Console setup (NEEDS USER ACTION at launch).
+- In: Umami Cloud script in the layout (`data-website-id` from `ENV["UMAMI_WEBSITE_ID"]`, absent → no script; `data-auto-track` handles SPA page views, verify it on client navigation); a typed `lib/analytics.ts` wrapper around `umami.track` (no-op when the script is absent); `contact_click` (method, location, page_type) and `case_study_view` (case_study_slug, source) per the tables; `docs/analytics/tracking-plan.md`; `sitemap.xml` (3 URLs) + `robots.txt`; verify the meta/OG/JSON-LD from the shell task (Rich Results-valid `Person`); the footer privacy note copy (what Umami collects, no cookies, link to Umami's privacy policy) in `en.ui`; Vitest for the event helpers; a system spec asserting the page sets no cookies other than Rails' session (if any) and no localStorage keys.
+- Out: Umami account/website creation and Search Console verification (NEEDS USER ACTION at launch).
 
 **Done when**
-- [ ] With consent granted, the events fire with the right params (report the dataLayer output); with it rejected, there are no Google requests
+- [ ] Events fire with the right params (report the captured `umami.track` calls); no cookies or storage are written by analytics
 - [ ] `/sitemap.xml` and `/robots.txt` served; JSON-LD validates
 - [ ] suites + lint green
 
@@ -651,9 +703,9 @@ Role: DevOps (Deploy mode) · Size: M · Blocked by: QA: release check
 **Goal:** The site is live at https://louisfreeman.co.uk (www → apex) on Render Free with a seeded free Postgres, served over TLS.
 
 **Scope**
-- In: Render blueprint apply (free web + free DB, frankfurt); env vars (`RAILS_MASTER_KEY`, `GA4_MEASUREMENT_ID` when supplied); Cloudflare DNS-only records for apex + www; custom domains + TLS on Render; smoke test all pages + API. Every external/paid step is NEEDS USER ACTION with its cost ($0 now), and record the **free DB expiry date** and the upgrade path (Starter $7 + Basic DB ~$6) in the report.
+- In: Render blueprint apply (free web + free DB, frankfurt); env vars (`RAILS_MASTER_KEY`, `UMAMI_WEBSITE_ID` when supplied); Cloudflare DNS-only records for apex + www; custom domains + TLS on Render; smoke test all pages + API. Every external/paid step is NEEDS USER ACTION with its cost ($0 now), and record the **free DB expiry date** and the upgrade path (Starter $7 + Basic DB ~$6) in the report.
 - Out: the upgrade itself.
 
 **Done when**
 - [ ] `https://louisfreeman.co.uk`, `/work`, `/about` return 200 with correct meta; `https://www.louisfreeman.co.uk` redirects to apex
-- [ ] The report states the DB expiry date and the next steps (GA4 ID, Search Console)
+- [ ] The report states the DB expiry date and the next steps (Umami website ID, Search Console)
