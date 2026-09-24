@@ -16,10 +16,18 @@ Lint/EmptyFile:
   Exclude:
     - "db/seeds.rb"
 
+Metrics/AbcSize:
+  Exclude:
+    - "db/migrate/**/*"
+
 Metrics/BlockLength:
   Exclude:
     - "config/**/*"
     - "spec/**/*"
+
+Metrics/MethodLength:
+  Exclude:
+    - "db/migrate/**/*"
 
 Naming/AccessorMethodName:
   Enabled: true
