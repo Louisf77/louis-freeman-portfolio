@@ -7,17 +7,23 @@ import ConsentProvider from "~/consent/ConsentProvider";
 import CookieBanner, { type CookieBannerCopy } from "~/consent/CookieBanner";
 
 const COPY: CookieBannerCopy = {
-  acceptAll: "Accept all",
+  acceptAnalytics: "Accept analytics cookies",
+  acceptedMessage: "You've accepted analytics cookies. You can %{link} at any time.",
   alwaysOn: "Always on",
   analyticsDescription: "Helps me see which pages are read.",
+  analyticsIntro: "I'd also like to use analytics cookies.",
   analyticsLabel: "Analytics",
-  body: "This site uses cookies.",
-  manageChoices: "Manage choices",
-  necessaryDescription: "Keeps the site working.",
-  necessaryLabel: "Necessary",
-  rejectAll: "Reject all",
-  saveChoices: "Save choices",
-  title: "Cookie preferences",
+  changeSettingsLink: "change your cookie settings",
+  essentialIntro: "I use one essential cookie.",
+  hide: "Hide",
+  necessaryDescription: "Remembers your cookie choice.",
+  necessaryLabel: "Essential",
+  rejectAnalytics: "Reject analytics cookies",
+  rejectedMessage: "You've rejected analytics cookies. You can %{link} at any time.",
+  saveChoices: "Save cookie settings",
+  settingsLegend: "Choose which cookies I can use",
+  title: "Cookies on louisfreeman.co.uk",
+  viewCookies: "View cookies",
 };
 
 function clearConsentCookie() {
@@ -30,6 +36,14 @@ function renderBanner(store: ConsentStore) {
       <CookieBanner copy={COPY} />
     </ConsentProvider>,
   );
+}
+
+function banner() {
+  return screen.queryByRole("region", { name: COPY.title });
+}
+
+async function clickButton(name: string) {
+  await userEvent.click(screen.getByRole("button", { name }));
 }
 
 describe("CookieBanner", () => {
@@ -45,87 +59,166 @@ describe("CookieBanner", () => {
   it("shows on a first visit", () => {
     renderBanner(store);
 
-    expect(screen.getByRole("region", { name: COPY.title })).toBeInTheDocument();
+    expect(banner()).toBeInTheDocument();
   });
 
-  it("gives accept and reject equal prominence as buttons", () => {
+  it("explains the essential cookie", () => {
     renderBanner(store);
 
-    expect(screen.getByRole("button", { name: COPY.acceptAll }).className).toBe(
-      screen.getByRole("button", { name: COPY.rejectAll }).className,
+    expect(screen.getByText(COPY.essentialIntro)).toBeInTheDocument();
+  });
+
+  it("asks about analytics cookies", () => {
+    renderBanner(store);
+
+    expect(screen.getByText(COPY.analyticsIntro)).toBeInTheDocument();
+  });
+
+  it("gives accept and reject equal visual weight", () => {
+    renderBanner(store);
+
+    expect(screen.getByRole("button", { name: COPY.acceptAnalytics }).className).toBe(
+      screen.getByRole("button", { name: COPY.rejectAnalytics }).className,
     );
   });
 
-  it("grants analytics when accepting all", async () => {
+  it("grants analytics when accepting", async () => {
     renderBanner(store);
-    await userEvent.click(screen.getByRole("button", { name: COPY.acceptAll }));
+    await clickButton(COPY.acceptAnalytics);
 
     expect(store.has("analytics")).toBe(true);
   });
 
-  it("denies analytics when rejecting all", async () => {
+  it("denies analytics when rejecting", async () => {
     renderBanner(store);
-    await userEvent.click(screen.getByRole("button", { name: COPY.rejectAll }));
+    await clickButton(COPY.rejectAnalytics);
 
     expect(store.has("analytics")).toBe(false);
   });
 
-  it("hides after a choice", async () => {
+  it("confirms an accepted choice", async () => {
     renderBanner(store);
-    await userEvent.click(screen.getByRole("button", { name: COPY.rejectAll }));
+    await clickButton(COPY.acceptAnalytics);
 
-    expect(screen.queryByRole("region", { name: COPY.title })).not.toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "You've accepted analytics cookies. You can change your cookie settings at any time.",
+    );
   });
 
-  it("leaves analytics unticked when managing choices", async () => {
+  it("confirms a rejected choice", async () => {
     renderBanner(store);
-    await userEvent.click(screen.getByRole("button", { name: COPY.manageChoices }));
+    await clickButton(COPY.rejectAnalytics);
+
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "You've rejected analytics cookies. You can change your cookie settings at any time.",
+    );
+  });
+
+  it("moves focus to the confirmation", async () => {
+    renderBanner(store);
+    await clickButton(COPY.rejectAnalytics);
+
+    expect(screen.getByRole("status")).toHaveFocus();
+  });
+
+  it("hides the confirmation", async () => {
+    renderBanner(store);
+    await clickButton(COPY.rejectAnalytics);
+    await clickButton(COPY.hide);
+
+    expect(banner()).not.toBeInTheDocument();
+  });
+
+  it("hides the confirmation with Escape", async () => {
+    renderBanner(store);
+    await clickButton(COPY.rejectAnalytics);
+    await userEvent.keyboard("{Escape}");
+
+    expect(banner()).not.toBeInTheDocument();
+  });
+
+  it("opens the settings from the confirmation", async () => {
+    renderBanner(store);
+    await clickButton(COPY.acceptAnalytics);
+    await clickButton(COPY.changeSettingsLink);
+
+    expect(screen.getByRole("checkbox", { name: COPY.analyticsLabel })).toBeChecked();
+  });
+
+  it("leaves analytics unticked when viewing cookies", async () => {
+    renderBanner(store);
+    await clickButton(COPY.viewCookies);
 
     expect(screen.getByRole("checkbox", { name: COPY.analyticsLabel })).not.toBeChecked();
   });
 
-  it("shows necessary cookies as always on", async () => {
+  it("names the settings group", async () => {
     renderBanner(store);
-    await userEvent.click(screen.getByRole("button", { name: COPY.manageChoices }));
+    await clickButton(COPY.viewCookies);
+
+    expect(screen.getByRole("group", { name: COPY.settingsLegend })).toBeInTheDocument();
+  });
+
+  it("describes the essential cookie as always on", async () => {
+    renderBanner(store);
+    await clickButton(COPY.viewCookies);
+
+    expect(screen.getByRole("checkbox", { name: COPY.necessaryLabel })).toHaveAccessibleDescription(
+      `${COPY.alwaysOn} ${COPY.necessaryDescription}`,
+    );
+  });
+
+  it("shows the essential cookie as always on", async () => {
+    renderBanner(store);
+    await clickButton(COPY.viewCookies);
 
     expect(screen.getByRole("checkbox", { name: COPY.necessaryLabel })).toBeDisabled();
   });
 
-  it("saves the managed choices", async () => {
+  it("saves the chosen settings", async () => {
     renderBanner(store);
-    await userEvent.click(screen.getByRole("button", { name: COPY.manageChoices }));
+    await clickButton(COPY.viewCookies);
     await userEvent.click(screen.getByRole("checkbox", { name: COPY.analyticsLabel }));
-    await userEvent.click(screen.getByRole("button", { name: COPY.saveChoices }));
+    await clickButton(COPY.saveChoices);
 
     expect(store.has("analytics")).toBe(true);
   });
 
+  it("confirms saved settings", async () => {
+    renderBanner(store);
+    await clickButton(COPY.viewCookies);
+    await clickButton(COPY.saveChoices);
+
+    expect(screen.getByRole("status")).toHaveTextContent("You've rejected analytics cookies.");
+  });
+
   it("rejects when dismissed with Escape before any choice", async () => {
     renderBanner(store);
-    await userEvent.click(screen.getByRole("button", { name: COPY.manageChoices }));
+    await clickButton(COPY.viewCookies);
     await userEvent.keyboard("{Escape}");
 
     expect(store.getSnapshot().isDecided).toBe(true);
   });
 
-  it("reopens when asked", async () => {
+  it("reopens the question when asked", async () => {
     renderBanner(store);
-    await userEvent.click(screen.getByRole("button", { name: COPY.rejectAll }));
+    await clickButton(COPY.rejectAnalytics);
+    await clickButton(COPY.hide);
     act(() => {
       store.open();
     });
 
-    expect(screen.getByRole("region", { name: COPY.title })).toHaveFocus();
+    expect(banner()).toHaveFocus();
   });
 
-  it("shows the stored choice when reopened", async () => {
+  it("offers the choice again when reopened", async () => {
     renderBanner(store);
-    await userEvent.click(screen.getByRole("button", { name: COPY.acceptAll }));
+    await clickButton(COPY.rejectAnalytics);
+    await clickButton(COPY.hide);
     act(() => {
       store.open();
     });
-    await userEvent.click(screen.getByRole("button", { name: COPY.manageChoices }));
 
-    expect(screen.getByRole("checkbox", { name: COPY.analyticsLabel })).toBeChecked();
+    expect(screen.getByRole("button", { name: COPY.acceptAnalytics })).toBeInTheDocument();
   });
 });
