@@ -1,0 +1,65 @@
+{
+  "work": {
+    "header": {
+      "intro": "Case studies from Hnry. The work is confidential fintech, so the visuals are diagrams and interface fragments rather than screenshots."
+    },
+    "case_studies": [
+      {
+        "id": 1,
+        "slug": "card-issuing",
+        "number": "01",
+        "title": "Card Issuing, End to End",
+        "years_label": "2024–25",
+        "headline": "Replacing an incumbent banking and card provider from API client to the card in the customer's hand.",
+        "description": "SOAP provisioning chain in the payments gem, virtual card issuing, real-time card transaction processing, a settlement reconciliation pipeline (SFTP retrieval, PGP decryption, per-transaction processing), and automated compliance reporting.",
+        "role": "Lead engineer",
+        "tags": ["Rails", "SOAP", "SFTP/PGP", "React"],
+        "diagram_key": "cards",
+        "metric": null,
+        "position": 1
+      },
+      {
+        "id": 2,
+        "slug": "identity-verification",
+        "number": "02",
+        "title": "Identity Verification in Three Countries",
+        "years_label": "2024–25",
+        "headline": "One identity verification rollout across the UK, Australia and New Zealand.",
+        "description": "Backend integration, decision and ongoing-monitoring webhooks, customer flow, and admin tooling, wired into two separate onboarding implementations (a React tour and a legacy server-rendered flow). Closed compliance gaps found during rollout.",
+        "role": "Lead engineer",
+        "tags": ["Rails", "React", "Webhooks", "AML/KYC"],
+        "diagram_key": "identity",
+        "metric": null,
+        "position": 2
+      },
+      {
+        "id": 3,
+        "slug": "self-assessment",
+        "number": "03",
+        "title": "UK Self Assessment Tax Return",
+        "years_label": "2025",
+        "headline": "A full-stack tax return, designed to be reused across jurisdictions.",
+        "description": "Data model using single-table inheritance, a polymorphic filing-obligation link and full auditing. A React Hook Form wizard with seven independently toggled sections, a stage stepper, save-and-continue vs submit, and an admin review side with a reusable notes API. HMRC API client gem with per-request OAuth and fraud-prevention headers.",
+        "role": "Full-stack lead",
+        "tags": ["React", "React Hook Form", "Rails", "HMRC APIs"],
+        "diagram_key": "tax",
+        "metric": null,
+        "position": 3
+      },
+      {
+        "id": 4,
+        "slug": "ai-tooling",
+        "number": "04",
+        "title": "AI Engineering & Developer Tooling",
+        "years_label": "2025–26",
+        "headline": "Getting practical value out of AI across engineering, operations and marketing.",
+        "description": "Four internal developer plugins covering on-call triage, the coding-task lifecycle (intake → planning → per-commit lint and spec gating → pre-PR validation) and coding-style resolution, designed to be squad-agnostic through shared configuration.",
+        "role": "AI engineering lead, UK",
+        "tags": ["Claude Code", "Plugins & hooks", "MCP", "Agent workflows"],
+        "diagram_key": "ai",
+        "metric": null,
+        "position": 4
+      }
+    ]
+  }
+}
