@@ -3,6 +3,8 @@ module Content
     SOURCE_PATH = Rails.root.join("db/seeds/content.json")
     HOBBY_IMAGE_DIRECTORY = "/images/hobbies".freeze
     PHOTO_HOBBIES = %w[Cooking Football].freeze
+    PHOTO_EXTENSION = "jpg".freeze
+    ILLUSTRATION_EXTENSION = "png".freeze
     PROFILE_FIELDS = {
       email: "email",
       footer_blurb: "footerBlurb",
@@ -68,7 +70,7 @@ module Content
       replace_items(model: HeroGreeting, rows: home.fetch("greetingEndings").map { |text| { text: } })
       upsert_section(model: SelectedWorkSection, source: home, fields: SELECTED_WORK_FIELDS)
       upsert_section(model: CapabilitiesSection, source: home, fields: CAPABILITIES_FIELDS)
-      CapabilitiesSeeder.new(groups: home.fetch("capabilities"), ticker: home.fetch("stackTicker")).call
+      CapabilitiesSeeder.new(groups: home.fetch("capabilities"), ticker: home.fetch("stackTicker"), logger:).call
       replace_items(model: Domain, rows: home.fetch("domain").map { |label| { label: } })
     end
 
@@ -85,7 +87,7 @@ module Content
     def seed_work
       work = content.fetch("work")
       upsert_section(model: WorkHeader, source: work, fields: WORK_HEADER_FIELDS)
-      CaseStudiesSeeder.new(case_studies: work.fetch("caseStudies")).call
+      CaseStudiesSeeder.new(case_studies: work.fetch("caseStudies"), logger:).call
     end
 
     def seed_about
@@ -102,7 +104,7 @@ module Content
 
     def hobby_row(name:)
       photo = PHOTO_HOBBIES.include?(name)
-      extension = photo ? "jpg" : "png"
+      extension = photo ? PHOTO_EXTENSION : ILLUSTRATION_EXTENSION
       { image_path: "#{HOBBY_IMAGE_DIRECTORY}/#{name.downcase}.#{extension}", name:, photo: }
     end
 
@@ -111,7 +113,7 @@ module Content
     end
 
     def replace_items(model:, rows:)
-      PositionedRows.replace(scope: model.all, rows:)
+      PositionedRows.replace(scope: model.all, rows:, logger:)
     end
   end
 end

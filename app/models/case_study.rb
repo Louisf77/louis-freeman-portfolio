@@ -4,6 +4,7 @@ class CaseStudy < ApplicationRecord
   DIAGRAM_KEYS = %w[cards identity tax ai].freeze
 
   scope :featured, -> { where(featured: true) }
+  scope :without_slugs, ->(slugs) { where.not(slug: slugs) }
 
   validates :number, :title, :years_label, :role, :headline, :description, presence: true
   validates :slug, presence: true, uniqueness: true

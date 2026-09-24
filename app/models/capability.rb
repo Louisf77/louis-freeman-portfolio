@@ -3,6 +3,10 @@ class Capability < ApplicationRecord
 
   scope :ordered, -> { order(:position) }
   scope :in_ticker, -> { where(in_ticker: true).order(:ticker_position) }
+  scope :outside_ticker, -> { where(in_ticker: false) }
+  scope :grouped, -> { where.not(capability_group: nil) }
+  scope :ungrouped, -> { where(capability_group: nil) }
+  scope :belonging_to_groups, ->(capability_groups) { where(capability_group: capability_groups) }
 
   validates :name, presence: true
   validates :position, presence: true, if: :capability_group

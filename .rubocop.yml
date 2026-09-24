@@ -60,7 +60,8 @@ Rails/Output:
 
 Rails/SkipsModelValidations:
   Exclude:
-    - "lib/content/**/*"
+    - "lib/content/capabilities_seeder.rb"
+    - "lib/content/case_studies_seeder.rb"
 
 RSpec/AnyInstance:
   Enabled: true

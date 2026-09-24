@@ -9,42 +9,49 @@ module Content
     }.freeze
     UNGROUPED_TICKER_NAMES = %w[Ruby].freeze
 
-    def initialize(groups:, ticker:)
+    def initialize(groups:, ticker:, logger:)
       @groups = groups
       @ticker = ticker
+      @logger = logger
     end
 
     def call
       Capability.update_all(in_ticker: false, ticker_label: nil, ticker_position: nil)
       seed_groups
       seed_ticker
-      Capability.where(capability_group: nil, in_ticker: false).delete_all
+      StaleRows.remove(relation: Capability.ungrouped.outside_ticker, natural_key: [:name], logger:)
     end
 
     private
 
-    attr_reader :groups, :ticker
+    attr_reader :groups, :ticker, :logger
 
     def seed_groups
       remove_stale_group_capabilities
-      group_ids = PositionedRows.replace(
+      capability_groups = PositionedRows.replace(
         scope: CapabilityGroup.all,
         rows: groups.map { |group| { title: group.fetch("title") } },
+        logger:,
       )
-      groups.zip(group_ids).each do |group, group_id|
-        seed_items(capability_group_id: group_id, names: group.fetch("items"))
+      groups.zip(capability_groups).each do |group, capability_group|
+        seed_items(capability_group:, names: group.fetch("items"))
       end
     end
 
     def remove_stale_group_capabilities
-      stale_groups = CapabilityGroup.where(position: (groups.size + PositionedRows::FIRST_POSITION)..)
-      Capability.where(capability_group: stale_groups).delete_all
+      StaleRows.remove(
+        relation: Capability.belonging_to_groups(CapabilityGroup.positioned_after(groups.size)),
+        natural_key: %i[capability_group_id position],
+        logger:,
+      )
     end
 
-    def seed_items(capability_group_id:, names:)
+    def seed_items(capability_group:, names:)
       PositionedRows.replace(
-        scope: Capability.where(capability_group_id:),
+        scope: capability_group.capabilities,
         rows: names.map { |name| { name: } },
+        logger:,
+        natural_key: %i[capability_group_id position],
       )
     end
 
@@ -60,9 +67,9 @@ module Content
     end
 
     def ticker_capability(name:)
-      grouped = Capability.where.not(capability_group: nil).find_by(name:)
+      grouped = Capability.grouped.find_by(name:)
       return grouped if grouped
-      return Capability.find_or_initialize_by(capability_group: nil, name:) if UNGROUPED_TICKER_NAMES.include?(name)
+      return Capability.ungrouped.find_or_initialize_by(name:) if UNGROUPED_TICKER_NAMES.include?(name)
 
       raise UnknownContentError, "Stack ticker entry #{name} matches no capability"
     end

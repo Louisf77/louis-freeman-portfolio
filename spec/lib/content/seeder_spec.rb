@@ -170,6 +170,67 @@ RSpec.describe Content::Seeder do
       end
     end
 
+    context "with a case study removed from the content" do
+      let(:logger) { instance_double(Logger, info: nil) }
+
+      before do
+        seeder.call
+        content["work"]["caseStudies"].pop
+        described_class.new(content:, logger:).call
+      end
+
+      it "removes the case study" do
+        expect(CaseStudy.pluck(:slug)).not_to include("ai-tooling")
+      end
+
+      it "logs the removed case study by slug" do
+        expect(logger).to have_received(:info).with('Content::Seeder: removing CaseStudy slug="ai-tooling"')
+      end
+    end
+
+    context "with a capability group removed from the content" do
+      before do
+        seeder.call
+        content["home"]["capabilities"].shift
+        described_class.new(content:).call
+      end
+
+      it "removes the group" do
+        expect(CapabilityGroup.count).to eq(3)
+      end
+
+      it "removes the group's capabilities" do
+        expect(Capability.pluck(:name)).not_to include("Line management")
+      end
+    end
+
+    context "with an ungrouped capability dropped from the ticker" do
+      before do
+        seeder.call
+        content["home"]["stackTicker"].delete("Ruby")
+        described_class.new(content:).call
+      end
+
+      it "removes the capability" do
+        expect(Capability.pluck(:name)).not_to include("Ruby")
+      end
+    end
+
+    context "with a stale item stored" do
+      subject(:seeder) { described_class.new(content:, logger:) }
+
+      let(:logger) { instance_double(Logger, info: nil) }
+
+      before do
+        create(:hero_greeting, position: 5, text: "a stale greeting.")
+        seeder.call
+      end
+
+      it "logs the removed item by position" do
+        expect(logger).to have_received(:info).with("Content::Seeder: removing HeroGreeting position=5")
+      end
+    end
+
     context "with an unknown diagram" do
       before { content["work"]["caseStudies"].first["diagram"] = "VizUnknown.dc.html" }
 

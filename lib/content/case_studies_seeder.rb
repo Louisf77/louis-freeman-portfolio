@@ -22,13 +22,14 @@ module Content
     }.freeze
     OPTIONAL_FIELDS = { metric: ["metric", nil], tags: ["tags", []] }.freeze
 
-    def initialize(case_studies:)
+    def initialize(case_studies:, logger:)
       @case_studies = case_studies
+      @logger = logger
     end
 
     def call
       rows = case_studies.map { |case_study| attributes(case_study:) }
-      CaseStudy.where.not(slug: rows.pluck(:slug)).delete_all
+      StaleRows.remove(relation: CaseStudy.without_slugs(rows.pluck(:slug)), natural_key: [:slug], logger:)
       CaseStudy.update_all("position = -position")
       rows.each.with_index(PositionedRows::FIRST_POSITION) do |row, position|
         CaseStudy.find_or_initialize_by(slug: row.fetch(:slug)).update!(**row, position:)
@@ -37,7 +38,7 @@ module Content
 
     private
 
-    attr_reader :case_studies
+    attr_reader :case_studies, :logger
 
     def attributes(case_study:)
       number = case_study.fetch("id")
