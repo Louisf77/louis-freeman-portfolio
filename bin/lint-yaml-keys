@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+require "psych"
+
+MERGE_KEY = "<<".freeze
+YAML_FILE_PATTERN = /\.ya?ml\z/
+IGNORED_PATH_PREFIXES = ["docs/", "node_modules/", "vendor/"].freeze
+
+def tracked_yaml_files
+  `git ls-files --cached --others --exclude-standard`.split("\n").select do |path|
+    path.match?(YAML_FILE_PATTERN) && IGNORED_PATH_PREFIXES.none? { |prefix| path.start_with?(prefix) }
+  end
+end
+
+def unsorted_mappings(node, path:, found: [])
+  case node
+  when Psych::Nodes::Mapping
+    key_nodes = node.children.each_slice(2).map(&:first)
+    keys = key_nodes.map(&:value).reject { |key| key == MERGE_KEY }
+    found << "#{path}:#{node.start_line + 1} keys #{keys.join(', ')}" unless keys == keys.sort_by(&:downcase)
+    node.children.each_slice(2) { |_key, value| unsorted_mappings(value, path:, found:) }
+  when Psych::Nodes::Sequence, Psych::Nodes::Document, Psych::Nodes::Stream
+    node.children.each { |child| unsorted_mappings(child, path:, found:) }
+  end
+  found
+end
+
+offences = tracked_yaml_files.flat_map do |path|
+  unsorted_mappings(Psych.parse_stream(File.read(path)), path:)
+end
+
+if offences.empty?
+  puts "YAML keys are in alphabetical order"
+  exit
+end
+
+warn "YAML keys must be in alphabetical order at every level:"
+offences.each { |offence| warn "  #{offence}" }
+exit 1

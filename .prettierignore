@@ -1,0 +1,13 @@
+app/frontend/routes.d.ts
+app/frontend/routes.js
+coverage
+docs
+node_modules
+public
+tmp
+vendor
+*.yml
+*.yaml
+*.md
+Gemfile.lock
+package-lock.json

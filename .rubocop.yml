@@ -1,0 +1,104 @@
+AllCops:
+  Exclude:
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 4.0
+
+Layout/LineLength:
+  Max: 120
+
+Lint/EmptyFile:
+  Exclude:
+    - "db/seeds.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "config/**/*"
+    - "spec/**/*"
+
+Naming/AccessorMethodName:
+  Enabled: true
+
+Naming/PredicatePrefix:
+  Enabled: true
+  ForbiddenPrefixes:
+    - check_
+    - has_
+    - is_
+  NamePrefix:
+    - check_
+    - has_
+    - is_
+
+plugins:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rails
+  - rubocop-rspec
+
+Rails/DefaultScope:
+  Enabled: true
+
+Rails/Output:
+  Enabled: true
+  Exclude:
+    - "db/seeds.rb"
+    - "lib/tasks/**/*"
+
+RSpec/AnyInstance:
+  Enabled: true
+
+RSpec/ContextWording:
+  Prefixes:
+    - when
+    - with
+    - without
+
+RSpec/Focus:
+  Enabled: true
+
+RSpec/LetSetup:
+  Enabled: true
+
+RSpec/MultipleExpectations:
+  Max: 1
+
+RSpec/NamedSubject:
+  Enabled: true
+
+RSpec/PredicateMatcher:
+  Enabled: true
+  Strict: true
+
+RSpec/VerifiedDoubles:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: true
+  MinDigits: 5
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
