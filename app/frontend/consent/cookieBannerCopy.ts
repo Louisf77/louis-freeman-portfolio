@@ -7,7 +7,6 @@ const COOKIE_BANNER_UI_KEYS: Record<keyof CookieBannerCopy, string> = {
   analyticsDescription: "cookie_analytics_description",
   analyticsIntro: "cookie_banner_analytics",
   analyticsLabel: "cookie_analytics_label",
-  changeSettings: "cookie_change_settings",
   changeSettingsLink: "cookie_change_settings_link",
   essentialIntro: "cookie_banner_essential",
   hide: "cookie_hide",
@@ -16,6 +15,7 @@ const COOKIE_BANNER_UI_KEYS: Record<keyof CookieBannerCopy, string> = {
   rejectAnalytics: "cookie_reject_analytics",
   rejectedMessage: "cookie_rejected_message",
   saveChoices: "cookie_save_choices",
+  settingsLegend: "cookie_settings_legend",
   title: "cookie_banner_title",
   viewCookies: "cookie_view_cookies",
 };

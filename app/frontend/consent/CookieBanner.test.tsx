@@ -8,20 +8,20 @@ import CookieBanner, { type CookieBannerCopy } from "~/consent/CookieBanner";
 
 const COPY: CookieBannerCopy = {
   acceptAnalytics: "Accept analytics cookies",
-  acceptedMessage: "You've accepted analytics cookies.",
+  acceptedMessage: "You've accepted analytics cookies. You can %{link} at any time.",
   alwaysOn: "Always on",
   analyticsDescription: "Helps me see which pages are read.",
   analyticsIntro: "I'd also like to use analytics cookies.",
   analyticsLabel: "Analytics",
-  changeSettings: "You can %{link} at any time.",
   changeSettingsLink: "change your cookie settings",
   essentialIntro: "I use one essential cookie.",
   hide: "Hide",
   necessaryDescription: "Remembers your cookie choice.",
   necessaryLabel: "Essential",
   rejectAnalytics: "Reject analytics cookies",
-  rejectedMessage: "You've rejected analytics cookies.",
+  rejectedMessage: "You've rejected analytics cookies. You can %{link} at any time.",
   saveChoices: "Save cookie settings",
+  settingsLegend: "Choose which cookies I can use",
   title: "Cookies on louisfreeman.co.uk",
   viewCookies: "View cookies",
 };
@@ -152,6 +152,22 @@ describe("CookieBanner", () => {
     expect(screen.getByRole("checkbox", { name: COPY.analyticsLabel })).not.toBeChecked();
   });
 
+  it("names the settings group", async () => {
+    renderBanner(store);
+    await clickButton(COPY.viewCookies);
+
+    expect(screen.getByRole("group", { name: COPY.settingsLegend })).toBeInTheDocument();
+  });
+
+  it("describes the essential cookie as always on", async () => {
+    renderBanner(store);
+    await clickButton(COPY.viewCookies);
+
+    expect(screen.getByRole("checkbox", { name: COPY.necessaryLabel })).toHaveAccessibleDescription(
+      `${COPY.alwaysOn} ${COPY.necessaryDescription}`,
+    );
+  });
+
   it("shows the essential cookie as always on", async () => {
     renderBanner(store);
     await clickButton(COPY.viewCookies);
@@ -173,7 +189,7 @@ describe("CookieBanner", () => {
     await clickButton(COPY.viewCookies);
     await clickButton(COPY.saveChoices);
 
-    expect(screen.getByRole("status")).toHaveTextContent(COPY.rejectedMessage);
+    expect(screen.getByRole("status")).toHaveTextContent("You've rejected analytics cookies.");
   });
 
   it("rejects when dismissed with Escape before any choice", async () => {

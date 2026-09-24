@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe "Cookie consent", :js do
   let(:banner_title) { I18n.t("ui.cookie_banner_title") }
   let(:google_request_pattern) { /google|doubleclick|gstatic/ }
-  let(:rejected_confirmation) do
-    "#{I18n.t("ui.cookie_rejected_message")} You can #{I18n.t("ui.cookie_change_settings_link")} at any time."
-  end
+  let(:change_settings_link) { I18n.t("ui.cookie_change_settings_link") }
+  let(:accepted_confirmation) { I18n.t("ui.cookie_accepted_message", link: change_settings_link) }
+  let(:rejected_confirmation) { I18n.t("ui.cookie_rejected_message", link: change_settings_link) }
 
   def banner
     find(:region, banner_title)
@@ -47,7 +47,7 @@ RSpec.describe "Cookie consent", :js do
     before do
       visit root_path
       banner.click_on(I18n.t("ui.cookie_reject_analytics"))
-      page.assert_selector(:css, "[role=status]", text: I18n.t("ui.cookie_rejected_message"))
+      page.assert_selector(:css, "[role=status]", text: rejected_confirmation)
     end
 
     it "confirms the choice" do
@@ -95,7 +95,7 @@ RSpec.describe "Cookie consent", :js do
     before do
       visit root_path
       banner.click_on(I18n.t("ui.cookie_accept_analytics"))
-      page.assert_selector(:css, "[role=status]", text: I18n.t("ui.cookie_accepted_message"))
+      page.assert_selector(:css, "[role=status]", text: accepted_confirmation)
       visit root_path
       page.assert_selector(:css, "h1", text: I18n.t("ui.hello_heading"))
     end
@@ -115,7 +115,7 @@ RSpec.describe "Cookie consent", :js do
       banner.click_on(I18n.t("ui.cookie_view_cookies"))
       banner.check(I18n.t("ui.cookie_analytics_label"))
       banner.click_on(I18n.t("ui.cookie_save_choices"))
-      page.assert_selector(:css, "[role=status]", text: I18n.t("ui.cookie_accepted_message"))
+      page.assert_selector(:css, "[role=status]", text: accepted_confirmation)
     end
 
     it "stores analytics as granted" do

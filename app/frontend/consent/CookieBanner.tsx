@@ -11,7 +11,6 @@ export interface CookieBannerCopy {
   analyticsDescription: string;
   analyticsIntro: string;
   analyticsLabel: string;
-  changeSettings: string;
   changeSettingsLink: string;
   essentialIntro: string;
   hide: string;
@@ -20,6 +19,7 @@ export interface CookieBannerCopy {
   rejectAnalytics: string;
   rejectedMessage: string;
   saveChoices: string;
+  settingsLegend: string;
   title: string;
   viewCookies: string;
 }
@@ -94,7 +94,7 @@ function CookieBanner({ copy }: CookieBannerProps) {
     ? copy.acceptedMessage
     : copy.rejectedMessage;
   const [changeSettingsBefore = "", changeSettingsAfter = ""] =
-    copy.changeSettings.split(LINK_PLACEHOLDER);
+    confirmationMessage.split(LINK_PLACEHOLDER);
 
   return (
     <section aria-labelledby={titleId} className={styles.banner} ref={bannerRef} tabIndex={-1}>
@@ -141,17 +141,21 @@ function CookieBanner({ copy }: CookieBannerProps) {
       {view === "manage" && (
         <>
           <fieldset className={styles.categories}>
+            <legend className={styles.legend}>{copy.settingsLegend}</legend>
             <div className={styles.category}>
               <input
-                aria-describedby={`${idPrefix}-necessary-description`}
+                aria-describedby={`${idPrefix}-necessary-always-on ${idPrefix}-necessary-description`}
                 checked
                 disabled
                 id={`${idPrefix}-necessary`}
                 type="checkbox"
               />
               <label htmlFor={`${idPrefix}-necessary`}>{copy.necessaryLabel}</label>
+              <p className={styles.categoryDescription} id={`${idPrefix}-necessary-always-on`}>
+                {copy.alwaysOn}
+              </p>
               <p className={styles.categoryDescription} id={`${idPrefix}-necessary-description`}>
-                {copy.alwaysOn}. {copy.necessaryDescription}
+                {copy.necessaryDescription}
               </p>
             </div>
             <div className={styles.category}>
@@ -188,7 +192,7 @@ function CookieBanner({ copy }: CookieBannerProps) {
       {view === "confirmation" && (
         <>
           <p className={styles.body} ref={confirmationRef} role="status" tabIndex={-1}>
-            {confirmationMessage} {changeSettingsBefore}
+            {changeSettingsBefore}
             <button className={styles.inlineLinkButton} onClick={openSettings} type="button">
               {copy.changeSettingsLink}
             </button>
