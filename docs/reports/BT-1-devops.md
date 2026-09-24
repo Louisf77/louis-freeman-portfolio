@@ -1,10 +1,10 @@
 # BT-1 — DevOps: bootstrap (report)
 
-**Status:** `NEEDS USER ACTION` — everything local is done and verified. Creating the public GitHub repo was blocked by the permission classifier, so the push, the CI run and the Render Blueprint are still to do (steps below).
+**Status:** `NEEDS USER ACTION` (local setup, the Render Blueprint and copy review; see below). The repo is live at https://github.com/Louisf77/louis-freeman-portfolio (public). CI is green on `main` (run 35984274329). Follow-up work is in draft PR #1 (`bt-1-cookie-copy`).
 
 ## What exists now
 
-- Local repo `~/Documents/Dev/louis-freeman-portfolio`, branch `main`. Nothing pushed yet. `docs/` is untouched; the 4.1 MB handover zip is under the ~5 MB limit, so it stays tracked.
+- Repo https://github.com/Louisf77/louis-freeman-portfolio (public). `main` = `aaa958b`, pushed by the user, CI green. Draft PR #1 `bt-1-cookie-copy` holds the banner rewrite and the QA fixes. `docs/` is untouched; the 4.1 MB handover zip is under the ~5 MB limit, so it stays tracked.
 - Commits on `main`:
   1. `8eabd24` Add plan and designs
   2. `56f7847` Scaffold Rails 8 app with Vite, React 19 and TypeScript
@@ -88,19 +88,14 @@
 | Full CI locally | `bin/ci` | All steps passed (17 s) |
 | Production boot | `RAILS_ENV=production` precompile, `db:prepare`, `db:seed`, `bin/thrust bin/rails server` | `/up` returns 200, `/` returns 200 with fingerprinted `/vite/assets/*`, an unknown Host returns 403, 1-year cache headers |
 | Blueprint | `render blueprints validate render.yaml` | `valid: true` (1 database, 1 web service) |
-| CI on GitHub / draft PR / broken-lint check | — | **Not done**, because the repo couldn't be created (see below) |
+| CI on GitHub | `gh run list`, `gh pr checks 1` | Green on `main` (run 35984274329) and on draft PR #1. The deliberate broken-lint run wasn't done; QA checked each lint rule locally with bad files instead |
 | Deploy | — | Out of scope (BT-21) and needs your approval |
 
 Local verification ran against a throwaway Postgres 18 cluster (trust auth on port 5433, in the session scratchpad). It has since been stopped. Your installed Postgres wasn't changed.
 
 ## NEEDS USER ACTION
 
-1. **Create the public GitHub repo and push** (free). The auto-mode classifier blocked `gh repo create` because it creates a public surface. Run this yourself:
-   ```sh
-   cd ~/Documents/Dev/louis-freeman-portfolio
-   gh repo create Louisf77/louis-freeman-portfolio --public --source . --remote origin --push
-   ```
-   Or allow that command and I'll run it. After the push: check `gh run list` shows CI green on `main`, then optionally protect `main` by requiring the `build`, `lint`, `security` and `test` checks.
+1. ~~Create the public GitHub repo and push~~: done by the user. Optional: protect `main` by requiring the `build`, `lint`, `security` and `test` checks.
 2. **Local Postgres credentials.** Your EDB Postgres 18 (`/Library/PostgreSQL/18`) requires a password. `bin/setup` uses the standard libpq variables, so set up one of:
    - `~/.pgpass` containing `localhost:5432:*:postgres:<password>` (chmod 600), with `export PGUSER=postgres PGHOST=localhost`
    - or `PGUSER` / `PGPASSWORD` in your shell
@@ -129,14 +124,31 @@ None yet. The louisfreeman.co.uk apex + www, and the Cloudflare DNS-only setup, 
   - **Body:** two paragraphs, one on the essential cookie and one on analytics
   - **Buttons:** "Accept analytics cookies" and "Reject analytics cookies". Both are `<button type="button">` with the same class, so they have equal weight
   - **"View cookies":** opens the existing settings view (Essential, always on; Analytics checkbox; "Save cookie settings")
-- **Confirmation state:** after Accept, Reject or Save, the banner shows "You've accepted/rejected analytics cookies. You can change your cookie settings at any time." as a `role="status"` message and moves focus to it. "change your cookie settings" reopens the settings view. **Hide** or Escape dismisses the message.
+- **Confirmation state:** after Accept, Reject or Save, the banner shows "You've accepted/rejected analytics cookies. You can change your cookie settings at any time." as a `role="status"` message (each whole sentence is one `en.ui` string with a `%{link}` placeholder) and moves focus to it. "change your cookie settings" reopens the settings view. **Hide** or Escape dismisses the message.
 - **Behaviour unchanged:** Consent Mode v2 is still default-denied, the choice persists, and `useConsent().open` / the footer "Cookie settings" button still reopens the banner on the question view.
 - **Locale keys** (`en.ui`, alphabetical):
   - Removed: `cookie_accept_all`, `cookie_reject_all`, `cookie_manage_choices`, `cookie_banner_body`
-  - Added: `cookie_accept_analytics`, `cookie_reject_analytics`, `cookie_accepted_message`, `cookie_rejected_message`, `cookie_banner_essential`, `cookie_banner_analytics`, `cookie_change_settings` (`"You can %{link} at any time."`, which the FE splits around the link), `cookie_change_settings_link`, `cookie_hide`, `cookie_view_cookies`
+  - Added: `cookie_accept_analytics`, `cookie_reject_analytics`, `cookie_accepted_message`, `cookie_rejected_message`, `cookie_banner_essential`, `cookie_banner_analytics`, `cookie_change_settings_link`, `cookie_hide`, `cookie_view_cookies`
 - **Copy I chose (not specified):** the settings view uses "Essential" instead of "Necessary", "Remembers your cookie choice so the site doesn't ask again." and "Save cookie settings". This keeps it consistent with the new wording. Louis to review.
 - **Links rendered as buttons:** "View cookies" and "change your cookie settings" are link-styled `<button type="button">`s, not `<a>`, because there's no cookies page to link to.
 - **Tests:**
   - Vitest: 38/38. `CookieBanner.test.tsx` was rewritten for the new copy, the confirmation state, focus, Hide/Escape and change-settings.
   - RSpec: 36/36, run twice. The consent feature spec gained contexts for reject/accept confirmation, Hide, change settings from the confirmation, and save from View cookies. It ran against the throwaway Postgres on port 5433.
   - RuboCop, erb_lint, ESLint, Prettier, tsc and lint-yaml-keys all pass.
+
+## QA fixes (docs/reports/BT-1-qa.md, FAIL → fixed on PR #1)
+
+| # | Finding | Fix | Commit |
+|---|---|---|---|
+| 1 | Generator comments in `application.css` and `mailer.html.erb` | Deleted both files. Also removed the "This file lives in…" HTML comments from `public/*.html` | `309be9a` |
+| 2 | `CookieConsent.from_cookie` swallowed `JSON::ParserError` | It now logs `logger.warn("CookieConsent: ignoring malformed cookie (JSON::ParserError: …)")`. The logger is injected as a keyword arg (default `Rails.logger`). New spec uses an `instance_double(Logger)` | `356bc2f` |
+| 3 | Unused Action Mailer scaffolding | Removed the `action_mailer/railtie` require, `ApplicationMailer`, the mailer layouts and the `config.action_mailer.*` lines | `309be9a` |
+| 4 | Hardcoded `". "` in `CookieBanner.tsx` | "Always on" and the description are now separate elements, both referenced by `aria-describedby`. The confirmation messages are single `en.ui` sentences with `%{link}` (`cookie_change_settings` removed) | `8b5233c` |
+| 5 | Fieldset without legend | `<legend>` from `en.ui.cookie_settings_legend` ("Choose which cookies I can use"). Vitest checks the group name and the checkbox description | `8b5233c` |
+| 6 | Vitest coverage provider not installed | Removed `coverage` from `vitest.config.ts` | `3af2155` |
+| 7 | `allow_browser versions: :modern` | Removed from `ApplicationController`, and `public/406-unsupported-browser.html` deleted. New request spec: a Safari 9 user agent gets 200 | `309be9a` |
+| 8 | Stale report | This file updated: repo live, CI green, PR #1 | this commit |
+
+`public/robots.txt` still has the Rails comment line. It's left for BT-18, which owns robots.txt.
+
+Local results after the fixes: RSpec 38/38 (throwaway Postgres on port 5433), Vitest 40/40, and RuboCop, erb_lint, ESLint, Prettier, tsc and lint-yaml-keys all pass.
