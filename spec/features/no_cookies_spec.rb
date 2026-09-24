@@ -21,6 +21,10 @@ RSpec.describe "No non-essential cookies", :js do
       expect(page.evaluate_script("window.localStorage.length")).to eq(0)
     end
 
+    it "stores nothing in sessionStorage" do
+      expect(page.evaluate_script("window.sessionStorage.length")).to eq(0)
+    end
+
     it "shows no cookie banner" do
       expect(page).to have_no_text(/cookie/i)
     end
