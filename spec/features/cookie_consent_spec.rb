@@ -3,6 +3,9 @@ require "rails_helper"
 RSpec.describe "Cookie consent", :js do
   let(:banner_title) { I18n.t("ui.cookie_banner_title") }
   let(:google_request_pattern) { /google|doubleclick|gstatic/ }
+  let(:rejected_confirmation) do
+    "#{I18n.t("ui.cookie_rejected_message")} You can #{I18n.t("ui.cookie_change_settings_link")} at any time."
+  end
 
   def banner
     find(:region, banner_title)
@@ -40,15 +43,15 @@ RSpec.describe "Cookie consent", :js do
     end
   end
 
-  context "when rejecting all" do
+  context "when rejecting analytics cookies" do
     before do
       visit root_path
-      banner.click_on(I18n.t("ui.cookie_reject_all"))
-      page.assert_no_selector(:region, banner_title)
+      banner.click_on(I18n.t("ui.cookie_reject_analytics"))
+      page.assert_selector(:css, "[role=status]", text: I18n.t("ui.cookie_rejected_message"))
     end
 
-    it "hides the banner" do
-      expect(page).to have_no_selector(:region, banner_title)
+    it "confirms the choice" do
+      expect(banner).to have_text(rejected_confirmation)
     end
 
     it "stores analytics as denied" do
@@ -64,11 +67,35 @@ RSpec.describe "Cookie consent", :js do
     end
   end
 
-  context "when accepting all" do
+  context "when hiding the confirmation" do
     before do
       visit root_path
-      banner.click_on(I18n.t("ui.cookie_accept_all"))
-      page.assert_no_selector(:region, banner_title)
+      banner.click_on(I18n.t("ui.cookie_reject_analytics"))
+      banner.click_on(I18n.t("ui.cookie_hide"))
+    end
+
+    it "hides the banner" do
+      expect(page).to have_no_selector(:region, banner_title)
+    end
+  end
+
+  context "when changing settings from the confirmation" do
+    before do
+      visit root_path
+      banner.click_on(I18n.t("ui.cookie_accept_analytics"))
+      banner.click_on(I18n.t("ui.cookie_change_settings_link"))
+    end
+
+    it "shows the stored choice in the settings" do
+      expect(banner).to have_checked_field(I18n.t("ui.cookie_analytics_label"))
+    end
+  end
+
+  context "when accepting analytics cookies" do
+    before do
+      visit root_path
+      banner.click_on(I18n.t("ui.cookie_accept_analytics"))
+      page.assert_selector(:css, "[role=status]", text: I18n.t("ui.cookie_accepted_message"))
       visit root_path
       page.assert_selector(:css, "h1", text: I18n.t("ui.hello_heading"))
     end
@@ -79,6 +106,20 @@ RSpec.describe "Cookie consent", :js do
 
     it "applies the stored grant to Consent Mode on page load" do
       expect(page.evaluate_script("JSON.stringify(window.dataLayer)")).to include('"analytics_storage":"granted"')
+    end
+  end
+
+  context "when saving settings from View cookies" do
+    before do
+      visit root_path
+      banner.click_on(I18n.t("ui.cookie_view_cookies"))
+      banner.check(I18n.t("ui.cookie_analytics_label"))
+      banner.click_on(I18n.t("ui.cookie_save_choices"))
+      page.assert_selector(:css, "[role=status]", text: I18n.t("ui.cookie_accepted_message"))
+    end
+
+    it "stores analytics as granted" do
+      expect(stored_choice).to include("analytics" => true)
     end
   end
 
@@ -98,7 +139,9 @@ RSpec.describe "Cookie consent", :js do
   context "when reopening from Cookie settings" do
     before do
       visit root_path
-      banner.click_on(I18n.t("ui.cookie_reject_all"))
+      banner.click_on(I18n.t("ui.cookie_reject_analytics"))
+      banner.click_on(I18n.t("ui.cookie_hide"))
+      page.assert_no_selector(:region, banner_title)
       click_on I18n.t("ui.cookie_settings")
     end
 

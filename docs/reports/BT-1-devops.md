@@ -121,3 +121,22 @@ Free-plan trade-off: `preDeployCommand` isn't available, so `bin/render-build.sh
 ## DNS
 
 None yet. The louisfreeman.co.uk apex + www, and the Cloudflare DNS-only setup, belong to the production deploy task (BT-21). `config.hosts` already allows both names.
+
+## Follow-up: GOV.UK-pattern cookie banner copy (branch `bt-1-cookie-copy`, draft PR)
+
+- The banner now follows the GOV.UK Design System cookie banner pattern, written in the first person:
+  - **Heading:** "Cookies on louisfreeman.co.uk"
+  - **Body:** two paragraphs, one on the essential cookie and one on analytics
+  - **Buttons:** "Accept analytics cookies" and "Reject analytics cookies". Both are `<button type="button">` with the same class, so they have equal weight
+  - **"View cookies":** opens the existing settings view (Essential, always on; Analytics checkbox; "Save cookie settings")
+- **Confirmation state:** after Accept, Reject or Save, the banner shows "You've accepted/rejected analytics cookies. You can change your cookie settings at any time." as a `role="status"` message and moves focus to it. "change your cookie settings" reopens the settings view. **Hide** or Escape dismisses the message.
+- **Behaviour unchanged:** Consent Mode v2 is still default-denied, the choice persists, and `useConsent().open` / the footer "Cookie settings" button still reopens the banner on the question view.
+- **Locale keys** (`en.ui`, alphabetical):
+  - Removed: `cookie_accept_all`, `cookie_reject_all`, `cookie_manage_choices`, `cookie_banner_body`
+  - Added: `cookie_accept_analytics`, `cookie_reject_analytics`, `cookie_accepted_message`, `cookie_rejected_message`, `cookie_banner_essential`, `cookie_banner_analytics`, `cookie_change_settings` (`"You can %{link} at any time."`, which the FE splits around the link), `cookie_change_settings_link`, `cookie_hide`, `cookie_view_cookies`
+- **Copy I chose (not specified):** the settings view uses "Essential" instead of "Necessary", "Remembers your cookie choice so the site doesn't ask again." and "Save cookie settings". This keeps it consistent with the new wording. Louis to review.
+- **Links rendered as buttons:** "View cookies" and "change your cookie settings" are link-styled `<button type="button">`s, not `<a>`, because there's no cookies page to link to.
+- **Tests:**
+  - Vitest: 38/38. `CookieBanner.test.tsx` was rewritten for the new copy, the confirmation state, focus, Hide/Escape and change-settings.
+  - RSpec: 36/36, run twice. The consent feature spec gained contexts for reject/accept confirmation, Hide, change settings from the confirmation, and save from View cookies. It ran against the throwaway Postgres on port 5433.
+  - RuboCop, erb_lint, ESLint, Prettier, tsc and lint-yaml-keys all pass.
