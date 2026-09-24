@@ -14,6 +14,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
+      "@test/*": ["./test/*"],
       "~/*": ["./app/frontend/*"]
     },
     "resolveJsonModule": true,

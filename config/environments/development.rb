@@ -44,4 +44,9 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.middleware.use(JsRoutes::Middleware)
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.rails_logger = true
+  end
 end
