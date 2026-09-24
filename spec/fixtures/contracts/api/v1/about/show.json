@@ -50,8 +50,8 @@
         {
           "id": 3,
           "name": "Football",
-          "image_path": "/images/hobbies/football.png",
-          "photo": false,
+          "image_path": "/images/hobbies/football.jpg",
+          "photo": true,
           "position": 3
         },
         {
@@ -64,8 +64,8 @@
         {
           "id": 5,
           "name": "Cooking",
-          "image_path": "/images/hobbies/cooking.png",
-          "photo": false,
+          "image_path": "/images/hobbies/cooking.jpg",
+          "photo": true,
           "position": 5
         },
         {
