@@ -12,7 +12,13 @@ CI.run do
   step "Security: npm audit", "npm audit --omit=dev --audit-level=high"
   step "Security: Brakeman code analysis", "bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error"
 
-  step "Tests: Migrations redo", "bin/rails db:migrate:redo" if Dir.glob("db/migrate/*.rb").any?
+  step "Tests: Migrate from empty", "RAILS_ENV=test bin/rails db:drop db:create db:migrate"
+  step "Tests: Schema matches migrations", "git diff --exit-code db/schema.rb"
+  if Dir.glob("db/migrate/*.rb").any?
+    step "Tests: Roll back every migration", "RAILS_ENV=test bin/rails db:migrate VERSION=0"
+    step "Tests: Re-apply every migration", "RAILS_ENV=test bin/rails db:migrate"
+    step "Tests: Schema matches after round-trip", "git diff --exit-code db/schema.rb"
+  end
   step "Tests: RSpec", "bundle exec rspec"
   step "Tests: Vitest", "npx vitest run"
 

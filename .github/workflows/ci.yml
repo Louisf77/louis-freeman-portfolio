@@ -83,9 +83,14 @@ jobs:
           node-version-file: .node-version
       - run: npm ci
       - run: bin/rails js:routes
-      - run: bin/rails db:prepare
+      - run: bin/rails db:create db:migrate
+      - run: git diff --exit-code db/schema.rb
       - if: hashFiles('db/migrate/*.rb') != ''
-        run: bin/rails db:migrate:redo
+        run: bin/rails db:migrate VERSION=0
+      - if: hashFiles('db/migrate/*.rb') != ''
+        run: bin/rails db:migrate
+      - if: hashFiles('db/migrate/*.rb') != ''
+        run: git diff --exit-code db/schema.rb
       - run: bundle exec rspec
       - run: npx vitest run
       - if: failure()
