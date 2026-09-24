@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://louisfreeman.co.uk/contracts/api/v1/error.json",
+  "type": "object",
+  "required": ["errors"],
+  "additionalProperties": false,
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "field", "message"],
+        "additionalProperties": false,
+        "properties": {
+          "code": { "enum": ["not_found", "internal_error"] },
+          "field": { "type": ["string", "null"] },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  }
+}

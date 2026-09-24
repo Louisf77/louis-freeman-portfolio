@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://louisfreeman.co.uk/contracts/api/v1/about/show.json",
+  "type": "object",
+  "required": ["about"],
+  "additionalProperties": false,
+  "properties": {
+    "about": {
+      "type": "object",
+      "required": ["intro", "conversation", "hobbies", "timeline"],
+      "additionalProperties": false,
+      "properties": {
+        "intro": {
+          "type": "object",
+          "required": ["heading", "subline"],
+          "additionalProperties": false,
+          "properties": {
+            "heading": { "type": "string" },
+            "subline": { "type": "string" }
+          }
+        },
+        "conversation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "question", "answer", "highlights", "position"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "integer" },
+              "question": { "type": "string" },
+              "answer": { "type": "string" },
+              "highlights": { "type": "array", "items": { "type": "string" } },
+              "position": { "type": "integer" }
+            }
+          }
+        },
+        "hobbies": {
+          "type": "object",
+          "required": ["items", "earlier_roles"],
+          "additionalProperties": false,
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "name", "image_path", "photo", "position"],
+                "additionalProperties": false,
+                "properties": {
+                  "id": { "type": "integer" },
+                  "name": { "type": "string" },
+                  "image_path": { "type": "string" },
+                  "photo": { "type": "boolean" },
+                  "position": { "type": "integer" }
+                }
+              }
+            },
+            "earlier_roles": {
+              "type": "array",
+              "items": { "$ref": "../shared.json#/$defs/ListItem" }
+            }
+          }
+        },
+        "timeline": { "type": "array", "items": { "$ref": "../shared.json#/$defs/Experience" } }
+      }
+    }
+  }
+}
