@@ -1,7 +1,7 @@
 # Louis Freeman Portfolio — site build
 
 Notion: https://app.notion.com/p/3e5f4750980b81e6882ff1c95860aba7 · Size: App · Planned: 2026-09-24
-Approval: APPROVED by user 2026-09-24 — "Approved, carry on" (re-plan: Umami instead of GA4 + consent; FE source → app/javascript feature-based; json gem pin; merge policy). First approval: 2026-09-24 — "Approved, hand it off"
+Approval: APPROVED by user 2026-09-24 — "Approve" (adds BT-25 CI hardening). Earlier approvals: "Approved, carry on" (re-plan), "Approved, hand it off" (initial) (re-plan: Umami instead of GA4 + consent; FE source → app/javascript feature-based; json gem pin; merge policy). First approval: 2026-09-24 — "Approved, hand it off"
 
 ## Summary
 Build Louis Freeman's personal portfolio (Home, Work, About) from the approved Claude Design handoff, as a Rails 8 API + React 19 SPA. Audience: hiring managers, recruiters and engineers. It must be pixel-close to the mockups at 1440px and 390px, with the full scroll/motion system and a static fallback for reduced motion. It's hosted on Render (free tier first) at louisfreeman.co.uk.
@@ -263,6 +263,7 @@ Assets: `assets/` → mapping in DESIGN.md §7 (`/_blob/<id>` → file).
 | 3a | BT-22 | DevOps: pin json gem | DevOps | S | 1 |
 | 3b | BT-23 | DevOps: remove cookie consent layer | DevOps | S | 1 (after PR #1 merges) |
 | 3c | BT-24 | DevOps: move React source to app/javascript (feature-based) | DevOps | M | 2, 23 |
+| 3d | BT-25 | DevOps: harden CI (migration round-trip, schema diff, Chrome startup) | DevOps | S | 3 |
 | 4 | BT-4 | Backend: content models & seeds | Backend | M | 3, 22 |
 | 5 | BT-6 | Backend: content API v1 | Backend | M | 2, 4 |
 | 6 | BT-13 | Backend: page shells, meta & bootstrap JSON | Backend | M | 5 |
@@ -408,6 +409,21 @@ Role: DevOps (Change mode) · Size: M · Blocked by: Contracts: content API & pa
 **Done when**
 - [ ] `app/frontend/` no longer exists; `bin/dev` serves the React hello page; the production Vite build succeeds
 - [ ] `npx vitest run`, `npx tsc --noEmit`, `npx eslint .`, `npx prettier --check .`, RSpec and CI green
+
+### BT-25 — DevOps: harden CI (migration round-trip, schema diff, Chrome startup)
+Role: DevOps (Change mode) · Size: S · Blocked by: Migration: create content tables
+
+**Goal:** CI catches a broken `down` in any migration or a stale/broken `db/schema.rb`, and system specs no longer flake on headless Chrome startup.
+
+**Context:** found by BT-3 QA: `bin/rails db:migrate:redo` only rolls back the latest migration and never diffs the schema. CI also failed twice with `Ferrum::ProcessTimeoutError` (Cuprite/Chrome startup) on otherwise green runs.
+
+**Scope**
+- In: replace the CI "Migrations redo" step (in `config/ci.rb` and the GitHub workflow) with a full round-trip: `db:migrate` from empty → `db:rollback STEP=<all migrations>` (or `db:migrate VERSION=0`) → `db:migrate`, then fail if `git diff --exit-code db/schema.rb` shows changes; raise Cuprite's `process_timeout` (e.g. 30s) and add `--no-sandbox`/`--disable-dev-shm-usage` browser options in CI only; keep `bin/ci` mirroring the workflow. Draft PR from `origin/main`.
+- Out: other CI changes.
+
+**Done when**
+- [ ] A deliberately broken `down` in an older migration (tested on a throwaway branch, not committed) fails CI; a hand-edited `schema.rb` fails CI
+- [ ] CI green on the PR; `bin/ci` passes locally (DB steps may need a throwaway Postgres)
 
 ### BT-4 — Backend: content models & seeds
 Role: Backend · Size: M · Blocked by: Migration: create content tables; DevOps: pin json gem
