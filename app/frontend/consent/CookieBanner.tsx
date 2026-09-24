@@ -1,126 +1,216 @@
 import { useEffect, useId, useRef, useState } from "react";
 
+import type { ConsentChoice } from "~/consent/consent";
 import { useConsent } from "~/consent/ConsentProvider";
 import styles from "~/consent/CookieBanner.module.css";
 
 export interface CookieBannerCopy {
-  acceptAll: string;
+  acceptAnalytics: string;
+  acceptedMessage: string;
   alwaysOn: string;
   analyticsDescription: string;
+  analyticsIntro: string;
   analyticsLabel: string;
-  body: string;
-  manageChoices: string;
+  changeSettingsLink: string;
+  essentialIntro: string;
+  hide: string;
   necessaryDescription: string;
   necessaryLabel: string;
-  rejectAll: string;
+  rejectAnalytics: string;
+  rejectedMessage: string;
   saveChoices: string;
+  settingsLegend: string;
   title: string;
+  viewCookies: string;
 }
 
 interface CookieBannerProps {
   copy: CookieBannerCopy;
 }
 
+type BannerView = "confirmation" | "manage" | "question";
+
 const DISMISS_KEY = "Escape";
+const LINK_PLACEHOLDER = "%{link}";
 
 function CookieBanner({ copy }: CookieBannerProps) {
-  const { acceptAll, choice, dismiss, isBannerOpen, isDecided, rejectAll, save } = useConsent();
-  const [isManaging, setIsManaging] = useState(false);
+  const { acceptAll, choice, dismiss, isBannerOpen, isDecided, open, rejectAll, save } =
+    useConsent();
+  const [view, setView] = useState<BannerView>("question");
+  const [confirmedChoice, setConfirmedChoice] = useState<ConsentChoice>(choice);
   const [isAnalyticsChecked, setIsAnalyticsChecked] = useState(choice.analytics);
+  const viewOnOpenRef = useRef<BannerView>("question");
   const bannerRef = useRef<HTMLElement>(null);
+  const confirmationRef = useRef<HTMLParagraphElement>(null);
   const idPrefix = useId();
   const titleId = `${idPrefix}-title`;
+  const isVisible = isBannerOpen || view === "confirmation";
 
   useEffect(() => {
     if (!isBannerOpen) return;
 
-    setIsManaging(false);
+    setView(viewOnOpenRef.current);
+    viewOnOpenRef.current = "question";
     setIsAnalyticsChecked(choice.analytics);
     if (isDecided) bannerRef.current?.focus();
   }, [choice.analytics, isBannerOpen, isDecided]);
 
   useEffect(() => {
-    if (!isBannerOpen) return;
+    if (view === "confirmation") confirmationRef.current?.focus();
+  }, [view]);
+
+  useEffect(() => {
+    if (!isVisible) return;
 
     function dismissOnEscape(event: KeyboardEvent) {
-      if (event.key === DISMISS_KEY) dismiss();
+      if (event.key !== DISMISS_KEY) return;
+      if (view === "confirmation") {
+        setView("question");
+        return;
+      }
+      dismiss();
     }
 
     document.addEventListener("keydown", dismissOnEscape);
     return () => {
       document.removeEventListener("keydown", dismissOnEscape);
     };
-  }, [dismiss, isBannerOpen]);
+  }, [dismiss, isVisible, view]);
 
-  if (!isBannerOpen) return null;
+  if (!isVisible) return null;
+
+  function confirm(savedChoice: ConsentChoice) {
+    setConfirmedChoice(savedChoice);
+    setView("confirmation");
+  }
+
+  function openSettings() {
+    viewOnOpenRef.current = "manage";
+    setView("manage");
+    open();
+  }
+
+  const confirmationMessage = confirmedChoice.analytics
+    ? copy.acceptedMessage
+    : copy.rejectedMessage;
+  const [changeSettingsBefore = "", changeSettingsAfter = ""] =
+    confirmationMessage.split(LINK_PLACEHOLDER);
 
   return (
     <section aria-labelledby={titleId} className={styles.banner} ref={bannerRef} tabIndex={-1}>
       <h2 className={styles.title} id={titleId}>
         {copy.title}
       </h2>
-      <p className={styles.body}>{copy.body}</p>
-      {isManaging && (
-        <fieldset className={styles.categories}>
-          <div className={styles.category}>
-            <input
-              aria-describedby={`${idPrefix}-necessary-description`}
-              checked
-              disabled
-              id={`${idPrefix}-necessary`}
-              type="checkbox"
-            />
-            <label htmlFor={`${idPrefix}-necessary`}>{copy.necessaryLabel}</label>
-            <p className={styles.categoryDescription} id={`${idPrefix}-necessary-description`}>
-              {copy.alwaysOn}. {copy.necessaryDescription}
-            </p>
-          </div>
-          <div className={styles.category}>
-            <input
-              aria-describedby={`${idPrefix}-analytics-description`}
-              checked={isAnalyticsChecked}
-              id={`${idPrefix}-analytics`}
-              onChange={(event) => {
-                setIsAnalyticsChecked(event.target.checked);
+      {view === "question" && (
+        <>
+          <p className={styles.body}>{copy.essentialIntro}</p>
+          <p className={styles.body}>{copy.analyticsIntro}</p>
+          <div className={styles.actions}>
+            <button
+              className={styles.choiceButton}
+              onClick={() => {
+                acceptAll();
+                confirm({ analytics: true });
               }}
-              type="checkbox"
-            />
-            <label htmlFor={`${idPrefix}-analytics`}>{copy.analyticsLabel}</label>
-            <p className={styles.categoryDescription} id={`${idPrefix}-analytics-description`}>
-              {copy.analyticsDescription}
-            </p>
+              type="button"
+            >
+              {copy.acceptAnalytics}
+            </button>
+            <button
+              className={styles.choiceButton}
+              onClick={() => {
+                rejectAll();
+                confirm({ analytics: false });
+              }}
+              type="button"
+            >
+              {copy.rejectAnalytics}
+            </button>
+            <button
+              className={styles.linkButton}
+              onClick={() => {
+                setView("manage");
+              }}
+              type="button"
+            >
+              {copy.viewCookies}
+            </button>
           </div>
-        </fieldset>
+        </>
       )}
-      <div className={styles.actions}>
-        <button className={styles.choiceButton} onClick={rejectAll} type="button">
-          {copy.rejectAll}
-        </button>
-        <button className={styles.choiceButton} onClick={acceptAll} type="button">
-          {copy.acceptAll}
-        </button>
-        {isManaging ? (
-          <button
-            className={styles.secondaryButton}
-            onClick={() => {
-              save({ analytics: isAnalyticsChecked });
-            }}
-            type="button"
-          >
-            {copy.saveChoices}
-          </button>
-        ) : (
-          <button
-            className={styles.secondaryButton}
-            onClick={() => {
-              setIsManaging(true);
-            }}
-            type="button"
-          >
-            {copy.manageChoices}
-          </button>
-        )}
-      </div>
+      {view === "manage" && (
+        <>
+          <fieldset className={styles.categories}>
+            <legend className={styles.legend}>{copy.settingsLegend}</legend>
+            <div className={styles.category}>
+              <input
+                aria-describedby={`${idPrefix}-necessary-always-on ${idPrefix}-necessary-description`}
+                checked
+                disabled
+                id={`${idPrefix}-necessary`}
+                type="checkbox"
+              />
+              <label htmlFor={`${idPrefix}-necessary`}>{copy.necessaryLabel}</label>
+              <p className={styles.categoryDescription} id={`${idPrefix}-necessary-always-on`}>
+                {copy.alwaysOn}
+              </p>
+              <p className={styles.categoryDescription} id={`${idPrefix}-necessary-description`}>
+                {copy.necessaryDescription}
+              </p>
+            </div>
+            <div className={styles.category}>
+              <input
+                aria-describedby={`${idPrefix}-analytics-description`}
+                checked={isAnalyticsChecked}
+                id={`${idPrefix}-analytics`}
+                onChange={(event) => {
+                  setIsAnalyticsChecked(event.target.checked);
+                }}
+                type="checkbox"
+              />
+              <label htmlFor={`${idPrefix}-analytics`}>{copy.analyticsLabel}</label>
+              <p className={styles.categoryDescription} id={`${idPrefix}-analytics-description`}>
+                {copy.analyticsDescription}
+              </p>
+            </div>
+          </fieldset>
+          <div className={styles.actions}>
+            <button
+              className={styles.choiceButton}
+              onClick={() => {
+                const savedChoice = { analytics: isAnalyticsChecked };
+                save(savedChoice);
+                confirm(savedChoice);
+              }}
+              type="button"
+            >
+              {copy.saveChoices}
+            </button>
+          </div>
+        </>
+      )}
+      {view === "confirmation" && (
+        <>
+          <p className={styles.body} ref={confirmationRef} role="status" tabIndex={-1}>
+            {changeSettingsBefore}
+            <button className={styles.inlineLinkButton} onClick={openSettings} type="button">
+              {copy.changeSettingsLink}
+            </button>
+            {changeSettingsAfter}
+          </p>
+          <div className={styles.actions}>
+            <button
+              className={styles.choiceButton}
+              onClick={() => {
+                setView("question");
+              }}
+              type="button"
+            >
+              {copy.hide}
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 }

@@ -24,8 +24,6 @@ Rails.application.configure do
 
   config.active_support.report_deprecations = false
 
-  config.action_mailer.default_url_options = { host: "louisfreeman.co.uk" }
-
   config.i18n.fallbacks = true
 
   config.active_record.dump_schema_after_migration = false

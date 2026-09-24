@@ -10,7 +10,6 @@ export default defineConfig({
     },
   },
   test: {
-    coverage: { provider: "v8" },
     environment: "jsdom",
     globals: false,
     include: ["app/frontend/**/*.test.{ts,tsx}", "test/**/*.test.{ts,tsx}"],
