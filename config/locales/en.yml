@@ -2,4 +2,16 @@ en:
   meta:
     default_title: "Louis Freeman"
   ui:
+    cookie_accept_all: "Accept all"
+    cookie_always_on: "Always on"
+    cookie_analytics_description: "Google Analytics, only if you allow it, so I can see which pages people read. No advertising."
+    cookie_analytics_label: "Analytics"
+    cookie_banner_body: "This site uses a cookie to remember your choice. With your permission it also uses analytics cookies to count visits anonymously."
+    cookie_banner_title: "Cookie preferences"
+    cookie_manage_choices: "Manage choices"
+    cookie_necessary_description: "Needed for the site to work and to remember this choice."
+    cookie_necessary_label: "Necessary"
+    cookie_reject_all: "Reject all"
+    cookie_save_choices: "Save choices"
+    cookie_settings: "Cookie settings"
     hello_heading: "Hello from Louis Freeman"

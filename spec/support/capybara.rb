@@ -29,3 +29,10 @@ RSpec.configure do |config|
     Capybara.use_default_driver
   end
 end
+
+Capybara.add_selector(:region) do
+  xpath do |name|
+    labelling_ids = XPath.anywhere[XPath.string.n.is(name.to_s)].attr(:id)
+    XPath.descendant(:section)[XPath.attr(:"aria-labelledby") == labelling_ids]
+  end
+end

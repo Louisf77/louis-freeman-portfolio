@@ -1,0 +1,75 @@
+.banner {
+  background: #fff;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  bottom: 16px;
+  box-shadow: 0 8px 32px rgb(0 0 0 / 16%);
+  color: #1a1a1a;
+  left: 16px;
+  max-width: 480px;
+  padding: 20px;
+  position: fixed;
+  right: 16px;
+  z-index: 1000;
+}
+
+.banner:focus {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 2px;
+}
+
+.title {
+  font-size: 1.125rem;
+  margin: 0 0 8px;
+}
+
+.body {
+  margin: 0 0 16px;
+}
+
+.categories {
+  border: 0;
+  display: grid;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.category {
+  display: grid;
+  gap: 4px 8px;
+  grid-template-columns: auto 1fr;
+}
+
+.categoryDescription {
+  grid-column: 2;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.choiceButton {
+  background: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  flex: 1 1 auto;
+  font: inherit;
+  padding: 10px 16px;
+}
+
+.secondaryButton {
+  background: transparent;
+  border: 1px solid #1a1a1a;
+  border-radius: 999px;
+  color: #1a1a1a;
+  cursor: pointer;
+  flex: 1 1 100%;
+  font: inherit;
+  padding: 10px 16px;
+}
