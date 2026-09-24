@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= content_for(:title) || t("meta.default_title") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+    <%= vite_client_tag %>
+    <%= vite_react_refresh_tag %>
+    <%= vite_typescript_tag "application.tsx" %>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script id="bootstrap" type="application/json"><%= page_bootstrap_json %></script>
+    <%= yield %>
+  </body>
+</html>

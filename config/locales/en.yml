@@ -1,0 +1,5 @@
+en:
+  meta:
+    default_title: "Louis Freeman"
+  ui:
+    hello_heading: "Hello from Louis Freeman"
