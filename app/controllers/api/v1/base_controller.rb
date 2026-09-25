@@ -3,6 +3,7 @@ module Api
     class BaseController < ActionController::API
       CACHE_LIFETIME = 5.minutes
       INTERNAL_ERROR_MESSAGE = "Something went wrong loading this content".freeze
+      NOT_FOUND_MESSAGE = "Requested content was not found".freeze
 
       rescue_from StandardError, with: :render_internal_error
       rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
@@ -29,7 +30,10 @@ module Api
       end
 
       def not_found_message(error:)
-        "#{error.model.constantize.model_name.human} has not been seeded"
+        missing_model = error.model&.safe_constantize
+        return NOT_FOUND_MESSAGE unless missing_model.respond_to?(:model_name)
+
+        "#{missing_model.model_name.human} has not been seeded"
       end
     end
   end

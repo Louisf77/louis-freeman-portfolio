@@ -52,6 +52,27 @@ RSpec.describe "Api::V1::Profiles" do
       end
     end
 
+    context "when a record is not found without naming its model" do
+      before { allow(Profile).to receive(:current).and_raise(ActiveRecord::RecordNotFound, "Record missing") }
+
+      it "returns not found" do
+        show_profile
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "matches the error contract" do
+        show_profile
+        expect(json_response).to match_contract("api/v1/error")
+      end
+
+      it "returns a generic not found error" do
+        show_profile
+        expect(json_response["errors"]).to contain_exactly(
+          "code" => "not_found", "field" => nil, "message" => "Requested content was not found",
+        )
+      end
+    end
+
     context "when loading the profile fails unexpectedly" do
       before { allow(Profile).to receive(:current).and_raise(ActiveRecord::ConnectionNotEstablished, "database down") }
 
