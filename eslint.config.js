@@ -7,8 +7,8 @@ export default tseslint.config(
   {
     ignores: [
       ".claude/**",
-      "app/frontend/routes.d.ts",
-      "app/frontend/routes.js",
+      "app/javascript/lib/routes.d.ts",
+      "app/javascript/lib/routes.js",
       "coverage/**",
       "docs/**",
       "node_modules/**",

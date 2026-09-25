@@ -6,13 +6,13 @@ export default defineConfig({
   resolve: {
     alias: {
       "@test": new URL("./test", import.meta.url).pathname,
-      "~": new URL("./app/frontend", import.meta.url).pathname,
+      "~": new URL("./app/javascript", import.meta.url).pathname,
     },
   },
   test: {
     environment: "jsdom",
     globals: false,
-    include: ["app/frontend/**/*.test.{ts,tsx}", "test/**/*.test.{ts,tsx}"],
+    include: ["app/javascript/**/*.test.{ts,tsx}", "test/**/*.test.{ts,tsx}"],
     setupFiles: ["./test/setup.ts"],
   },
 });
