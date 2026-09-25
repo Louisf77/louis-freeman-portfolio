@@ -6,6 +6,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   {
     ignores: [
+      ".claude/**",
       "app/javascript/lib/routes.d.ts",
       "app/javascript/lib/routes.js",
       "coverage/**",
