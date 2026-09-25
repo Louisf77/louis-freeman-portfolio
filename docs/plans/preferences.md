@@ -50,6 +50,7 @@ Snapshot: 2026-09-24 · Source: Notion Coding preferences DB (General, Ruby, Rai
 - Mutation-test gating specs so they can't pass vacuously (cut) · [link](https://app.notion.com/p/3e4f4750980b815bb8f8e795216ca9a1)
 - When you change a shared component, run its consumers' tests too · [link](https://app.notion.com/p/3e4f4750980b81b6bb57d2579dbce700)
 - Named subject first; describe for methods, context for scenarios (when/with/without); one expectation per `it` · [link](https://app.notion.com/p/3e4f4750980b818f8c1fc8caae057883)
+- Specs never `require "rails_helper"`/`"spec_helper"`; `.rspec` auto-requires `rails_helper` (added 2026-09-25)
 - Lazy `let`, never `let!`; shared_examples setup through `let` · [link](https://app.notion.com/p/3e4f4750980b81d2ac31f17b4f2a358c)
 - `instance_double`, never plain double or allow_any_instance_of · [link](https://app.notion.com/p/3e4f4750980b8120a98ffa2f8a640854)
 - Predicate matchers (`be_valid`), never `be(true)` · [link](https://app.notion.com/p/3e4f4750980b813790d3f715eaae63ff)
