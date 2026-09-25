@@ -67,6 +67,8 @@
 
 ## Cookie consent layer (for BT-5 / BT-18)
 
+> **Removed in BT-23.** The re-plan swapped GA4 for cookieless Umami, so the site needs no consent layer (plan §Measurement & SEO › Consent). The banner, `CookieConsent`, `ConsentHelper`, the Consent Mode script, the footer "Cookie settings" hook, the `en.ui.cookie_*` strings and their specs are gone. `spec/features/no_cookies_spec.rb` now checks that a first visit sets no cookie except the Rails session, stores nothing in localStorage and shows no cookie banner. The notes below are kept for history only.
+
 - Categories: `necessary` (always on) and `analytics`. Cookie `cookie_consent` = `{"analytics":bool,"updated_at":iso,"version":1}`, URL-encoded JSON, `SameSite=Lax`, `Secure` on https, `max-age` 6 months. Raise `CONSENT_VERSION` (TS) and `CookieConsent::VERSION` (Ruby) together to ask everyone again.
 - The `<head>` gets `consent_mode_script_tag` as its first script. It defines `dataLayer`/`gtag`, sets `gtag("consent","default",…)` with everything denied except `security_storage`, and `wait_for_update: 500`. If the stored choice grants analytics, the server emits `gtag("consent","update",{analytics_storage:"granted"})` straight away.
 - JS API (`~/consent/consent`): `consent.has("analytics")`, `consent.onChange(cb)` (returns an unsubscribe function), `consent.open()`, plus `acceptAll` / `rejectAll` / `save` / `dismiss`. Every change updates Consent Mode.

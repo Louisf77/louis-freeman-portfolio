@@ -59,6 +59,11 @@ Rails/Output:
     - "db/seeds.rb"
     - "lib/tasks/**/*"
 
+Rails/SkipsModelValidations:
+  Exclude:
+    - "lib/content/capabilities_seeder.rb"
+    - "lib/content/case_studies_seeder.rb"
+
 RSpec/AnyInstance:
   Enabled: true
 
