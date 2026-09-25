@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def page_bootstrap_script_tag
-    tag.script(json_escape({ queries: {}, ui: t("ui") }.to_json).html_safe, id: "bootstrap", type: "application/json")
+  def json_script_tag(data:, **attributes)
+    tag.script(json_escape(data.to_json).html_safe, **attributes)
   end
 end

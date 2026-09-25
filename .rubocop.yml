@@ -59,6 +59,10 @@ Rails/Output:
     - "db/seeds.rb"
     - "lib/tasks/**/*"
 
+Rails/OutputSafety:
+  Exclude:
+    - "app/helpers/application_helper.rb"
+
 Rails/SkipsModelValidations:
   Exclude:
     - "lib/content/capabilities_seeder.rb"
