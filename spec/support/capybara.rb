@@ -1,13 +1,14 @@
 require "capybara/cuprite"
 
 CUPRITE_WINDOW_SIZE = [1440, 900].freeze
-CUPRITE_PROCESS_TIMEOUT_SECONDS = 20
+CUPRITE_PROCESS_TIMEOUT_SECONDS = 30
+CUPRITE_CI_BROWSER_OPTIONS = { "disable-dev-shm-usage" => nil, "no-sandbox" => nil }.freeze
 CAPYBARA_WAIT_SECONDS = 5
 
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(
     app,
-    browser_options: ENV["CI"] ? { "no-sandbox" => nil } : {},
+    browser_options: ENV["CI"] ? CUPRITE_CI_BROWSER_OPTIONS.dup : {},
     headless: ENV.fetch("HEADLESS", "true") != "false",
     process_timeout: CUPRITE_PROCESS_TIMEOUT_SECONDS,
     window_size: CUPRITE_WINDOW_SIZE,
