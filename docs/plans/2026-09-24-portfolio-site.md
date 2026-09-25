@@ -123,7 +123,7 @@ All `/api/v1` errors:
 ```
 - `code`: string (`not_found` | `internal_error`); `field`: string or null; `message`: human-readable string naming the missing section, shown in the UI.
 - 404 `:not_found` when a required singleton section row is missing; 500 `:internal_server_error` (rescued in `Api::V1::BaseController`, logged with class + message). There's no 422: the API is read-only.
-- All endpoints: public (no auth), `GET` only, JSON, `Cache-Control: public, max-age=300`. No pagination.
+- All endpoints: public (no auth), `GET` only, JSON. **200 responses** carry `Cache-Control: public, max-age=300`; 404/500 responses are not publicly cached (contract change approved by user 2026-09-25). No pagination.
 - Shared item shapes (reused in several responses):
   - **Experience:** `{ "id": 1, "company": "Hnry", "role": "Senior Software Engineer", "dates_label": "Jan 2024 — Present", "year_label": "Now", "duration_label": null, "summary": "…", "highlights": ["…"], "subs": [ { "date_label": "Dec 2025", "label": "Promoted to Senior Software Engineer" } ], "tags": ["Ruby on Rails"], "watermark": null, "education": false, "position": 1 }`. `duration_label`/`watermark` are string|null; `highlights`/`tags` are string[]; `subs` is `{date_label, label}[]`; the FE falls back to `company` when `watermark` is null.
   - **CaseStudy:** `{ "id": 1, "slug": "card-issuing", "number": "01", "title": "Card Issuing, End to End", "years_label": "2024–25", "headline": "…", "description": "…", "role": "Lead engineer", "tags": ["Rails", "SOAP"], "diagram_key": "cards", "metric": null, "position": 1 }`. `diagram_key` ∈ `cards`|`identity`|`tax`|`ai`; `metric` is string|null. Slugs: `card-issuing`, `identity-verification`, `self-assessment`, `ai-tooling`.
