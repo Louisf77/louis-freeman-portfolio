@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Api::V1::Homes" do
   describe "GET /api/v1/home" do
     subject(:show_home) { get api_v1_home_path, headers: RequestHelpers::JSON_HEADERS }

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Pages" do
   describe "GET /" do
     subject(:home) { get root_path }
