@@ -47,7 +47,7 @@
   padding-bottom: 6px;
   border-bottom: 1px solid var(--ink);
   color: var(--ink);
-  font: 600 32px/1.1 var(--font-display);
+  font: 400 36px/1.2 var(--font-display);
   text-decoration: none;
 }
 
@@ -225,8 +225,8 @@
 
   .mail {
     padding-bottom: var(--space-4);
+    font-weight: 600;
     font-size: 20px;
-    line-height: 1.2;
   }
 
   .blurb {

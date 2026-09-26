@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { useLocation } from "react-router";
 
+import ExternalLink from "~/components/ExternalLink/ExternalLink";
 import styles from "~/components/Nav/Nav.module.css";
 import useMediaQuery, { COMPACT_MEDIA_QUERY } from "~/hooks/useMediaQuery";
 import classNames from "~/lib/classNames";
@@ -12,9 +13,6 @@ interface ContactMenuProps {
 }
 
 type ContactVariant = "dropdown" | "slide-out";
-
-const EXTERNAL_LINK_REL = "noopener noreferrer";
-const EXTERNAL_LINK_TARGET = "_blank";
 
 const LINKS_CLASS_BY_VARIANT: Record<ContactVariant, string | undefined> = {
   dropdown: styles.dropdown,
@@ -91,26 +89,14 @@ function ContactMenu({ profile }: ContactMenuProps) {
             →
           </span>
         </a>
-        <a
-          className={styles.contactLink}
-          href={profile.linkedin_url}
-          rel={EXTERNAL_LINK_REL}
-          target={EXTERNAL_LINK_TARGET}
-        >
+        <ExternalLink className={styles.contactLink} href={profile.linkedin_url}>
           {t("contact_linkedin")}
           <span aria-hidden="true">↗</span>
-          <span className="visually-hidden">{t("opens_in_new_tab")}</span>
-        </a>
-        <a
-          className={styles.contactLink}
-          href={profile.github_url}
-          rel={EXTERNAL_LINK_REL}
-          target={EXTERNAL_LINK_TARGET}
-        >
+        </ExternalLink>
+        <ExternalLink className={styles.contactLink} href={profile.github_url}>
           {t("contact_github")}
           <span aria-hidden="true">↗</span>
-          <span className="visually-hidden">{t("opens_in_new_tab")}</span>
-        </a>
+        </ExternalLink>
       </span>
     </span>
   );

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router";
 
 import styles from "~/components/Button/Button.module.css";
+import ExternalLink from "~/components/ExternalLink/ExternalLink";
 import classNames from "~/lib/classNames";
 
 type ButtonSize = "regular" | "small";
@@ -69,15 +70,17 @@ function Button({
     );
   }
 
+  if (href !== undefined && isExternal) {
+    return (
+      <ExternalLink className={buttonClassName} href={href} onClick={onClick}>
+        {content}
+      </ExternalLink>
+    );
+  }
+
   if (href !== undefined) {
     return (
-      <a
-        className={buttonClassName}
-        href={href}
-        onClick={onClick}
-        rel={isExternal ? "noopener noreferrer" : undefined}
-        target={isExternal ? "_blank" : undefined}
-      >
+      <a className={buttonClassName} href={href} onClick={onClick}>
         {content}
       </a>
     );

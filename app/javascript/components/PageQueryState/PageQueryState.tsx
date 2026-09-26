@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import styles from "~/components/PageQueryState/PageQueryState.module.css";
 import SectionLoadError from "~/components/SectionLoadError/SectionLoadError";
+import { ApiError } from "~/lib/apiClient";
 
 interface PageQueryStateProps<T> {
   children: (data: T) => ReactNode;
@@ -13,7 +14,7 @@ function PageQueryState<T>({ children, query }: PageQueryStateProps<T>) {
   if (query.isError) {
     return (
       <SectionLoadError
-        detail={query.error.message}
+        detail={query.error instanceof ApiError ? query.error.message : undefined}
         isRetrying={query.isFetching}
         onRetry={() => {
           query.refetch().catch(() => undefined);

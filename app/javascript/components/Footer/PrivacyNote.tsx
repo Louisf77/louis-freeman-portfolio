@@ -1,6 +1,7 @@
 import { useId, useRef } from "react";
 
 import Button from "~/components/Button/Button";
+import ExternalLink from "~/components/ExternalLink/ExternalLink";
 import styles from "~/components/Footer/Footer.module.css";
 import { useUi } from "~/lib/ui";
 
@@ -27,16 +28,10 @@ function PrivacyNote() {
           {t("privacy_title")}
         </h2>
         <p className={styles.privacyBody}>{t("privacy_body")}</p>
-        <a
-          className={styles.privacyPolicyLink}
-          href={UMAMI_PRIVACY_POLICY_URL}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
+        <ExternalLink className={styles.privacyPolicyLink} href={UMAMI_PRIVACY_POLICY_URL}>
           {t("privacy_policy_link")}
           <span aria-hidden="true"> ↗</span>
-          <span className="visually-hidden">{t("opens_in_new_tab")}</span>
-        </a>
+        </ExternalLink>
         <Button
           className={styles.privacyClose}
           onClick={() => {

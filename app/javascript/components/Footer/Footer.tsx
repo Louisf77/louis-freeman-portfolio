@@ -1,6 +1,7 @@
 import { useLocation } from "react-router";
 
 import logoMark from "~/assets/logo-mark.png";
+import ExternalLink from "~/components/ExternalLink/ExternalLink";
 import styles from "~/components/Footer/Footer.module.css";
 import PrivacyNote from "~/components/Footer/PrivacyNote";
 import useMediaQuery, { COMPACT_MEDIA_QUERY } from "~/hooks/useMediaQuery";
@@ -35,26 +36,14 @@ function Footer({ profile }: FooterProps) {
                 {profile.email}
               </a>
               <div className={styles.pills}>
-                <a
-                  className={styles.pill}
-                  href={profile.linkedin_url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
+                <ExternalLink className={styles.pill} href={profile.linkedin_url}>
                   {t("contact_linkedin")}
                   <span aria-hidden="true">↗</span>
-                  <span className="visually-hidden">{t("opens_in_new_tab")}</span>
-                </a>
-                <a
-                  className={styles.pill}
-                  href={profile.github_url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
+                </ExternalLink>
+                <ExternalLink className={styles.pill} href={profile.github_url}>
                   {t("contact_github")}
                   <span aria-hidden="true">↗</span>
-                  <span className="visually-hidden">{t("opens_in_new_tab")}</span>
-                </a>
+                </ExternalLink>
               </div>
             </div>
             <p className={styles.blurb}>{profile.footer_blurb}</p>
