@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Content::Seeder do
   subject(:seeder) { described_class.new(content:) }
 

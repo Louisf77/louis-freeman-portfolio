@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "No non-essential cookies", :js do
   let(:session_key) { Rails.application.config.session_options.fetch(:key) }
 
@@ -9,6 +7,7 @@ RSpec.describe "No non-essential cookies", :js do
 
   context "when visiting for the first time" do
     before do
+      Content::Seeder.from_file(path: Content::Seeder::SOURCE_PATH).call
       visit root_path
       page.assert_selector(:css, "nav", text: I18n.t("ui.nav_work"))
     end

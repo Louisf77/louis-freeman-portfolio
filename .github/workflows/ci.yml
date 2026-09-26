@@ -36,6 +36,7 @@ jobs:
       - run: bundle exec rubocop --parallel
       - run: bundle exec erb_lint --lint-all
       - run: bin/lint-yaml-keys
+      - run: bin/lint-spec-requires
       - run: npx eslint .
       - run: npx prettier --check .
       - run: npx tsc --noEmit
