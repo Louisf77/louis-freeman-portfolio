@@ -1,6 +1,5 @@
 RSpec.describe "Pages" do
   let(:seed_content) { Content::Seeder.from_file(path: Content::Seeder::SOURCE_PATH).call }
-  let(:base_url) { "http://www.example.com" }
 
   before { seed_content }
 
@@ -96,11 +95,73 @@ RSpec.describe "Pages" do
       expect(bootstrap["ui"]).to eq(I18n.t("ui").stringify_keys)
     end
 
-    it "embeds the page query exactly as the API returns it" do
+    it "embeds the page query byte for byte as the API returns it" do
       show_page
-      page_query = bootstrap.dig("queries", page)
+      page_query = JSON.generate(bootstrap.dig("queries", page))
       get "/api/v1/#{page}", headers: RequestHelpers::JSON_HEADERS
-      expect(page_query).to eq(json_response)
+      expect(page_query).to eq(response.body)
+    end
+
+    it "embeds the profile query byte for byte as the API returns it" do
+      show_page
+      profile_query = JSON.generate(bootstrap.dig("queries", "profile"))
+      get api_v1_profile_path, headers: RequestHelpers::JSON_HEADERS
+      expect(profile_query).to eq(response.body)
+    end
+
+    context "without content seeded" do
+      let(:seed_content) { nil }
+
+      it "returns service unavailable" do
+        show_page
+        expect(response).to have_http_status(:service_unavailable)
+      end
+
+      it "renders the styled unavailable page" do
+        show_page
+        expect(html_response.at_css(".code").text).to eq("Error 503")
+      end
+    end
+
+    context "with the page's own section missing" do
+      let(:seed_content) do
+        super()
+        missing_section.delete_all
+      end
+
+      it "returns service unavailable" do
+        show_page
+        expect(response).to have_http_status(:service_unavailable)
+      end
+    end
+
+    context "with another canonical origin configured" do
+      around do |example|
+        original_origin = Rails.configuration.x.canonical_origin
+        Rails.configuration.x.canonical_origin = "https://preview.example.org"
+        example.run
+      ensure
+        Rails.configuration.x.canonical_origin = original_origin
+      end
+
+      it "uses it for the canonical link" do
+        show_page
+        expect(html_response.at_css("link[rel='canonical']")["href"]).to eq("https://preview.example.org#{path}")
+      end
+    end
+
+    context "when requested on another host" do
+      subject(:show_page) { get path, headers: { "Host" => "www.louisfreeman.co.uk" } }
+
+      it "keeps the canonical link on the production origin" do
+        show_page
+        expect(html_response.at_css("link[rel='canonical']")["href"]).to eq("#{base_url}#{path}")
+      end
+
+      it "keeps the Open Graph URL on the production origin" do
+        show_page
+        expect(meta_content(property: "og:url")).to eq("#{base_url}#{path}")
+      end
     end
   end
 
@@ -109,6 +170,7 @@ RSpec.describe "Pages" do
 
     let(:page) { "home" }
     let(:path) { "/" }
+    let(:missing_section) { HeroSection }
 
     it_behaves_like "a page shell"
 
@@ -151,9 +213,10 @@ RSpec.describe "Pages" do
     end
 
     context "with content containing a closing script tag" do
+      let(:script_payload) { "</script><script>alert(1)</script>" }
       let(:seed_content) do
         super()
-        Profile.current.update!(footer_blurb: "</script><script>alert(1)</script>")
+        Profile.current.update!(name: script_payload, footer_blurb: script_payload)
       end
 
       it "escapes it so the script cannot break out" do
@@ -163,8 +226,17 @@ RSpec.describe "Pages" do
 
       it "keeps the original text in the bootstrap" do
         show_page
-        expect(bootstrap.dig("queries", "profile", "profile", "footer_blurb"))
-          .to eq("</script><script>alert(1)</script>")
+        expect(bootstrap.dig("queries", "profile", "profile", "footer_blurb")).to eq(script_payload)
+      end
+
+      it "keeps the original text in the structured data" do
+        show_page
+        expect(structured_data_node(type: "Person")["name"]).to eq(script_payload)
+      end
+
+      it "escapes it inside the structured data script" do
+        show_page
+        expect(html_response.at_css("script[type='application/ld+json']").text).to include('\u003c/script\u003e')
       end
     end
   end
@@ -174,6 +246,7 @@ RSpec.describe "Pages" do
 
     let(:page) { "work" }
     let(:path) { "/work" }
+    let(:missing_section) { WorkHeader }
 
     it_behaves_like "a page shell"
 
@@ -188,6 +261,7 @@ RSpec.describe "Pages" do
 
     let(:page) { "about" }
     let(:path) { "/about" }
+    let(:missing_section) { AboutIntro }
 
     it_behaves_like "a page shell"
 
@@ -217,6 +291,10 @@ RSpec.describe "Pages" do
       show_page
       expect(html_response.at_css("a[href='/']").text).to start_with("Back home")
     end
+  end
+
+  def base_url
+    "https://louisfreeman.co.uk"
   end
 
   def bootstrap

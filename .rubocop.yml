@@ -61,7 +61,7 @@ Rails/Output:
 
 Rails/OutputSafety:
   Exclude:
-    - "app/helpers/application_helper.rb"
+    - "app/helpers/json_script_helper.rb"
 
 Rails/SkipsModelValidations:
   Exclude:

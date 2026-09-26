@@ -15,11 +15,11 @@ module PagesHelper
   end
 
   def canonical_url
-    "#{request.base_url}#{request.path}"
+    canonical_url_for(path: request.path)
   end
 
   def share_image_url
-    "#{request.base_url}#{SHARE_IMAGE_PATH}"
+    canonical_url_for(path: SHARE_IMAGE_PATH)
   end
 
   def page_bootstrap_script_tag
@@ -32,8 +32,14 @@ module PagesHelper
 
   def structured_data_script_tag
     json_script_tag(
-      data: Pages::StructuredDataSerializer.new(page:, url: root_url).as_json,
+      data: Pages::StructuredDataSerializer.new(page:, url: canonical_url_for(path: root_path)).as_json,
       type: JSON_LD_CONTENT_TYPE,
     )
+  end
+
+  private
+
+  def canonical_url_for(path:)
+    "#{Rails.configuration.x.canonical_origin}#{path}"
   end
 end

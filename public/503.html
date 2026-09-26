@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Temporarily unavailable — Louis Freeman</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=Karla:wght@400;500&family=JetBrains+Mono:wght@400&display=swap">
+    <style>
+      :root {
+        --paper: #F4F2EC;
+        --surface: #FBFAF6;
+        --ink: #17160F;
+        --ink-3: #3E3C35;
+        --muted: #5B584F;
+        --line: #D6D1C4;
+        --green: #2F5D45;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      * { margin: 0; }
+
+      body {
+        align-items: center;
+        background: var(--paper);
+        color: var(--ink);
+        display: grid;
+        font-family: "Karla", "Helvetica Neue", sans-serif;
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: 16px;
+        place-items: center;
+      }
+
+      main {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        max-width: 560px;
+        padding: 48px;
+        width: 100%;
+      }
+
+      .logo { display: block; height: auto; margin-bottom: 48px; width: 44px; }
+
+      .code {
+        color: var(--muted);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 12px;
+        letter-spacing: .14em;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-family: "Sora", "Helvetica Neue", sans-serif;
+        font-size: 48px;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        line-height: 1.02;
+        margin-bottom: 16px;
+      }
+
+      h1 span { color: var(--green); }
+
+      p.lead {
+        color: var(--ink-3);
+        font-size: 17px;
+        line-height: 1.6;
+        margin-bottom: 32px;
+      }
+
+      .ghost {
+        align-items: center;
+        border: 1px solid var(--ink);
+        border-radius: 999px;
+        color: var(--ink);
+        display: inline-flex;
+        font-size: 16px;
+        font-weight: 500;
+        gap: 10px;
+        height: 54px;
+        padding: 0 28px;
+        text-decoration: none;
+        transition: background-color .2s, color .2s;
+      }
+
+      .ghost .arrow { display: inline-block; transition: transform .2s; }
+      .ghost:hover, .ghost:focus-visible { background: var(--ink); color: var(--paper); }
+      .ghost:hover .arrow, .ghost:focus-visible .arrow { transform: translateX(4px); }
+      .ghost:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+
+      @media (max-width: 600px) {
+        main { padding: 32px 24px; }
+        .logo { margin-bottom: 32px; }
+        h1 { font-size: 36px; }
+        p.lead { font-size: 15px; }
+        .ghost { height: 48px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ghost, .ghost .arrow { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img class="logo" src="/logo-mark.png" alt="Louis Freeman" width="253" height="234">
+      <p class="code">Error 503</p>
+      <h1>Back in a <span>moment.</span></h1>
+      <p class="lead">This page is temporarily unavailable while its content is being set up. Please try again shortly.</p>
+      <a class="ghost" href="/">Back home <span class="arrow" aria-hidden="true">→</span></a>
+    </main>
+  </body>
+</html>
