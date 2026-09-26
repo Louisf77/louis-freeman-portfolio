@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "No non-essential cookies", :js do
   let(:session_key) { Rails.application.config.session_options.fetch(:key) }
 
