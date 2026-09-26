@@ -264,6 +264,7 @@ Assets: `assets/` → mapping in DESIGN.md §7 (`/_blob/<id>` → file).
 | 3b | BT-23 | DevOps: remove cookie consent layer | DevOps | S | 1 (after PR #1 merges) |
 | 3c | BT-24 | DevOps: move React source to app/javascript (feature-based) | DevOps | M | 2, 23 |
 | 3d | BT-25 | DevOps: harden CI (migration round-trip, schema diff, Chrome startup) | DevOps | S | 3 |
+| 3e | BT-26 | DevOps: auto-require rails_helper in all specs | DevOps | S | 6 |
 | 4 | BT-4 | Backend: content models & seeds | Backend | M | 3, 22 |
 | 5 | BT-6 | Backend: content API v1 | Backend | M | 2, 4 |
 | 6 | BT-13 | Backend: page shells, meta & bootstrap JSON | Backend | M | 5 |
@@ -424,6 +425,25 @@ Role: DevOps (Change mode) · Size: S · Blocked by: Migration: create content t
 **Done when**
 - [ ] A deliberately broken `down` in an older migration (tested on a throwaway branch, not committed) fails CI; a hand-edited `schema.rb` fails CI
 - [ ] CI green on the PR; `bin/ci` passes locally (DB steps may need a throwaway Postgres)
+
+### BT-26 — DevOps: auto-require rails_helper in all specs
+Role: DevOps (Change mode) · Size: S · Blocked by: Backend: content API v1
+
+**Goal:** No spec file requires `rails_helper` or `spec_helper`; `.rspec` loads `rails_helper` for every spec, and CI fails if anyone adds the require back.
+
+**Context:** the user's standing preference: "Specs never require rails_helper or spec_helper; .rspec auto-requires rails_helper". The DB-free fast path of the contract/json-guard specs is intentionally given up (the user approved it on 2026-09-25).
+
+**Scope**
+- In: `.rspec` → `--require rails_helper` (plus the existing format option); remove every `require "rails_helper"` / `require "spec_helper"` line under `spec/`; make sure `rails_helper` still requires `spec_helper` and loads `spec/support`; add a check to `bin/ci` and the workflow (e.g. a small `bin/lint-spec-requires` script, or a RuboCop custom cop if simpler) that fails on any such require in `spec/**/*_spec.rb`; prove the check fails on a scratch change. Draft PR from `origin/main`.
+- Out: any other spec refactoring.
+
+**Preferences that apply**
+- Specs never require rails_helper or spec_helper; .rspec auto-requires rails_helper (new, 2026-09-25)
+- No code comments — https://app.notion.com/p/3e4f4750980b81bf82d1f153ed01a972
+
+**Done when**
+- [ ] `grep -rn 'require "\(rails\|spec\)_helper"' spec` finds nothing; the full suite passes (`bundle exec rspec`, and a single file like `bundle exec rspec spec/contracts/contract_schemas_spec.rb` on its own)
+- [ ] The new check fails when a require is added back; CI green
 
 ### BT-4 — Backend: content models & seeds
 Role: Backend · Size: M · Blocked by: Migration: create content tables; DevOps: pin json gem
