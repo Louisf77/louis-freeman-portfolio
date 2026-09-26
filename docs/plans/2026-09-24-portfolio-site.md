@@ -195,6 +195,8 @@ All `/api/v1` errors:
   - home: "Louis Freeman — Senior Full Stack Engineer, London" / "Senior full-stack engineer (React, TypeScript, Ruby on Rails) building fintech integrations and AI tooling at Hnry."
   - work: "Work — Louis Freeman" / "Case studies: card issuing, identity verification in three countries, a UK Self Assessment tax return, and AI developer tooling."
   - about: "About — Louis Freeman" / "Senior full stack engineer in London: team lead, AI engineering lead, and product design engineer by training."
+- **Unseeded content:** if a page's required section rows are missing (e.g. a deploy without seeds), `/`, `/work` and `/about` return **503 Service Unavailable** with the styled static error page, never 404 (so search engines retry instead of de-indexing). Approved by user 2026-09-26.
+- **Canonical URL:** always the configured production origin (`https://louisfreeman.co.uk` + path), never the request host.
 - `ui`: `I18n.t("ui")`, a flat string map owned by the FE (it adds keys to `en.ui` as needed; the schema requires an object of strings).
 
 ### Database — one table per section (all new, additive, one migration task)
