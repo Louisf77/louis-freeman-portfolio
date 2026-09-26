@@ -1,22 +1,27 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router";
 
-import HomePage from "~/features/home/components/HomePage";
+import AppRoutes from "~/app/AppRoutes";
 import { readPageBootstrap } from "~/lib/bootstrap";
+import { BootstrapQueriesProvider } from "~/lib/bootstrapQueries";
+import { createQueryClient } from "~/lib/queryClient";
+import { UiProvider } from "~/lib/ui";
 
 function App() {
-  const [queryClient] = useState(() => new QueryClient());
-  const [{ ui }] = useState(readPageBootstrap);
+  const [queryClient] = useState(createQueryClient);
+  const [{ queries, ui }] = useState(readPageBootstrap);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<HomePage heading={ui.hello_heading ?? ""} />} path="/" />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <UiProvider strings={ui}>
+      <BootstrapQueriesProvider queries={queries}>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </QueryClientProvider>
+      </BootstrapQueriesProvider>
+    </UiProvider>
   );
 }
 

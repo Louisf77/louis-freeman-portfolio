@@ -1,0 +1,35 @@
+@keyframes page-in {
+  from {
+    opacity: 0;
+    filter: blur(var(--page-enter-blur));
+    transform: translateY(var(--page-enter-offset));
+  }
+
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+.pageEnter {
+  display: contents;
+}
+
+.pageEnter > :global(main) > *,
+.pageEnter > :global(footer) {
+  animation: page-in var(--duration-page-enter) var(--ease-enter) both;
+}
+
+.pageEnter > :global(main) > :nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.pageEnter > :global(main) > :nth-child(3) {
+  animation-delay: 0.22s;
+}
+
+.pageEnter > :global(main) > :nth-child(n + 4),
+.pageEnter > :global(footer) {
+  animation-delay: 0.3s;
+}
