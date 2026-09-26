@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Pages" do
   let(:seed_content) { Content::Seeder.from_file(path: Content::Seeder::SOURCE_PATH).call }
   let(:base_url) { "http://www.example.com" }
