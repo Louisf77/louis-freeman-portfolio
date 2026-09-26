@@ -7,6 +7,7 @@ RSpec.describe "No non-essential cookies", :js do
 
   context "when visiting for the first time" do
     before do
+      Content::Seeder.from_file(path: Content::Seeder::SOURCE_PATH).call
       visit root_path
       page.assert_selector(:css, "h1", text: I18n.t("ui.hello_heading"))
     end

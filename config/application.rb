@@ -16,5 +16,7 @@ module Portfolio
     config.autoload_lib(ignore: %w[assets tasks])
 
     config.generators.system_tests = nil
+
+    config.x.canonical_origin = ENV.fetch("CANONICAL_ORIGIN", "https://louisfreeman.co.uk")
   end
 end

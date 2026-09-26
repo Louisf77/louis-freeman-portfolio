@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= content_for(:title) || t("meta.default_title") %></title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title><%= page_title %></title>
+    <meta name="description" content="<%= page_description %>">
+    <link rel="canonical" href="<%= canonical_url %>">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<%= t("meta.site_name") %>">
+    <meta property="og:title" content="<%= page_title %>">
+    <meta property="og:description" content="<%= page_description %>">
+    <meta property="og:url" content="<%= canonical_url %>">
+    <meta property="og:image" content="<%= share_image_url %>">
+    <meta property="og:image:width" content="<%= PagesHelper::SHARE_IMAGE_WIDTH %>">
+    <meta property="og:image:height" content="<%= PagesHelper::SHARE_IMAGE_HEIGHT %>">
+    <meta property="og:image:alt" content="<%= t("meta.share_image_alt") %>">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= page_title %>">
+    <meta name="twitter:description" content="<%= page_description %>">
+    <meta name="twitter:image" content="<%= share_image_url %>">
+    <%= structured_data_script_tag %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
     <%= yield :head %>
     <%= vite_client_tag %>
     <%= vite_react_refresh_tag %>

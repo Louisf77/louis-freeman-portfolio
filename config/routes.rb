@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   end
 
   root "pages#home"
+  get "work" => "pages#work"
+  get "about" => "pages#about"
 end
