@@ -10,7 +10,7 @@ RSpec.describe "No non-essential cookies", :js do
   context "when visiting for the first time" do
     before do
       visit root_path
-      page.assert_selector(:css, "h1", text: I18n.t("ui.hello_heading"))
+      page.assert_selector(:css, "nav", text: I18n.t("ui.nav_work"))
     end
 
     it "sets no cookies other than the Rails session" do

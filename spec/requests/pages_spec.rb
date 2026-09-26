@@ -30,7 +30,7 @@ RSpec.describe "Pages" do
 
     it "embeds the UI strings in the bootstrap JSON" do
       home
-      expect(response.body).to include(I18n.t("ui.hello_heading"))
+      expect(response.body).to include(I18n.t("ui.skip_to_content"))
     end
   end
 end

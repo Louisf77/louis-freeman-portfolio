@@ -1,0 +1,29 @@
+.skip {
+  position: absolute;
+  top: -80px;
+  left: var(--space-16);
+  z-index: 100;
+  padding: var(--space-14) var(--space-20);
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--paper);
+  font: 500 14px/1 var(--font-body);
+  text-decoration: none;
+  transition: top 0.2s;
+}
+
+.skip:focus {
+  top: var(--space-12);
+  color: var(--paper);
+}
+
+@media (max-width: 760px) {
+  .skip {
+    left: var(--space-12);
+    padding: var(--space-12) var(--space-18);
+  }
+
+  .skip:focus {
+    top: var(--space-10);
+  }
+}

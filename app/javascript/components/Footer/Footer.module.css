@@ -1,0 +1,265 @@
+.footer {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 72px;
+  padding: 110px var(--page-gutter) 40px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.connect {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.heading {
+  font: 600 128px/0.92 var(--font-display);
+  letter-spacing: -0.05em;
+}
+
+.headingHome {
+  font-size: 168px;
+}
+
+.accent {
+  color: var(--green);
+}
+
+.contactRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-32);
+  margin-top: var(--space-12);
+}
+
+.contactLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-18);
+}
+
+.mail {
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+  font: 600 32px/1.1 var(--font-display);
+  text-decoration: none;
+}
+
+.mail:hover {
+  border-bottom-color: var(--green);
+  color: var(--green);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--touch-target);
+  padding: 0 var(--space-18);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+  font: 500 15px/1 var(--font-body);
+  text-decoration: none;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.pill:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.blurb {
+  max-width: 360px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding-top: var(--space-20);
+  border-top: 1px solid var(--ink);
+  color: var(--muted);
+  font: 600 11px/1.4 var(--font-display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.signature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.logo {
+  width: auto;
+  height: 22px;
+}
+
+.bottomLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-28);
+}
+
+.bottomLink {
+  display: flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  letter-spacing: inherit;
+  text-decoration: none;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.bottomLink:hover {
+  color: var(--green);
+}
+
+.privacyDialog {
+  max-width: min(480px, calc(100vw - 2 * var(--page-gutter-compact)));
+  padding: var(--space-32) var(--space-28);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow-deck-active);
+  color: var(--ink);
+  font: 400 16px/1.6 var(--font-body);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.privacyDialog[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-16);
+}
+
+.privacyDialog::backdrop {
+  background: rgba(23, 22, 15, 0.35);
+}
+
+.privacyTitle {
+  font: 600 26px/1.1 var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.privacyBody {
+  color: var(--ink-3);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.privacyPolicyLink {
+  font-size: 16px;
+}
+
+.privacyClose {
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 900px) {
+  .footer {
+    padding-right: var(--page-gutter-medium);
+    padding-left: var(--page-gutter-medium);
+  }
+
+  .heading,
+  .headingHome {
+    font-size: 88px;
+  }
+
+  .contactRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 760px) {
+  .footer {
+    gap: var(--space-48);
+    padding: 72px var(--page-gutter-compact) 28px;
+  }
+
+  .connect {
+    gap: var(--space-22);
+  }
+
+  .heading,
+  .headingHome {
+    font-size: 64px;
+  }
+
+  .contactRow {
+    gap: var(--space-22);
+    margin-top: 0;
+  }
+
+  .contactLinks {
+    gap: var(--space-22);
+  }
+
+  .mail {
+    padding-bottom: var(--space-4);
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .blurb {
+    max-width: none;
+    font-size: 15px;
+  }
+
+  .bottomRow {
+    padding-top: var(--space-16);
+    font-size: 10.5px;
+  }
+
+  .signature {
+    gap: var(--space-10);
+  }
+
+  .logo {
+    height: 20px;
+  }
+
+  .bottomLinks {
+    gap: var(--space-16);
+  }
+
+  .privacyDialog {
+    padding: var(--space-24) var(--space-22);
+  }
+
+  .privacyTitle {
+    font-size: 22px;
+  }
+
+  .privacyBody {
+    font-size: 15px;
+  }
+}

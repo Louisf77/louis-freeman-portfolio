@@ -59,6 +59,12 @@ export default tseslint.config(
     },
   },
   {
+    files: ["app/javascript/types/contracts.ts"],
+    rules: {
+      "@typescript-eslint/naming-convention": "off",
+    },
+  },
+  {
     extends: [tseslint.configs.disableTypeChecked],
     files: ["eslint.config.js"],
   },

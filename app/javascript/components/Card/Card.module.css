@@ -1,0 +1,22 @@
+.card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.surface2 {
+  background: var(--surface-2);
+}
+
+.lift {
+  transition:
+    transform 0.45s var(--ease-enter),
+    box-shadow 0.45s,
+    border-color 0.3s;
+}
+
+.lift:hover {
+  border-color: var(--ink);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-6px);
+}
