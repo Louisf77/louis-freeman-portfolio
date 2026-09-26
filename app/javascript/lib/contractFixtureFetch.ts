@@ -3,7 +3,7 @@ import {
   api_v1_home_path,
   api_v1_profile_path,
   api_v1_work_path,
-} from "~/lib/apiRoutes";
+} from "~/lib/routes";
 
 const FIXTURE_DIRECTORY = "../../../spec/fixtures/contracts/api/v1/";
 const JSON_CONTENT_TYPE = { "Content-Type": "application/json" };

@@ -1,5 +1,5 @@
 import { fetchJson } from "~/lib/apiClient";
-import { api_v1_work_path } from "~/lib/apiRoutes";
+import { api_v1_work_path } from "~/lib/routes";
 import type { WorkResponse } from "~/types/contracts";
 
 export function fetchWork(): Promise<WorkResponse> {
