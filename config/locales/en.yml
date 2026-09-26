@@ -1,5 +1,18 @@
 en:
   meta:
-    default_title: "Louis Freeman"
+    about:
+      description: "Senior full stack engineer in London: team lead, AI engineering lead, and product design engineer by training."
+      title: "About — Louis Freeman"
+    home:
+      description: "Senior full-stack engineer (React, TypeScript, Ruby on Rails) building fintech integrations and AI tooling at Hnry."
+      title: "Louis Freeman — Senior Full Stack Engineer, London"
+    share_image_alt: "Louis Freeman — Senior Full Stack Engineer"
+    site_name: "Louis Freeman"
+    work:
+      description: "Case studies: card issuing, identity verification in three countries, a UK Self Assessment tax return, and AI developer tooling."
+      title: "Work — Louis Freeman"
   ui:
     hello_heading: "Hello from Louis Freeman"
+    retry: "Retry"
+    section_load_error: "Couldn't load this page."
+    skip_to_content: "Skip to content"

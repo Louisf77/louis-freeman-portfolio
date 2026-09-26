@@ -4,6 +4,10 @@ module RequestHelpers
   def json_response
     response.parsed_body
   end
+
+  def html_response
+    Nokogiri::HTML5(response.body)
+  end
 end
 
 RSpec.configure do |config|
