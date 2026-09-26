@@ -59,6 +59,21 @@ export default tseslint.config(
     },
   },
   {
+    files: ["app/javascript/types/contracts.ts"],
+    rules: {
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          filter: { match: false, regex: "^(education|photo)$" },
+          format: ["PascalCase"],
+          prefix: ["is"],
+          selector: ["parameter", "typeProperty", "variable"],
+          types: ["boolean"],
+        },
+      ],
+    },
+  },
+  {
     extends: [tseslint.configs.disableTypeChecked],
     files: ["eslint.config.js"],
   },

@@ -1,7 +1,4 @@
-export interface PageBootstrap {
-  queries: Record<string, unknown>;
-  ui: Record<string, string>;
-}
+import type { PageBootstrap } from "~/types/contracts";
 
 const BOOTSTRAP_ELEMENT_ID = "bootstrap";
 const EMPTY_BOOTSTRAP: PageBootstrap = { queries: {}, ui: {} };

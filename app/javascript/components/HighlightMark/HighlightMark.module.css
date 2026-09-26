@@ -1,0 +1,11 @@
+.mark {
+  padding: 0 2px;
+  background: linear-gradient(
+    transparent 62%,
+    var(--green-tint) 62%,
+    var(--green-tint) 94%,
+    transparent 94%
+  );
+  color: var(--ink);
+  font-weight: 600;
+}

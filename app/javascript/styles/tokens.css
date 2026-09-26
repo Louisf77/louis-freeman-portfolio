@@ -1,0 +1,91 @@
+:root {
+  --paper: #f4f2ec;
+  --surface: #fbfaf6;
+  --surface-2: #efebe2;
+  --surface-3: #eae6dc;
+  --surface-4: #e6e2d7;
+  --ink: #17160f;
+  --ink-2: #2a2923;
+  --ink-3: #3e3c35;
+  --muted: #5b584f;
+  --line: #d6d1c4;
+  --line-2: #cfc9ba;
+  --line-dash: #b9b2a0;
+  --green: #2f5d45;
+  --green-dark: #1f4232;
+  --green-tint: #d7e4d6;
+  --green-line: #b9c9bc;
+
+  --tint-sage: #e2e9e1;
+  --tint-sand: #ece6d8;
+  --tint-paper-3: #eae6dc;
+
+  --ink-hover: rgba(23, 22, 15, 0.07);
+  --ink-hover-menu: rgba(23, 22, 15, 0.06);
+  --ink-tint: rgba(23, 22, 15, 0.09);
+  --ink-watermark: rgba(23, 22, 15, 0.05);
+  --nav-fill: rgba(244, 242, 236, 0.82);
+  --nav-fill-compact: rgba(244, 242, 236, 0.86);
+  --nav-border: rgba(23, 22, 15, 0.14);
+  --nav-border-scrolled: rgba(23, 22, 15, 0.22);
+  --nav-blur: blur(16px) saturate(1.4);
+
+  --shadow-lift: 0 26px 40px -30px rgba(23, 22, 15, 0.5);
+  --shadow-deck-active: 0 34px 60px -44px rgba(23, 22, 15, 0.55);
+  --shadow-stacked: 0 -34px 70px -46px rgba(23, 22, 15, 0.5);
+  --shadow-nav: 0 18px 40px -26px rgba(23, 22, 15, 0.45);
+  --shadow-nav-compact: 0 16px 34px -24px rgba(23, 22, 15, 0.5);
+  --shadow-menu: 0 24px 44px -28px rgba(23, 22, 15, 0.5);
+  --covered-overlay-max: 0.22;
+
+  --font-display: "Sora", "Helvetica Neue", sans-serif;
+  --font-body: "Karla", "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-14: 14px;
+  --space-16: 16px;
+  --space-18: 18px;
+  --space-20: 20px;
+  --space-22: 22px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-56: 56px;
+
+  --page-gutter: 64px;
+  --page-gutter-medium: 20px;
+  --page-gutter-compact: 16px;
+  --grid-columns: 12;
+  --grid-gap: 24px;
+  --content-max-compact: 430px;
+  --section-padding: 120px;
+  --section-padding-compact: 64px;
+
+  --radius-pill: 999px;
+  --radius-well: 12px;
+  --radius-row: 16px;
+  --radius-card: 22px;
+  --radius-case-study: 30px;
+  --radius-stacked: 44px;
+  --radius-stacked-compact: 32px;
+
+  --touch-target: 44px;
+  --button-height: 54px;
+  --button-height-small: 48px;
+
+  --focus-ring: 2px solid var(--green);
+  --focus-offset: 4px;
+  --focus-ring-room: 6px;
+
+  --ease-enter: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-page-enter: 0.9s;
+  --page-enter-offset: 28px;
+  --page-enter-blur: 6px;
+}
