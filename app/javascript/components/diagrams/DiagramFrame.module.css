@@ -1,0 +1,55 @@
+.frame {
+  --diagram-width: 720px;
+  --diagram-height: 440px;
+
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--diagram-width) * var(--diagram-scale));
+  height: calc(var(--diagram-height) * var(--diagram-scale));
+}
+
+.canvas {
+  --diagram-grid-line: rgba(23, 22, 15, 0.055);
+  --diagram-dot: rgba(23, 22, 15, 0.16);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--diagram-width);
+  height: var(--diagram-height);
+  overflow: hidden;
+  transform: scale(var(--diagram-scale));
+  transform-origin: 0 0;
+  background-color: var(--surface-3);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: normal;
+}
+
+:where(.canvas) *,
+:where(.canvas) *::before,
+:where(.canvas) *::after {
+  box-sizing: content-box;
+}
+
+.grid {
+  background-image:
+    linear-gradient(var(--diagram-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--diagram-grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dots {
+  background-image: radial-gradient(var(--diagram-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.caption {
+  position: absolute;
+  top: 408px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
