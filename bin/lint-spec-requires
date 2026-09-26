@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+SPEC_FILE_PATTERN = "spec/**/*_spec.rb".freeze
+HELPER_REQUIRE = %r{^\s*require(?:_relative)?[\s(]+["'](?:[^"']*/)?(?:rails|spec)_helper(?:\.rb)?["']}
+
+offences = Dir.glob(SPEC_FILE_PATTERN).flat_map do |path|
+  File.readlines(path).each_with_index.filter_map do |line, index|
+    "#{path}:#{index + 1} #{line.strip}" if line.match?(HELPER_REQUIRE)
+  end
+end
+
+if offences.empty?
+  puts "No spec requires rails_helper or spec_helper"
+  exit
+end
+
+warn "Specs must not require rails_helper or spec_helper; .rspec loads rails_helper for every spec:"
+offences.each { |offence| warn "  #{offence}" }
+exit 1

@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Api::V1::Profiles" do
   describe "GET /api/v1/profile" do
     subject(:show_profile) { get api_v1_profile_path, headers: RequestHelpers::JSON_HEADERS }

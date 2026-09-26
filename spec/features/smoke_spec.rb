@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Smoke", :js do
   it "renders the React app" do
     visit root_path

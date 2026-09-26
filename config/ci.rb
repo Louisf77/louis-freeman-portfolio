@@ -7,6 +7,7 @@ CI.run do
   step "Style: Ruby", "bundle exec rubocop --parallel"
   step "Style: ERB", "bundle exec erb_lint --lint-all"
   step "Style: YAML keys", "bin/lint-yaml-keys"
+  step "Style: Spec requires", "bin/lint-spec-requires"
   step "Style: ESLint", "npx eslint ."
   step "Style: Prettier", "npx prettier --check ."
   step "Types: TypeScript", "npx tsc --noEmit"

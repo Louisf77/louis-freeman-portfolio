@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "Api::V1::Works" do
   describe "GET /api/v1/work" do
     subject(:show_work) { get api_v1_work_path, headers: RequestHelpers::JSON_HEADERS }

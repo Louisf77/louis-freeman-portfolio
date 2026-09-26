@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Capability do
   it_behaves_like "a record requiring", :name
 
