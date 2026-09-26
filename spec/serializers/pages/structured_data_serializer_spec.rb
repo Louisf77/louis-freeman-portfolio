@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Pages::StructuredDataSerializer do
   subject(:serializer) { described_class.new(page:, profile:, url:) }
 

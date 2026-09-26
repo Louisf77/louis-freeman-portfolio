@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe Pages::BootstrapSerializer do
   subject(:serializer) { described_class.new(page:, ui_strings:) }
 
