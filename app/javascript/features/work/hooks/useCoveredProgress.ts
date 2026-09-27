@@ -1,7 +1,7 @@
 import { useEffect, type RefObject } from "react";
 
-import { coveredProgressOf } from "~/features/work/lib/caseStudyStack";
 import useReducedMotion from "~/hooks/useReducedMotion";
+import { coveredProgressOf } from "~/lib/stickyStack";
 
 export const COVERED_PROGRESS_PROPERTY = "--covered-progress";
 const PROGRESS_DECIMALS = 3;

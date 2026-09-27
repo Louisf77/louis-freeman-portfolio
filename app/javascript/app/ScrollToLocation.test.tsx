@@ -11,6 +11,7 @@ const SCROLLED_Y = 1200;
 const NATURAL_VIEWPORT_TOP = 500;
 const STUCK_VIEWPORT_TOP = 104;
 const SCROLL_MARGIN_TOP = 104;
+const STUCK_FRAME_VIEWPORT_TOP = -3000;
 
 function renderAt(path: string, target = <div id="[redacted]" />) {
   return renderWithProviders(
@@ -40,6 +41,28 @@ function stuckCard() {
       }}
       style={{ position: "sticky", scrollMarginTop: SCROLL_MARGIN_TOP, top: STUCK_VIEWPORT_TOP }}
     />
+  );
+}
+
+function stuckFrame() {
+  return (
+    <div
+      ref={(element) => {
+        if (!element) return;
+
+        element.getBoundingClientRect = () =>
+          DOMRect.fromRect({
+            height: 3900,
+            width: 0,
+            x: 0,
+            y:
+              element.style.position === "sticky" ? STUCK_FRAME_VIEWPORT_TOP : NATURAL_VIEWPORT_TOP,
+          });
+      }}
+      style={{ position: "sticky", top: STUCK_FRAME_VIEWPORT_TOP }}
+    >
+      <section id="[redacted]" />
+    </div>
   );
 }
 
@@ -79,6 +102,16 @@ describe("ScrollToLocation", () => {
     renderAt("/work#[redacted]", stuckCard());
 
     expect(scrollTo).toHaveBeenCalledWith({ left: 0, top: EXPECTED_STICKY_TOP });
+    expect(scrollIntoView).not.toHaveBeenCalled();
+  });
+
+  it("scrolls to the natural position of the stuck sticky frame around the target", () => {
+    scrollPageTo(SCROLLED_Y);
+    const scrollIntoView = mockScrollIntoView();
+    const scrollTo = mockScrollTo();
+    renderAt("/#[redacted]", stuckFrame());
+
+    expect(scrollTo).toHaveBeenCalledWith({ left: 0, top: SCROLLED_Y + NATURAL_VIEWPORT_TOP });
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
 

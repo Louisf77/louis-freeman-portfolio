@@ -42,6 +42,9 @@
   --shadow-nav-compact: 0 16px 34px -24px rgba(23, 22, 15, 0.5);
   --shadow-menu: 0 24px 44px -28px rgba(23, 22, 15, 0.5);
   --covered-overlay-max: 0.22;
+  --drift-distance: 180px;
+  --drift-shrink: 0.1;
+  --drift-fade: 1.1;
 
   --font-display: "Sora", "Helvetica Neue", sans-serif;
   --font-body: "Karla", "Helvetica Neue", sans-serif;

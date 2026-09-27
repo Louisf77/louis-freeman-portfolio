@@ -14,15 +14,24 @@ function naturalDocumentTop(target: HTMLElement): number {
   return top;
 }
 
+function stickyFrameAround(target: HTMLElement): HTMLElement | null {
+  for (let element: HTMLElement | null = target; element; element = element.parentElement) {
+    if (window.getComputedStyle(element).position === STICKY_POSITION) return element;
+  }
+
+  return null;
+}
+
 function scrollToHashTarget(target: HTMLElement) {
-  const targetStyle = window.getComputedStyle(target);
-  if (targetStyle.position !== STICKY_POSITION) {
+  const stickyFrame = stickyFrameAround(target);
+  if (!stickyFrame) {
     target.scrollIntoView();
     return;
   }
 
-  const scrollMarginTop = Number.parseFloat(targetStyle.scrollMarginTop) || 0;
-  window.scrollTo({ left: 0, top: naturalDocumentTop(target) - scrollMarginTop });
+  const scrollMarginTop =
+    Number.parseFloat(window.getComputedStyle(stickyFrame).scrollMarginTop) || 0;
+  window.scrollTo({ left: 0, top: naturalDocumentTop(stickyFrame) - scrollMarginTop });
 }
 
 function ScrollToLocation() {

@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { contractFixture } from "@test/contracts";
 import { renderWithProviders } from "@test/utils";
 import HomePage from "~/features/home/components/HomePage";
+import { STACK_FRAME_ATTRIBUTE } from "~/hooks/useStickyStack";
 import type { HomeResponse } from "~/types/contracts";
 
 const UI = { experience_heading: "Experience", selected_work_heading: "Selected work" };
@@ -22,6 +23,14 @@ describe("HomePage", () => {
       "work",
       "capabilities",
     ]);
+  });
+
+  it("stacks every section in its own card frame, led by the hero", () => {
+    renderWithProviders(<HomePage />, { bootstrapQueries: { home: homeFixture() }, ui: UI });
+
+    const frames = screen.getAllByRole("region").map((section) => section.parentElement);
+    expect(frames.every((frame) => frame?.hasAttribute(STACK_FRAME_ATTRIBUTE))).toBe(true);
+    expect(frames[0]?.nextElementSibling).toBe(frames[1]);
   });
 
   it("hides Selected work when no case study is featured", () => {
