@@ -1,0 +1,227 @@
+.card {
+  --diagram-zoom: 1.08;
+  --diagram-zoom-hover: 1.13;
+  --diagram-zoom-duration: 1.6s;
+
+  position: sticky;
+  top: var(--stack-top-wide);
+  display: grid;
+  scroll-margin-top: var(--stack-top-wide);
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  align-items: center;
+  column-gap: var(--grid-gap);
+  min-height: var(--case-study-height);
+  padding: var(--space-28);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-case-study);
+  box-shadow: var(--shadow-stack-card);
+  transition: border-color 0.3s;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--ink);
+  opacity: calc(var(--covered-progress, 0) * var(--covered-overlay-max));
+  pointer-events: none;
+}
+
+.card:hover {
+  border-color: var(--ink);
+}
+
+.even {
+  background: var(--surface);
+}
+
+.odd {
+  background: var(--surface-2);
+}
+
+.well {
+  display: flex;
+  grid-row: 1;
+  align-items: center;
+  justify-content: center;
+  height: var(--case-study-well-height);
+  overflow: hidden;
+  border-radius: var(--radius-case-study-well);
+  background: var(--surface-3);
+}
+
+.diagram {
+  transform: scale(var(--diagram-zoom));
+  transition: transform var(--diagram-zoom-duration) var(--ease-enter);
+}
+
+.card:hover .diagram {
+  transform: scale(var(--diagram-zoom-hover));
+}
+
+.body {
+  display: flex;
+  grid-row: 1;
+  flex-direction: column;
+  gap: var(--space-14);
+}
+
+.even .well {
+  grid-column: 1 / span 7;
+}
+
+.even .body {
+  grid-column: 8 / span 5;
+  padding: var(--space-8) var(--space-8) var(--space-8) var(--space-20);
+}
+
+.odd .well {
+  grid-column: 6 / span 7;
+}
+
+.odd .body {
+  grid-column: 1 / span 5;
+  padding: var(--space-8) var(--space-20) var(--space-8) var(--space-8);
+}
+
+.eyebrow,
+.roleLabel,
+.metricLabel {
+  color: var(--muted);
+  font: 600 11px/1.4 var(--font-display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font: 600 38px/1.04 var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.headline {
+  color: var(--ink);
+  font: 500 18px/1.45 var(--font-display);
+}
+
+.description {
+  color: var(--ink-3);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.role {
+  font-size: 14px;
+}
+
+.roleLabel {
+  margin-right: var(--space-10);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-12) var(--space-14);
+  border: 1px dashed var(--line-dash);
+  border-radius: var(--radius-well);
+}
+
+.metricLabel {
+  font-size: 10px;
+}
+
+.metricValue {
+  color: var(--ink-3);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-16);
+    min-height: 0;
+    padding: var(--space-12) var(--space-12) var(--space-22);
+    border-radius: var(--radius-card);
+  }
+
+  .well {
+    height: auto;
+    aspect-ratio: 720 / 440;
+  }
+
+  .even .body,
+  .odd .body {
+    gap: var(--space-12);
+    padding: 0 var(--space-6);
+  }
+}
+
+@media (max-width: 760px) {
+  .card {
+    position: relative;
+    top: auto;
+    box-shadow: none;
+    scroll-margin-top: var(--stack-top-compact);
+  }
+
+  .card::after {
+    content: none;
+  }
+
+  .well {
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: var(--case-study-well-height-compact);
+    aspect-ratio: auto;
+    border-radius: var(--radius-row);
+  }
+
+  .diagram,
+  .card:hover .diagram {
+    transform: none;
+  }
+
+  .eyebrow,
+  .roleLabel {
+    font-size: 10.5px;
+  }
+
+  .title {
+    font-size: 26px;
+    line-height: 1.05;
+  }
+
+  .headline {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 14.5px;
+  }
+
+  .tags {
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 760px) and (prefers-reduced-motion: no-preference) and (max-height: 1499px) {
+  .card {
+    position: sticky;
+    top: var(--stack-top-compact);
+    box-shadow: var(--shadow-stack-card-compact);
+  }
+}

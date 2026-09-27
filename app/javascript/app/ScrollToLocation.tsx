@@ -2,6 +2,28 @@ import { useEffect } from "react";
 import { useLocation } from "react-router";
 
 const MAX_TARGET_LOOKUP_FRAMES = 120;
+const STICKY_POSITION = "sticky";
+const STATIC_POSITION = "static";
+
+function naturalDocumentTop(target: HTMLElement): number {
+  const inlinePosition = target.style.position;
+  target.style.position = STATIC_POSITION;
+  const top = target.getBoundingClientRect().top + window.scrollY;
+  target.style.position = inlinePosition;
+
+  return top;
+}
+
+function scrollToHashTarget(target: HTMLElement) {
+  const targetStyle = window.getComputedStyle(target);
+  if (targetStyle.position !== STICKY_POSITION) {
+    target.scrollIntoView();
+    return;
+  }
+
+  const scrollMarginTop = Number.parseFloat(targetStyle.scrollMarginTop) || 0;
+  window.scrollTo({ left: 0, top: naturalDocumentTop(target) - scrollMarginTop });
+}
 
 function ScrollToLocation() {
   const { hash, pathname } = useLocation();
@@ -19,7 +41,7 @@ function ScrollToLocation() {
     const scrollToTarget = () => {
       const target = document.getElementById(targetId);
       if (target) {
-        target.scrollIntoView();
+        scrollToHashTarget(target);
         return;
       }
 

@@ -1,0 +1,86 @@
+import { useRef, type CSSProperties } from "react";
+
+import CaseStudyDiagram from "~/components/diagrams/CaseStudyDiagram";
+import Tag from "~/components/Tag/Tag";
+import styles from "~/features/work/components/CaseStudyCard.module.css";
+import useFittedDiagramScale from "~/features/work/hooks/useFittedDiagramScale";
+import { stackOffsetsFor } from "~/features/work/lib/caseStudyStack";
+import classNames from "~/lib/classNames";
+import { useUi } from "~/lib/ui";
+import type { CaseStudy } from "~/types/contracts";
+
+interface CaseStudyCardProps {
+  caseStudy: CaseStudy;
+  index: number;
+}
+
+type StackParity = "even" | "odd";
+
+const PARITY_CLASS: Record<StackParity, string | undefined> = {
+  even: styles.even,
+  odd: styles.odd,
+};
+
+function parityOf(index: number): StackParity {
+  return index % 2 === 0 ? "even" : "odd";
+}
+
+function stackStyleFor(index: number): CSSProperties {
+  const offsets = stackOffsetsFor(index);
+
+  return {
+    "--stack-top-compact": `${String(offsets.compact)}px`,
+    "--stack-top-wide": `${String(offsets.wide)}px`,
+    zIndex: index + 1,
+  } as CSSProperties;
+}
+
+function CaseStudyCard({ caseStudy, index }: CaseStudyCardProps) {
+  const t = useUi();
+  const wellRef = useRef<HTMLDivElement>(null);
+  const diagramScale = useFittedDiagramScale(wellRef);
+  const titleId = `${caseStudy.slug}-title`;
+
+  return (
+    <article
+      aria-labelledby={titleId}
+      className={classNames(styles.card, PARITY_CLASS[parityOf(index)])}
+      id={caseStudy.slug}
+      style={stackStyleFor(index)}
+    >
+      <div className={styles.well} ref={wellRef}>
+        <div className={styles.diagram}>
+          <CaseStudyDiagram diagramKey={caseStudy.diagram_key} scale={diagramScale} />
+        </div>
+      </div>
+      <div className={styles.body}>
+        <p className={styles.eyebrow}>
+          <span>{caseStudy.number}</span>
+          <span>{caseStudy.years_label}</span>
+        </p>
+        <h2 className={styles.title} id={titleId}>
+          {caseStudy.title}
+        </h2>
+        <p className={styles.headline}>{caseStudy.headline}</p>
+        <p className={styles.description}>{caseStudy.description}</p>
+        <p className={styles.role}>
+          <span className={styles.roleLabel}>{t("case_study_role")}</span>
+          {caseStudy.role}
+        </p>
+        <ul aria-label={t("case_study_technologies")} className={styles.tags}>
+          {caseStudy.tags.map((tag) => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
+        </ul>
+        {caseStudy.metric !== null && (
+          <div className={styles.metric}>
+            <span className={styles.metricLabel}>{t("case_study_metric")}</span>
+            <span className={styles.metricValue}>{caseStudy.metric}</span>
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
+
+export default CaseStudyCard;

@@ -35,6 +35,9 @@
   --shadow-deck-active: 0 34px 60px -44px rgba(23, 22, 15, 0.55);
   --shadow-deck-active-compact: 0 26px 44px -34px rgba(23, 22, 15, 0.55);
   --shadow-stacked: 0 -34px 70px -46px rgba(23, 22, 15, 0.5);
+  --shadow-stacked-compact: 0 -30px 50px -36px rgba(23, 22, 15, 0.5);
+  --shadow-stack-card: 0 -30px 60px -44px rgba(23, 22, 15, 0.45);
+  --shadow-stack-card-compact: 0 -26px 40px -30px rgba(23, 22, 15, 0.45);
   --shadow-nav: 0 18px 40px -26px rgba(23, 22, 15, 0.45);
   --shadow-nav-compact: 0 16px 34px -24px rgba(23, 22, 15, 0.5);
   --shadow-menu: 0 24px 44px -28px rgba(23, 22, 15, 0.5);
@@ -46,6 +49,7 @@
 
   --space-2: 2px;
   --space-4: 4px;
+  --space-6: 6px;
   --space-8: 8px;
   --space-10: 10px;
   --space-12: 12px;
@@ -57,8 +61,11 @@
   --space-24: 24px;
   --space-28: 28px;
   --space-32: 32px;
+  --space-40: 40px;
   --space-48: 48px;
   --space-56: 56px;
+  --space-72: 72px;
+  --space-160: 160px;
 
   --page-gutter: 64px;
   --page-gutter-medium: 20px;
@@ -74,10 +81,16 @@
   --radius-row: 16px;
   --radius-card: 22px;
   --radius-case-study: 30px;
+  --radius-case-study-well: 20px;
   --radius-stacked: 44px;
   --radius-stacked-compact: 32px;
 
   --touch-target: 44px;
+  --case-study-height: 640px;
+  --case-study-well-height: 520px;
+  --case-study-well-height-compact: 209px;
+  --stacked-footer-inset: 120px;
+  --stacked-footer-inset-compact: 110px;
   --button-height: 54px;
   --button-height-small: 48px;
 
