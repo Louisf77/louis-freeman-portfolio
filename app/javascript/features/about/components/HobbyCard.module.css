@@ -1,0 +1,94 @@
+.card {
+  --well-height: 280px;
+  --well-radius: 14px;
+  --image-zoom: 1.06;
+  --image-zoom-duration: 1.2s;
+  --label-inset: 6px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14);
+  padding: var(--space-12) var(--space-12) var(--space-18);
+}
+
+.well {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: var(--well-height);
+  overflow: hidden;
+  border-radius: var(--well-radius);
+}
+
+.tintSage,
+.tintSand,
+.tintPaper3 {
+  padding-top: var(--space-14);
+}
+
+.tintSage {
+  background: var(--tint-sage);
+}
+
+.tintSand {
+  background: var(--tint-sand);
+}
+
+.tintPaper3 {
+  background: var(--tint-paper-3);
+}
+
+.cutOut,
+.photo {
+  display: block;
+  transition: transform var(--image-zoom-duration) var(--ease-enter);
+}
+
+.cutOut {
+  max-width: 92%;
+  max-height: 100%;
+  object-fit: contain;
+  transform-origin: 50% 100%;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card:hover .cutOut,
+.card:hover .photo {
+  transform: scale(var(--image-zoom));
+}
+
+.label {
+  padding-left: var(--label-inset);
+  font: 600 19px/1 var(--font-display);
+}
+
+@media (max-width: 760px) {
+  .card {
+    --well-height: 160px;
+    --well-radius: var(--radius-well);
+    --label-inset: var(--space-4);
+
+    gap: var(--space-10);
+    padding: var(--space-8) var(--space-8) var(--space-14);
+  }
+
+  .tintSage,
+  .tintSand,
+  .tintPaper3 {
+    padding-top: var(--space-10);
+  }
+
+  .card:hover .cutOut,
+  .card:hover .photo {
+    transform: none;
+  }
+
+  .label {
+    font-size: 16px;
+  }
+}

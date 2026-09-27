@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding-bottom: var(--space-24);
+  border-bottom: 1px solid var(--ink);
+}
+
+.heading {
+  font: 600 60px/1.02 var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.note {
+  color: var(--muted);
+  font: 600 11px/1.4 var(--font-display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .header {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .heading {
+    font-size: 34px;
+    letter-spacing: -0.04em;
+  }
+
+  .note {
+    display: none;
+  }
+}

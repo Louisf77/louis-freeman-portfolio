@@ -1,0 +1,103 @@
+.section {
+  --section-gap: 44px;
+  --section-spacing: 128px;
+  --earlier-radius: 20px;
+  --swipe-card-width: 190px;
+  --swipe-row-bottom: 6px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  padding: var(--section-spacing) var(--page-gutter) 0;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+
+.earlier {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-16);
+  padding: var(--space-28);
+  border: 1px solid var(--ink);
+  border-radius: var(--earlier-radius);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.earlierLabel {
+  color: var(--green-line);
+  font: 600 11px/1.4 var(--font-display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.earlierRole {
+  font: 500 18px/1.4 var(--font-display);
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding-right: var(--page-gutter-medium);
+    padding-left: var(--page-gutter-medium);
+  }
+
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    --earlier-radius: var(--radius-card);
+
+    gap: var(--space-28);
+    padding: var(--section-padding-compact) var(--page-gutter-compact);
+    border-top: 1px solid var(--line);
+  }
+
+  .scroller {
+    margin: 0 calc(-1 * var(--page-gutter-compact));
+    padding: 0 var(--page-gutter-compact) var(--swipe-row-bottom);
+    overflow-x: auto;
+    scroll-padding-inline: var(--page-gutter-compact);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .list {
+    display: flex;
+    gap: var(--space-10);
+  }
+
+  .scroller:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--space-2);
+  }
+
+  .list > li {
+    flex: 0 0 var(--swipe-card-width);
+    scroll-snap-align: start;
+  }
+
+  .earlier {
+    gap: var(--space-12);
+    padding: var(--space-16);
+  }
+
+  .earlierLabel {
+    font-size: 10.5px;
+  }
+
+  .earlierRole {
+    font-size: 14px;
+  }
+}
