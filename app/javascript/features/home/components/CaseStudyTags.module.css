@@ -1,0 +1,13 @@
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 760px) {
+  .tags {
+    gap: 6px;
+    margin-top: 0;
+  }
+}

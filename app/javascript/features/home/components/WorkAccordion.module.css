@@ -1,0 +1,5 @@
+.accordion {
+  display: flex;
+  gap: var(--space-12);
+  height: 600px;
+}
