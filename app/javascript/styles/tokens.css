@@ -33,6 +33,7 @@
 
   --shadow-lift: 0 26px 40px -30px rgba(23, 22, 15, 0.5);
   --shadow-deck-active: 0 34px 60px -44px rgba(23, 22, 15, 0.55);
+  --shadow-deck-active-compact: 0 26px 44px -34px rgba(23, 22, 15, 0.55);
   --shadow-stacked: 0 -34px 70px -46px rgba(23, 22, 15, 0.5);
   --shadow-nav: 0 18px 40px -26px rgba(23, 22, 15, 0.45);
   --shadow-nav-compact: 0 16px 34px -24px rgba(23, 22, 15, 0.5);

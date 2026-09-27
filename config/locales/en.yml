@@ -100,7 +100,18 @@ en:
     [redacted]
     [redacted]
     [redacted]
+    experience_companies_label: "Companies"
+    experience_counter: "%{current} / %{total}"
+    experience_deck_description: "carousel"
     experience_heading: "Experience"
+    experience_hint_scroll: "Scroll to flip through"
+    experience_hint_static: "Pick a company to flip through"
+    experience_next: "Next role"
+    experience_previous: "Previous role"
+    experience_slide_description: "slide"
+    experience_slide_label: "%{current} of %{total}"
+    experience_technologies: "Technologies"
+    experience_time_there: "Time there"
     footer_heading_accent: "connect."
     footer_heading_lead: "Let's "
     hobbies_heading: "When I'm not coding…"
