@@ -13,6 +13,7 @@ const WORK = contractFixture("api/v1/work/show") as WorkResponse;
 
 const UI = {
   contact: "Contact",
+  hero_greeting_sentence: "%{greeting}: %{roles}.",
   nav_work: "Work",
   page_load_error: "Couldn't load this page.",
   retry: "Retry",
@@ -53,7 +54,9 @@ describe("App", () => {
       mockFetchJson({});
       renderHomeFromBootstrap();
 
-      expect(screen.getByRole("heading", { level: 1, name: "Hi, I'm Louis." })).toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", { level: 1, name: /^Hi, I'm Louis:/ }),
+      ).toBeInTheDocument();
     });
 
     it("does not fetch data the bootstrap already holds", () => {

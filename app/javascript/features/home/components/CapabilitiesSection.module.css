@@ -1,0 +1,136 @@
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48);
+  padding: var(--section-padding) 0 110px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-18);
+  padding: 0 var(--page-gutter);
+  text-align: center;
+}
+
+.title {
+  font: 600 80px/1 var(--font-display);
+  letter-spacing: -0.045em;
+}
+
+.intro {
+  max-width: 560px;
+  color: var(--ink-3);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48);
+  padding: 0 var(--page-gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: var(--space-16);
+}
+
+.domainBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+  padding: 26px var(--space-28);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.domainLabel {
+  color: var(--muted);
+  font: 600 11px/1.4 var(--font-display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.domainChips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-8);
+}
+
+.ticker {
+  margin-top: var(--space-56);
+}
+
+@media (max-width: 900px) {
+  .header,
+  .body {
+    padding-right: var(--page-gutter-medium);
+    padding-left: var(--page-gutter-medium);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 40px;
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    gap: var(--space-28);
+    padding: var(--section-padding-compact) 0;
+    border-radius: var(--radius-stacked-compact) var(--radius-stacked-compact) 0 0;
+  }
+
+  .header {
+    gap: var(--space-12);
+    padding: 0 var(--page-gutter-compact);
+  }
+
+  .title {
+    font-size: 40px;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+  }
+
+  .intro {
+    font-size: 15.5px;
+  }
+
+  .body,
+  .grid {
+    gap: var(--space-12);
+  }
+
+  .body {
+    padding: 0 var(--page-gutter-compact);
+  }
+
+  .grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .domainBox {
+    gap: var(--space-14);
+    padding: var(--space-22) var(--space-18);
+  }
+
+  .domainLabel {
+    font-size: 10.5px;
+  }
+
+  .ticker {
+    margin-top: var(--space-20);
+  }
+}

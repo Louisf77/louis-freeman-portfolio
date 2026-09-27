@@ -1,0 +1,70 @@
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.greeting {
+  position: relative;
+  z-index: 2;
+  color: var(--ink);
+  font: 500 88px/1.02 var(--font-display);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  display: grid;
+}
+
+.sizer,
+.line {
+  grid-area: 1 / 1;
+  align-self: end;
+}
+
+.sizer {
+  visibility: hidden;
+}
+
+.caret {
+  display: inline-block;
+  width: 3px;
+  height: 0.95em;
+  margin-left: 6px;
+  background: var(--ink);
+  transform: translateY(2px);
+}
+
+.caret[data-state="holding"] {
+  background: var(--green);
+  animation: caret-blink 0.9s steps(1) infinite;
+}
+
+@media (max-width: 1340px) {
+  .greeting {
+    font-size: 72px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .greeting {
+    font-size: 64px;
+  }
+
+  .sizer,
+  .line {
+    align-self: start;
+  }
+}
+
+@media (max-width: 760px) {
+  .greeting {
+    font-size: 44px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .caret {
+    height: 0.9em;
+    margin-left: 4px;
+    background: var(--green);
+  }
+}
