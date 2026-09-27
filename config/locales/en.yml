@@ -12,6 +12,10 @@ en:
       description: "Case studies: [redacted], [redacted], a [redacted], and [redacted]."
       title: "Work — Louis Freeman"
   ui:
+    about_chat_hint: "Keep scrolling to chat ↓"
+    about_chat_hint_compact: "Keep scrolling ↓"
+    about_chat_label: "About me, in questions"
+    about_portrait_alt: "Cartoon illustration of Louis waving, wearing a green polo shirt"
     back_to_top: "Back to top ↑"
     back_to_top_short: "Top ↑"
     capabilities_domain_label: "Domain"
