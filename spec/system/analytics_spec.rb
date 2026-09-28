@@ -150,6 +150,15 @@ RSpec.describe "Analytics", :umami do
       within("footer") { click_on I18n.t("ui.contact_linkedin") }
     end
 
+    it "tracks the footer LinkedIn contact click" do
+      expect(umami_events("contact_click"))
+        .to eq([{ "location" => "footer", "method" => "linkedin", "page_type" => "home" }])
+    end
+
+    it "keeps the browser on the site" do
+      expect(URI(page.current_url).host).to eq(Capybara.current_session.server.host)
+    end
+
     it "sets no cookies other than the Rails session" do
       session_key = Rails.application.config.session_options.fetch(:key)
       expect(page.driver.cookies.keys - [session_key]).to be_empty

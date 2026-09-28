@@ -2,7 +2,6 @@ module AnalyticsHelpers
   CASE_STUDY_VIEW_SETTLE_SECONDS = 2
   TEST_UMAMI_WEBSITE_ID = "00000000-0000-4000-8000-000000000000".freeze
   CAPTURED_CALLS = "__umamiTrackCalls".freeze
-  EXTERNAL_LINK_HOSTS = ["github.com", "www.linkedin.com"].freeze
   UMAMI_SCRIPT_STUB = <<~JS.freeze
     window.#{CAPTURED_CALLS} = [];
     window.umami = {
@@ -50,14 +49,9 @@ module AnalyticsHelpers
   private
 
   def respond_to_analytics_request(request)
-    url = request.url
-    if url == AnalyticsHelper::UMAMI_SCRIPT_URL
-      request.respond(body: UMAMI_SCRIPT_STUB, responseHeaders: { "Content-Type" => "text/javascript" })
-    elsif EXTERNAL_LINK_HOSTS.include?(URI(url).host)
-      request.respond(body: "", responseHeaders: { "Content-Type" => "text/html" })
-    else
-      request.continue
-    end
+    return request.continue unless request.url == AnalyticsHelper::UMAMI_SCRIPT_URL
+
+    request.respond(body: UMAMI_SCRIPT_STUB, responseHeaders: { "Content-Type" => "text/javascript" })
   end
 end
 

@@ -7,15 +7,15 @@ CUPRITE_COMMAND_TIMEOUT_SECONDS = 15
 CUPRITE_CI_BROWSER_OPTIONS = { "disable-dev-shm-usage" => nil, "no-sandbox" => nil }.freeze
 CAPYBARA_WAIT_SECONDS = 5
 SMOOTH_SCROLLING_DISABLING_FLAG = "disable-smooth-scrolling".freeze
-WEB_FONT_HOSTS = ["fonts.googleapis.com", "fonts.gstatic.com"].freeze
-OFFLINE_WEB_FONTS_OPTIONS = {
-  "host-resolver-rules" => WEB_FONT_HOSTS.map { |host| "MAP #{host} ~NOTFOUND" }.join(", "),
+APP_SERVER_HOSTS = ["127.0.0.1", "localhost"].freeze
+OFFLINE_BROWSER_OPTIONS = {
+  "host-resolver-rules" => ["MAP * ~NOTFOUND", *APP_SERVER_HOSTS.map { |host| "EXCLUDE #{host}" }].join(", "),
 }.freeze
 
 module CupriteOptions
   def self.to_h
     {
-      browser_options: OFFLINE_WEB_FONTS_OPTIONS.merge(ENV["CI"] ? CUPRITE_CI_BROWSER_OPTIONS : {}),
+      browser_options: OFFLINE_BROWSER_OPTIONS.merge(ENV["CI"] ? CUPRITE_CI_BROWSER_OPTIONS : {}),
       headless: ENV.fetch("HEADLESS", "true") != "false",
       process_timeout: CUPRITE_PROCESS_TIMEOUT_SECONDS,
       timeout: CUPRITE_COMMAND_TIMEOUT_SECONDS,
