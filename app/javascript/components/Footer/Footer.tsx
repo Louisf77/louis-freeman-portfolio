@@ -5,6 +5,7 @@ import ExternalLink from "~/components/ExternalLink/ExternalLink";
 import styles from "~/components/Footer/Footer.module.css";
 import PrivacyNote from "~/components/Footer/PrivacyNote";
 import useMediaQuery, { COMPACT_MEDIA_QUERY } from "~/hooks/useMediaQuery";
+import useTrackContactClick from "~/hooks/useTrackContactClick";
 import classNames from "~/lib/classNames";
 import { useUi } from "~/lib/ui";
 import type { Profile } from "~/types/contracts";
@@ -21,6 +22,7 @@ function Footer({ profile }: FooterProps) {
   const { pathname } = useLocation();
   const isCompact = useMediaQuery(COMPACT_MEDIA_QUERY);
   const isHome = pathname === HOME_PATH;
+  const trackContactClick = useTrackContactClick("footer");
 
   return (
     <footer className={styles.footer} id="contact">
@@ -32,15 +34,33 @@ function Footer({ profile }: FooterProps) {
         {profile && (
           <div className={styles.contactRow}>
             <div className={styles.contactLinks}>
-              <a className={styles.mail} href={`mailto:${profile.email}`}>
+              <a
+                className={styles.mail}
+                href={`mailto:${profile.email}`}
+                onClick={() => {
+                  trackContactClick("email");
+                }}
+              >
                 {profile.email}
               </a>
               <div className={styles.pills}>
-                <ExternalLink className={styles.pill} href={profile.linkedin_url}>
+                <ExternalLink
+                  className={styles.pill}
+                  href={profile.linkedin_url}
+                  onClick={() => {
+                    trackContactClick("linkedin");
+                  }}
+                >
                   {t("contact_linkedin")}
                   <span aria-hidden="true">↗</span>
                 </ExternalLink>
-                <ExternalLink className={styles.pill} href={profile.github_url}>
+                <ExternalLink
+                  className={styles.pill}
+                  href={profile.github_url}
+                  onClick={() => {
+                    trackContactClick("github");
+                  }}
+                >
                   {t("contact_github")}
                   <span aria-hidden="true">↗</span>
                 </ExternalLink>

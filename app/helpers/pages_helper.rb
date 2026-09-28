@@ -36,10 +36,4 @@ module PagesHelper
       type: JSON_LD_CONTENT_TYPE,
     )
   end
-
-  private
-
-  def canonical_url_for(path:)
-    "#{Rails.configuration.x.canonical_origin}#{path}"
-  end
 end

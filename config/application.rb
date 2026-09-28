@@ -18,5 +18,6 @@ module Portfolio
     config.generators.system_tests = nil
 
     config.x.canonical_origin = ENV.fetch("CANONICAL_ORIGIN", "https://louisfreeman.co.uk")
+    config.x.umami_website_id = ENV.fetch("UMAMI_WEBSITE_ID", nil)
   end
 end

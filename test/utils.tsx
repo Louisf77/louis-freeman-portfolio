@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, type RenderOptions } from "@testing-library/react";
 import type { ReactElement, ReactNode } from "react";
-import { MemoryRouter } from "react-router";
+import { MemoryRouter, type InitialEntry } from "react-router";
 
 import { BootstrapQueriesProvider } from "~/lib/bootstrapQueries";
 import { UiProvider } from "~/lib/ui";
@@ -9,7 +9,7 @@ import type { QueryResponses, UiStrings } from "~/types/contracts";
 
 interface ProvidersOptions extends Omit<RenderOptions, "wrapper"> {
   bootstrapQueries?: Partial<QueryResponses>;
-  initialEntries?: string[];
+  initialEntries?: InitialEntry[];
   ui?: UiStrings;
 }
 

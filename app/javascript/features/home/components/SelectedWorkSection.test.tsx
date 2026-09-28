@@ -2,6 +2,7 @@ import { act, fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { mockUmami } from "@test/analytics";
 import { mockMatchMedia } from "@test/browser";
 import { contractFixture } from "@test/contracts";
 import { renderWithProviders } from "@test/utils";
@@ -265,6 +266,26 @@ describe("SelectedWorkSection", () => {
         within(panel(CASE_STUDY_TITLES[0] ?? "")).getByText("[redacted]"),
       ).toBeInTheDocument();
     });
+
+    it("tracks a case study view when an open panel's link is clicked", async () => {
+      const umami = mockUmami();
+      renderSection();
+      await userEvent.click(panelToggle(CASE_STUDY_TITLES[2] ?? ""));
+      await userEvent.click(within(panel(CASE_STUDY_TITLES[2] ?? "")).getByRole("link"));
+
+      expect(umami.track).toHaveBeenCalledWith("case_study_view", {
+        case_study_slug: "[redacted]",
+        source: "home_link",
+      });
+    });
+
+    it("does not track opening a panel", async () => {
+      const umami = mockUmami();
+      renderSection();
+      await userEvent.click(panelToggle(CASE_STUDY_TITLES[2] ?? ""));
+
+      expect(umami.track).not.toHaveBeenCalled();
+    });
   });
 
   describe("on mobile", () => {
@@ -319,6 +340,17 @@ describe("SelectedWorkSection", () => {
       expect(
         within(card(CASE_STUDY_TITLES[0] ?? "")).getByText("[redacted]"),
       ).toBeInTheDocument();
+    });
+
+    it("tracks a case study view when a card's link is clicked", async () => {
+      const umami = mockUmami();
+      renderSection();
+      await userEvent.click(within(card(CASE_STUDY_TITLES[3] ?? "")).getByRole("link"));
+
+      expect(umami.track).toHaveBeenCalledWith("case_study_view", {
+        case_study_slug: "[redacted]",
+        source: "home_link",
+      });
     });
   });
 });

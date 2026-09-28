@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   root "pages#home"
   get "work" => "pages#work"
   get "about" => "pages#about"
+
+  get "sitemap.xml" => "sitemaps#show", as: :sitemap, format: false, defaults: { format: :xml }
+  get "robots.txt" => "robots#show", as: :robots, format: false, defaults: { format: :text }
 end

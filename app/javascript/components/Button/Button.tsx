@@ -17,6 +17,7 @@ interface ButtonProps {
   isExternal?: boolean;
   onClick?: () => void;
   size?: ButtonSize;
+  state?: unknown;
   to?: string;
   type?: "button" | "submit";
   variant?: ButtonVariant;
@@ -41,6 +42,7 @@ function Button({
   isExternal = false,
   onClick,
   size = "regular",
+  state,
   to,
   type = "button",
   variant = "ghost",
@@ -64,7 +66,7 @@ function Button({
 
   if (to !== undefined) {
     return (
-      <Link className={buttonClassName} onClick={onClick} to={to}>
+      <Link className={buttonClassName} onClick={onClick} state={state} to={to}>
         {content}
       </Link>
     );

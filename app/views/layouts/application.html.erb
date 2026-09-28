@@ -26,6 +26,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
     <%= yield :head %>
+    <%= analytics_script_tag %>
     <%= vite_client_tag %>
     <%= vite_react_refresh_tag %>
     <%= vite_typescript_tag "application.tsx" %>

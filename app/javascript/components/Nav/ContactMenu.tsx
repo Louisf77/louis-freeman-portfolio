@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import ExternalLink from "~/components/ExternalLink/ExternalLink";
 import styles from "~/components/Nav/Nav.module.css";
 import useMediaQuery, { COMPACT_MEDIA_QUERY } from "~/hooks/useMediaQuery";
+import useTrackContactClick from "~/hooks/useTrackContactClick";
 import classNames from "~/lib/classNames";
 import { useUi } from "~/lib/ui";
 import type { Profile } from "~/types/contracts";
@@ -28,6 +29,7 @@ function ContactMenu({ profile }: ContactMenuProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const linksId = useId();
   const variant: ContactVariant = isCompact ? "dropdown" : "slide-out";
+  const trackContactClick = useTrackContactClick("nav");
 
   const close = useCallback(() => {
     setIsOpen(false);
@@ -83,17 +85,35 @@ function ContactMenu({ profile }: ContactMenuProps) {
         id={linksId}
         inert={!isOpen}
       >
-        <a className={styles.contactLink} href={`mailto:${profile.email}`}>
+        <a
+          className={styles.contactLink}
+          href={`mailto:${profile.email}`}
+          onClick={() => {
+            trackContactClick("email");
+          }}
+        >
           {t("contact_email")}
           <span aria-hidden="true" className={styles.emailArrow}>
             →
           </span>
         </a>
-        <ExternalLink className={styles.contactLink} href={profile.linkedin_url}>
+        <ExternalLink
+          className={styles.contactLink}
+          href={profile.linkedin_url}
+          onClick={() => {
+            trackContactClick("linkedin");
+          }}
+        >
           {t("contact_linkedin")}
           <span aria-hidden="true">↗</span>
         </ExternalLink>
-        <ExternalLink className={styles.contactLink} href={profile.github_url}>
+        <ExternalLink
+          className={styles.contactLink}
+          href={profile.github_url}
+          onClick={() => {
+            trackContactClick("github");
+          }}
+        >
           {t("contact_github")}
           <span aria-hidden="true">↗</span>
         </ExternalLink>

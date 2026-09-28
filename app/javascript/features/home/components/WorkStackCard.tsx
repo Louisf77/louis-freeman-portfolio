@@ -6,6 +6,7 @@ import { MIN_DIAGRAM_SCALE } from "~/components/diagrams/DiagramFrame";
 import CaseStudyMetric from "~/features/home/components/CaseStudyMetric";
 import CaseStudyTags from "~/features/home/components/CaseStudyTags";
 import styles from "~/features/home/components/WorkStackCard.module.css";
+import { caseStudyLandingState, track } from "~/lib/analytics";
 import { work_path } from "~/lib/routes";
 import { useUi } from "~/lib/ui";
 import type { CaseStudy } from "~/types/contracts";
@@ -38,6 +39,10 @@ function WorkStackCard({ caseStudy, stackIndex }: WorkStackCardProps) {
         <Button
           className={styles.readLink}
           icon={ARROW}
+          onClick={() => {
+            track("case_study_view", { case_study_slug: caseStudy.slug, source: "home_link" });
+          }}
+          state={caseStudyLandingState(caseStudy.slug)}
           to={work_path({ anchor: caseStudy.slug })}
           variant="ghost"
         >

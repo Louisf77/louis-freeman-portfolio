@@ -6,6 +6,7 @@ import CaseStudyMetric from "~/features/home/components/CaseStudyMetric";
 import CaseStudyTags from "~/features/home/components/CaseStudyTags";
 import styles from "~/features/home/components/WorkAccordionPanel.module.css";
 import classNames from "~/lib/classNames";
+import { caseStudyLandingState, track } from "~/lib/analytics";
 import { work_path } from "~/lib/routes";
 import { useUi } from "~/lib/ui";
 import type { CaseStudy } from "~/types/contracts";
@@ -68,6 +69,10 @@ function WorkAccordionPanel({
           <Button
             className={styles.readLink}
             icon={ARROW}
+            onClick={() => {
+              track("case_study_view", { case_study_slug: caseStudy.slug, source: "home_link" });
+            }}
+            state={caseStudyLandingState(caseStudy.slug)}
             to={work_path({ anchor: caseStudy.slug })}
             variant="ghost"
           >

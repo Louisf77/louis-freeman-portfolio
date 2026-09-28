@@ -2,7 +2,8 @@ import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { mockMatchMedia } from "@test/browser";
+import { mockUmami } from "@test/analytics";
+import { mockMatchMedia, preventLinkNavigation } from "@test/browser";
 import { renderWithProviders } from "@test/utils";
 import Footer from "~/components/Footer/Footer";
 import { COMPACT_MEDIA_QUERY } from "~/hooks/useMediaQuery";
@@ -34,8 +35,8 @@ const UI = {
   privacy_title: "Privacy",
 };
 
-function renderFooter({ profile }: { profile: Profile | undefined } = { profile: PROFILE }) {
-  return renderWithProviders(<Footer profile={profile} />, { ui: UI });
+function renderFooter({ path = "/" }: { path?: string } = {}) {
+  return renderWithProviders(<Footer profile={PROFILE} />, { initialEntries: [path], ui: UI });
 }
 
 describe("Footer", () => {
@@ -75,13 +76,13 @@ describe("Footer", () => {
   });
 
   it("still renders without a profile", () => {
-    renderFooter({ profile: undefined });
+    renderWithProviders(<Footer profile={undefined} />, { ui: UI });
 
     expect(screen.getByRole("link", { name: "Back to top ↑" })).toBeInTheDocument();
   });
 
   it("omits contact links without a profile", () => {
-    renderFooter({ profile: undefined });
+    renderWithProviders(<Footer profile={undefined} />, { ui: UI });
 
     expect(screen.queryByRole("link", { name: /GitHub/ })).not.toBeInTheDocument();
   });
@@ -124,6 +125,64 @@ describe("Footer", () => {
       await user.click(screen.getByRole("button", { name: "Close" }));
 
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("contact tracking", () => {
+    it("tracks an email click on the page it happened", async () => {
+      const umami = mockUmami();
+      preventLinkNavigation();
+      const user = userEvent.setup();
+      renderFooter({ path: "/work" });
+
+      await user.click(screen.getByRole("link", { name: "hello@louisfreeman.co.uk" }));
+
+      expect(umami.track).toHaveBeenCalledWith("contact_click", {
+        location: "footer",
+        method: "email",
+        page_type: "work",
+      });
+    });
+
+    it("tracks a LinkedIn click", async () => {
+      const umami = mockUmami();
+      preventLinkNavigation();
+      const user = userEvent.setup();
+      renderFooter({ path: "/about" });
+
+      await user.click(screen.getByRole("link", { name: /LinkedIn/ }));
+
+      expect(umami.track).toHaveBeenCalledWith("contact_click", {
+        location: "footer",
+        method: "linkedin",
+        page_type: "about",
+      });
+    });
+
+    it("tracks a GitHub click", async () => {
+      const umami = mockUmami();
+      preventLinkNavigation();
+      const user = userEvent.setup();
+      renderFooter();
+
+      await user.click(screen.getByRole("link", { name: /GitHub/ }));
+
+      expect(umami.track).toHaveBeenCalledWith("contact_click", {
+        location: "footer",
+        method: "github",
+        page_type: "home",
+      });
+    });
+
+    it("does not track Back to top", async () => {
+      const umami = mockUmami();
+      preventLinkNavigation();
+      const user = userEvent.setup();
+      renderFooter();
+
+      await user.click(screen.getByRole("link", { name: "Back to top ↑" }));
+
+      expect(umami.track).not.toHaveBeenCalled();
     });
   });
 });

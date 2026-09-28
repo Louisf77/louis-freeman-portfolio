@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import { onTestFinished, vi } from "vitest";
 
 export function mockMatchMedia(matchingQueries: string[] = []): void {
   vi.stubGlobal(
@@ -51,4 +51,75 @@ export function mockScrollIntoView() {
   Element.prototype.scrollIntoView = scrollIntoView;
 
   return scrollIntoView;
+}
+
+export function preventLinkNavigation() {
+  const preventNavigation = (event: MouseEvent) => {
+    event.preventDefault();
+  };
+  document.addEventListener("click", preventNavigation);
+  onTestFinished(() => {
+    document.removeEventListener("click", preventNavigation);
+  });
+}
+
+interface IntersectionObserverMock {
+  intersect: (target: Element, intersectionRatio: number) => void;
+}
+
+export function mockIntersectionObserver(): IntersectionObserverMock {
+  const observers = new Set<{
+    callback: IntersectionObserverCallback;
+    instance: IntersectionObserver;
+    targets: Set<Element>;
+  }>();
+
+  class MockIntersectionObserver implements IntersectionObserver {
+    private readonly entry;
+    readonly root = null;
+    readonly rootMargin = "0px";
+    readonly scrollMargin = "0px";
+    readonly thresholds: readonly number[];
+
+    constructor(callback: IntersectionObserverCallback, options: IntersectionObserverInit = {}) {
+      const threshold = options.threshold ?? 0;
+      this.thresholds = Array.isArray(threshold) ? threshold : [threshold];
+      this.entry = { callback, instance: this, targets: new Set<Element>() };
+      observers.add(this.entry);
+    }
+
+    disconnect() {
+      this.entry.targets.clear();
+      observers.delete(this.entry);
+    }
+
+    observe(target: Element) {
+      this.entry.targets.add(target);
+    }
+
+    takeRecords(): IntersectionObserverEntry[] {
+      return [];
+    }
+
+    unobserve(target: Element) {
+      this.entry.targets.delete(target);
+    }
+  }
+
+  vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
+
+  return {
+    intersect(target, intersectionRatio) {
+      observers.forEach(({ callback, instance, targets }) => {
+        if (!targets.has(target)) return;
+
+        const entry = {
+          intersectionRatio,
+          isIntersecting: intersectionRatio > 0,
+          target,
+        } as IntersectionObserverEntry;
+        callback([entry], instance);
+      });
+    },
+  };
 }

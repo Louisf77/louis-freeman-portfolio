@@ -2,7 +2,8 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { mockMatchMedia } from "@test/browser";
+import { mockUmami } from "@test/analytics";
+import { mockMatchMedia, preventLinkNavigation } from "@test/browser";
 import { renderWithProviders } from "@test/utils";
 import Nav from "~/components/Nav/Nav";
 import { COMPACT_MEDIA_QUERY } from "~/hooks/useMediaQuery";
@@ -217,6 +218,66 @@ describe("Nav", () => {
         "aria-expanded",
         "false",
       );
+    });
+  });
+
+  describe("contact tracking", () => {
+    it("tracks an email click on the page it happened", async () => {
+      const umami = mockUmami();
+      preventLinkNavigation();
+      const user = userEvent.setup();
+      renderNav({ path: "/about" });
+
+      await user.click(screen.getByRole("button", { name: "Contact" }));
+      await user.click(screen.getByRole("link", { name: "Email" }));
+
+      expect(umami.track).toHaveBeenCalledWith("contact_click", {
+        location: "nav",
+        method: "email",
+        page_type: "about",
+      });
+    });
+
+    it("tracks a LinkedIn click", async () => {
+      const umami = mockUmami();
+      preventLinkNavigation();
+      const user = userEvent.setup();
+      renderNav({ path: "/work" });
+
+      await user.click(screen.getByRole("button", { name: "Contact" }));
+      await user.click(screen.getByRole("link", { name: /LinkedIn/ }));
+
+      expect(umami.track).toHaveBeenCalledWith("contact_click", {
+        location: "nav",
+        method: "linkedin",
+        page_type: "work",
+      });
+    });
+
+    it("tracks a GitHub click", async () => {
+      const umami = mockUmami();
+      preventLinkNavigation();
+      const user = userEvent.setup();
+      renderNav();
+
+      await user.click(screen.getByRole("button", { name: "Contact" }));
+      await user.click(screen.getByRole("link", { name: /GitHub/ }));
+
+      expect(umami.track).toHaveBeenCalledWith("contact_click", {
+        location: "nav",
+        method: "github",
+        page_type: "home",
+      });
+    });
+
+    it("does not track opening the Contact menu", async () => {
+      const umami = mockUmami();
+      const user = userEvent.setup();
+      renderNav();
+
+      await user.click(screen.getByRole("button", { name: "Contact" }));
+
+      expect(umami.track).not.toHaveBeenCalled();
     });
   });
 });

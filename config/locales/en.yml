@@ -137,7 +137,7 @@ en:
     nav_work: "Work"
     opens_in_new_tab: "(opens in a new tab)"
     page_load_error: "Couldn't load this page."
-    privacy_body: "This site counts visits with Umami, a privacy-friendly analytics tool. It records anonymous page views and clicks on the contact links. It stores nothing on your device and doesn't collect anything that identifies you."
+    privacy_body: "This site counts visits with Umami, a privacy-friendly analytics tool. It records page views, which case studies are viewed and clicks on the contact links, along with the referring site, your browser, device type and country. It uses no cookies, stores nothing on your device and collects nothing that identifies you."
     privacy_link: "Privacy"
     privacy_policy_link: "Read Umami's privacy policy"
     privacy_title: "Privacy"
