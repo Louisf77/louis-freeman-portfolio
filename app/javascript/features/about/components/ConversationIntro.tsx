@@ -1,5 +1,11 @@
 import { Fragment, useRef } from "react";
 
+import louisWaving448Avif from "~/assets/louis-waving-448.avif";
+import louisWaving448Webp from "~/assets/louis-waving-448.webp";
+import louisWaving672Avif from "~/assets/louis-waving-672.avif";
+import louisWaving672Webp from "~/assets/louis-waving-672.webp";
+import louisWaving896Avif from "~/assets/louis-waving-896.avif";
+import louisWaving896Webp from "~/assets/louis-waving-896.webp";
 import louisWaving from "~/assets/louis-waving.png";
 import HighlightedText from "~/components/HighlightMark/HighlightedText";
 import styles from "~/features/about/components/ConversationIntro.module.css";
@@ -20,6 +26,17 @@ const RISE_DISTANCE = 22;
 const RISE_DISTANCE_COMPACT = 18;
 const PORTRAIT_WIDTH = 896;
 const PORTRAIT_HEIGHT = 1200;
+const PORTRAIT_SIZES = "(max-width: 760px) 246px, 896px";
+const PORTRAIT_SOURCES = [
+  {
+    srcSet: `${louisWaving448Avif} 448w, ${louisWaving672Avif} 672w, ${louisWaving896Avif} 896w`,
+    type: "image/avif",
+  },
+  {
+    srcSet: `${louisWaving448Webp} 448w, ${louisWaving672Webp} 672w, ${louisWaving896Webp} 896w`,
+    type: "image/webp",
+  },
+];
 const HEADING_ID = "hi-title";
 const HINT_KEY = { compact: "about_chat_hint_compact", wide: "about_chat_hint" } as const;
 const SENTENCE_BREAK = /(?<=[.!?])\s+/;
@@ -65,15 +82,25 @@ function ConversationIntro({ conversation, intro }: ConversationIntroProps) {
     >
       <div className={styles.pin}>
         <figure className={styles.portrait}>
-          <img
-            alt={t("about_portrait_alt")}
-            className={styles.portraitImage}
-            decoding="async"
-            fetchPriority="high"
-            height={PORTRAIT_HEIGHT}
-            src={louisWaving}
-            width={PORTRAIT_WIDTH}
-          />
+          <picture className={styles.picture}>
+            {PORTRAIT_SOURCES.map((source) => (
+              <source
+                key={source.type}
+                sizes={PORTRAIT_SIZES}
+                srcSet={source.srcSet}
+                type={source.type}
+              />
+            ))}
+            <img
+              alt={t("about_portrait_alt")}
+              className={styles.portraitImage}
+              decoding="async"
+              fetchPriority="high"
+              height={PORTRAIT_HEIGHT}
+              src={louisWaving}
+              width={PORTRAIT_WIDTH}
+            />
+          </picture>
         </figure>
         <div className={styles.text}>
           <h1 className={styles.heading} id={HEADING_ID}>

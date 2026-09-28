@@ -55,17 +55,6 @@
     opacity: calc(1 - var(--drift-progress, 0) * var(--drift-fade));
     will-change: transform, opacity;
   }
-
-  .runout {
-    display: block;
-    flex-shrink: 0;
-    height: 100vh;
-  }
-
-  :global(main):has(.runout) ~ :global(footer) {
-    min-height: calc(100vh - var(--stacked-footer-inset));
-    margin-top: -100vh;
-  }
 }
 
 @media (max-width: 760px) {
@@ -77,7 +66,14 @@
 }
 
 @media (max-width: 760px) and (prefers-reduced-motion: no-preference) {
+  .runout {
+    display: block;
+    flex-shrink: 0;
+    height: 100vh;
+  }
+
   :global(main):has(.runout) ~ :global(footer) {
     min-height: calc(100vh - var(--stacked-footer-inset-compact));
+    margin-top: -100vh;
   }
 }

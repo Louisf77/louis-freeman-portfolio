@@ -13,9 +13,9 @@ RSpec.describe "Analytics", :umami do
       visit root_path
       page.assert_selector(:css, "h1#hero-title")
       within("nav") do
-        click_on I18n.t("ui.contact")
+        open_contact_menu
         page.execute_script("document.addEventListener('click', (event) => event.preventDefault())")
-        click_on I18n.t("ui.contact_email")
+        find_link(I18n.t("ui.contact_email")).trigger("click")
       end
     end
 
@@ -42,8 +42,8 @@ RSpec.describe "Analytics", :umami do
       visit work_path
       page.assert_selector(:css, "h1#work-heading")
       within("nav") do
-        click_on I18n.t("ui.contact")
-        click_on I18n.t("ui.contact_linkedin")
+        open_contact_menu
+        find_link(I18n.t("ui.contact_linkedin")).trigger("click")
       end
     end
 
@@ -160,12 +160,22 @@ RSpec.describe "Analytics", :umami do
     end
   end
 
+  def open_contact_menu
+    click_on I18n.t("ui.contact")
+    page.assert_selector(:css, "button[aria-expanded='true']", text: I18n.t("ui.contact"))
+  end
+
   def read_case_study_from_home_accordion
     visit root_path
     within("#work") do
-      click_on featured_case_study.title
+      open_accordion_panel(title: featured_case_study.title)
       find("#work-panel-#{featured_case_study.slug}").click_on I18n.t("ui.selected_work_read_case_study")
     end
     page.assert_selector(:css, "article##{featured_case_study.slug}")
+  end
+
+  def open_accordion_panel(title:)
+    toggle = find_button(title)
+    toggle.click unless toggle[:"aria-expanded"] == "true"
   end
 end

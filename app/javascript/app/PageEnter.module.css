@@ -22,14 +22,14 @@
 }
 
 .pageEnter > :global(main) > :nth-child(2) {
-  animation-delay: 0.12s;
+  animation-delay: var(--delay-page-enter-2);
 }
 
 .pageEnter > :global(main) > :nth-child(3) {
-  animation-delay: 0.22s;
+  animation-delay: var(--delay-page-enter-3);
 }
 
 .pageEnter > :global(main) > :nth-child(n + 4),
 .pageEnter > :global(footer) {
-  animation-delay: 0.3s;
+  animation-delay: var(--delay-page-enter-rest);
 }

@@ -1,4 +1,6 @@
 export const DRIFT_DISTANCE_SHARE = 0.9;
+export const COVERED_PROGRESS_PROPERTY = "--covered-progress";
+const PROGRESS_DECIMALS = 3;
 
 export interface CoveredBox {
   bottom: number;
@@ -22,6 +24,10 @@ export function coveredProgressOf(
   const visibleHeight = Math.max(1, Math.min(covered.height, viewportHeight));
 
   return clampToUnit(overlap / visibleHeight);
+}
+
+export function formatProgress(progress: number): string {
+  return progress.toFixed(PROGRESS_DECIMALS);
 }
 
 export function driftProgressOf(scrollY: number, leadHeight: number): number {

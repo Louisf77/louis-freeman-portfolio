@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Button from "~/components/Button/Button";
 import styles from "~/features/home/components/SelectedWorkSection.module.css";
 import WorkAccordion from "~/features/home/components/WorkAccordion";
@@ -20,18 +18,10 @@ const ARROW = "→";
 function SelectedWorkSection({ selectedWork }: SelectedWorkSectionProps) {
   const t = useUi();
   const isCompact = useMediaQuery(COMPACT_MEDIA_QUERY);
-  const [isPointerGone, setIsPointerGone] = useState(false);
   if (selectedWork.case_studies.length === 0) return null;
 
   return (
-    <section
-      aria-labelledby={HEADING_ID}
-      className={styles.section}
-      id={SECTION_ID}
-      onMouseLeave={() => {
-        setIsPointerGone(true);
-      }}
-    >
+    <section aria-labelledby={HEADING_ID} className={styles.section} id={SECTION_ID}>
       <div className={styles.header}>
         <h2 className={styles.title} id={HEADING_ID}>
           {t("selected_work_heading")}
@@ -41,7 +31,7 @@ function SelectedWorkSection({ selectedWork }: SelectedWorkSectionProps) {
       {isCompact ? (
         <WorkStackMobile caseStudies={selectedWork.case_studies} />
       ) : (
-        <WorkAccordion caseStudies={selectedWork.case_studies} isAutoplayAllowed={!isPointerGone} />
+        <WorkAccordion caseStudies={selectedWork.case_studies} />
       )}
       <div className={styles.footer}>
         <Button className={styles.viewAll} icon={ARROW} to={work_path()} variant="ghost">

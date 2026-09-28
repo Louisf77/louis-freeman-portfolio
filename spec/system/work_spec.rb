@@ -15,7 +15,7 @@ RSpec.describe "Work" do
       end
 
       it "renders a card per case study" do
-        expect(page).to have_css("article[id]", count: 4)
+        expect(page).to have_css("article[id]", count: case_studies.count)
       end
 
       it "orders the cards by position" do
@@ -50,6 +50,8 @@ RSpec.describe "Work" do
   end
 
   context "without the work header seeded" do
+    let(:unavailable_heading) { Nokogiri::HTML(Rails.public_path.join("503.html").read).at_css("h1").text }
+
     before do
       seed_content
       WorkHeader.delete_all
@@ -57,7 +59,7 @@ RSpec.describe "Work" do
     end
 
     it "shows the unavailable page" do
-      expect(page).to have_css("h1", text: "Back in a moment.")
+      expect(page).to have_css("h1", text: unavailable_heading)
     end
 
     it "responds 503 so crawlers retry" do

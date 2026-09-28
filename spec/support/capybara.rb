@@ -3,16 +3,32 @@ require "capybara/cuprite"
 CUPRITE_WINDOW_SIZE = [1440, 900].freeze
 CUPRITE_COMPACT_WINDOW_SIZE = [390, 844].freeze
 CUPRITE_PROCESS_TIMEOUT_SECONDS = 30
+CUPRITE_COMMAND_TIMEOUT_SECONDS = 15
 CUPRITE_CI_BROWSER_OPTIONS = { "disable-dev-shm-usage" => nil, "no-sandbox" => nil }.freeze
 CAPYBARA_WAIT_SECONDS = 5
+SMOOTH_SCROLLING_DISABLING_FLAG = "disable-smooth-scrolling".freeze
+WEB_FONT_HOSTS = ["fonts.googleapis.com", "fonts.gstatic.com"].freeze
+OFFLINE_WEB_FONTS_OPTIONS = {
+  "host-resolver-rules" => WEB_FONT_HOSTS.map { |host| "MAP #{host} ~NOTFOUND" }.join(", "),
+}.freeze
 
 module CupriteOptions
   def self.to_h
     {
-      browser_options: ENV["CI"] ? CUPRITE_CI_BROWSER_OPTIONS.dup : {},
+      browser_options: OFFLINE_WEB_FONTS_OPTIONS.merge(ENV["CI"] ? CUPRITE_CI_BROWSER_OPTIONS : {}),
       headless: ENV.fetch("HEADLESS", "true") != "false",
       process_timeout: CUPRITE_PROCESS_TIMEOUT_SECONDS,
+      timeout: CUPRITE_COMMAND_TIMEOUT_SECONDS,
     }
+  end
+
+  def self.with_smooth_scrolling
+    default_flags = Ferrum::Browser::Options::Chrome::DEFAULT_OPTIONS.except(SMOOTH_SCROLLING_DISABLING_FLAG)
+    options = to_h
+    options.merge(
+      browser_options: default_flags.merge(options.fetch(:browser_options)),
+      ignore_default_browser_options: true,
+    )
   end
 end
 
@@ -44,5 +60,14 @@ RSpec.configure do |config|
     driven_by :cuprite,
               screen_size: CUPRITE_COMPACT_WINDOW_SIZE,
               options: CupriteOptions.to_h.merge(name: :cuprite_compact)
+  end
+
+  config.before(:each, :smooth_scrolling, type: :system) do |example|
+    is_compact = example.metadata[:compact]
+    driven_by :cuprite,
+              screen_size: is_compact ? CUPRITE_COMPACT_WINDOW_SIZE : CUPRITE_WINDOW_SIZE,
+              options: CupriteOptions.with_smooth_scrolling.merge(
+                name: is_compact ? :cuprite_smooth_compact : :cuprite_smooth,
+              )
   end
 end

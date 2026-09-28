@@ -1,10 +1,10 @@
 import type { CSSProperties } from "react";
 
 import Button from "~/components/Button/Button";
+import CaseStudyMetric from "~/components/CaseStudyMetric/CaseStudyMetric";
+import CaseStudyTags from "~/components/CaseStudyTags/CaseStudyTags";
 import CaseStudyDiagram from "~/components/diagrams/CaseStudyDiagram";
 import { MIN_DIAGRAM_SCALE } from "~/components/diagrams/DiagramFrame";
-import CaseStudyMetric from "~/features/home/components/CaseStudyMetric";
-import CaseStudyTags from "~/features/home/components/CaseStudyTags";
 import styles from "~/features/home/components/WorkStackCard.module.css";
 import { caseStudyLandingState, track } from "~/lib/analytics";
 import { work_path } from "~/lib/routes";
@@ -35,7 +35,7 @@ function WorkStackCard({ caseStudy, stackIndex }: WorkStackCardProps) {
         <h3 className={styles.title}>{caseStudy.title}</h3>
         <p className={styles.headline}>{caseStudy.headline}</p>
         <CaseStudyTags tags={caseStudy.tags} />
-        <CaseStudyMetric metric={caseStudy.metric} />
+        <CaseStudyMetric className={styles.metric} metric={caseStudy.metric} />
         <Button
           className={styles.readLink}
           icon={ARROW}
@@ -47,6 +47,9 @@ function WorkStackCard({ caseStudy, stackIndex }: WorkStackCardProps) {
           variant="ghost"
         >
           {t("selected_work_read_case_study")}
+          <span className="visually-hidden">
+            {t("selected_work_read_case_study_title", { title: caseStudy.title })}
+          </span>
         </Button>
       </div>
     </article>

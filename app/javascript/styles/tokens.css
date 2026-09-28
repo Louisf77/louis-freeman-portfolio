@@ -20,11 +20,24 @@
   --tint-sage: #e2e9e1;
   --tint-sand: #ece6d8;
   --tint-paper-3: #eae6dc;
+  --surface-hover: #e3ded2;
+
+  --diagram-green-soft: #dce5db;
+  --diagram-row-line: #e4e0d5;
+  --diagram-chip-gold: #ddd6c4;
+  --diagram-avatar: #cfc8b6;
+  --diagram-avatar-green: #9fb8a5;
+  --diagram-note-line: #bdb6a4;
+  --diagram-grid-line: rgba(23, 22, 15, 0.055);
+  --diagram-dot: rgba(23, 22, 15, 0.16);
 
   --ink-hover: rgba(23, 22, 15, 0.07);
   --ink-hover-menu: rgba(23, 22, 15, 0.06);
   --ink-tint: rgba(23, 22, 15, 0.09);
   --ink-watermark: rgba(23, 22, 15, 0.05);
+  --ink-cue-track: rgba(23, 22, 15, 0.18);
+  --ink-backdrop: rgba(23, 22, 15, 0.35);
+  --mask-opaque: #000;
   --nav-fill: rgba(244, 242, 236, 0.82);
   --nav-fill-compact: rgba(244, 242, 236, 0.86);
   --nav-border: rgba(23, 22, 15, 0.14);
@@ -41,33 +54,98 @@
   --shadow-nav: 0 18px 40px -26px rgba(23, 22, 15, 0.45);
   --shadow-nav-compact: 0 16px 34px -24px rgba(23, 22, 15, 0.5);
   --shadow-menu: 0 24px 44px -28px rgba(23, 22, 15, 0.5);
+  --shadow-bubble: 0 30px 50px -36px rgba(23, 22, 15, 0.45);
+  --shadow-diagram-card: 0 26px 40px -28px rgba(23, 22, 15, 0.6);
+  --shadow-diagram-wizard: 0 30px 50px -36px rgba(23, 22, 15, 0.55);
   --covered-overlay-max: 0.22;
   --drift-distance: 180px;
   --drift-shrink: 0.1;
   --drift-fade: 1.1;
+  --drift-media-counter: -70px;
 
   --font-display: "Sora", "Helvetica Neue", sans-serif;
   --font-body: "Karla", "Helvetica Neue", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
+  --text-9: 9px;
+  --text-10: 10px;
+  --text-10-5: 10.5px;
+  --text-11: 11px;
+  --text-11-5: 11.5px;
+  --text-12: 12px;
+  --text-13: 13px;
+  --text-14: 14px;
+  --text-14-5: 14.5px;
+  --text-15: 15px;
+  --text-15-5: 15.5px;
+  --text-16: 16px;
+  --text-16-5: 16.5px;
+  --text-17: 17px;
+  --text-18: 18px;
+  --text-19: 19px;
+  --text-20: 20px;
+  --text-22: 22px;
+  --text-26: 26px;
+  --text-28: 28px;
+  --text-30: 30px;
+  --text-34: 34px;
+  --text-36: 36px;
+  --text-38: 38px;
+  --text-40: 40px;
+  --text-42: 42px;
+  --text-44: 44px;
+  --text-46: 46px;
+  --text-48: 48px;
+  --text-56: 56px;
+  --text-58: 58px;
+  --text-60: 60px;
+  --text-64: 64px;
+  --text-72: 72px;
+  --text-74: 74px;
+  --text-80: 80px;
+  --text-88: 88px;
+  --text-96: 96px;
+  --text-100: 100px;
+  --text-124: 124px;
+  --text-128: 128px;
+  --text-146: 146px;
+  --text-168: 168px;
+  --text-172: 172px;
+
   --space-2: 2px;
+  --space-3: 3px;
   --space-4: 4px;
+  --space-5: 5px;
   --space-6: 6px;
+  --space-7: 7px;
   --space-8: 8px;
+  --space-9: 9px;
   --space-10: 10px;
+  --space-11: 11px;
   --space-12: 12px;
+  --space-13: 13px;
   --space-14: 14px;
   --space-16: 16px;
   --space-18: 18px;
   --space-20: 20px;
   --space-22: 22px;
   --space-24: 24px;
+  --space-26: 26px;
   --space-28: 28px;
   --space-32: 32px;
+  --space-36: 36px;
   --space-40: 40px;
+  --space-44: 44px;
   --space-48: 48px;
   --space-56: 56px;
+  --space-64: 64px;
   --space-72: 72px;
+  --space-80: 80px;
+  --space-88: 88px;
+  --space-96: 96px;
+  --space-110: 110px;
+  --space-120: 120px;
+  --space-130: 130px;
   --space-160: 160px;
 
   --page-gutter: 64px;
@@ -78,6 +156,7 @@
   --content-max-compact: 430px;
   --section-padding: 120px;
   --section-padding-compact: 64px;
+  --section-spacing: 128px;
 
   --radius-pill: 999px;
   --radius-well: 12px;
@@ -89,6 +168,7 @@
   --radius-stacked-compact: 32px;
 
   --touch-target: 44px;
+  --nav-height: 96px;
   --case-study-height: 640px;
   --case-study-well-height: 520px;
   --case-study-well-height-compact: 209px;
@@ -103,7 +183,40 @@
 
   --ease-enter: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-snap: 0.2s;
+  --duration-hover: 0.25s;
+  --duration-quick: 0.3s;
+  --duration-toggle: 0.35s;
+  --duration-emphasis: 0.4s;
+  --duration-lift: 0.45s;
+  --duration-fade: 0.5s;
+  --duration-slide: 0.55s;
+  --duration-settle: 0.6s;
+  --duration-glide: 0.8s;
+  --duration-blink: 0.9s;
+  --duration-image-zoom: 1.2s;
+  --duration-diagram-hover: 1.4s;
+  --duration-diagram-zoom: 1.6s;
+  --duration-scroll-cue: 2.2s;
+  --delay-page-enter-2: 0.12s;
+  --delay-page-enter-3: 0.22s;
+  --delay-page-enter-rest: 0.3s;
+  --delay-panel-reveal: 0.3s;
+  --duration-ticker: 70s;
+  --duration-ticker-compact: 50s;
   --duration-page-enter: 0.9s;
   --page-enter-offset: 28px;
   --page-enter-blur: 6px;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --nav-height: 80px;
+  }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --nav-height: 78px;
+  }
 }

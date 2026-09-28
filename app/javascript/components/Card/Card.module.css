@@ -10,13 +10,18 @@
 
 .lift {
   transition:
-    transform 0.45s var(--ease-enter),
-    box-shadow 0.45s,
-    border-color 0.3s;
+    transform var(--duration-lift) var(--ease-enter),
+    box-shadow var(--duration-lift),
+    border-color var(--duration-quick);
 }
 
 .lift:hover {
   border-color: var(--ink);
   box-shadow: var(--shadow-lift);
-  transform: translateY(-6px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lift:hover {
+    transform: translateY(calc(-1 * var(--space-6)));
+  }
 }

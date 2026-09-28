@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router";
 
+import DocumentTitle from "~/app/DocumentTitle";
 import styles from "~/app/Layout.module.css";
 import PageEnter from "~/app/PageEnter";
 import ScrollToLocation from "~/app/ScrollToLocation";
@@ -26,6 +27,7 @@ function Layout() {
         <Footer profile={profile} />
       </PageEnter>
       <ScrollToLocation />
+      <DocumentTitle />
     </div>
   );
 }

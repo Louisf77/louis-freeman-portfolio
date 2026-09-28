@@ -8,7 +8,7 @@
   position: relative;
   z-index: 2;
   color: var(--ink);
-  font: 500 88px/1.02 var(--font-display);
+  font: 500 var(--text-88)/1.02 var(--font-display);
   letter-spacing: -0.025em;
   text-wrap: balance;
   display: grid;
@@ -28,25 +28,25 @@
   display: inline-block;
   width: 3px;
   height: 0.95em;
-  margin-left: 6px;
+  margin-left: var(--space-6);
   background: var(--ink);
   transform: translateY(2px);
 }
 
 .caret[data-state="holding"] {
   background: var(--green);
-  animation: caret-blink 0.9s steps(1) infinite;
+  animation: caret-blink var(--duration-blink) steps(1) infinite;
 }
 
 @media (max-width: 1340px) {
   .greeting {
-    font-size: 72px;
+    font-size: var(--text-72);
   }
 }
 
 @media (max-width: 1180px) {
   .greeting {
-    font-size: 64px;
+    font-size: var(--text-64);
   }
 
   .sizer,
@@ -57,14 +57,14 @@
 
 @media (max-width: 760px) {
   .greeting {
-    font-size: 44px;
+    font-size: var(--text-44);
     line-height: 1.05;
     letter-spacing: -0.03em;
   }
 
   .caret {
     height: 0.9em;
-    margin-left: 4px;
+    margin-left: var(--space-4);
     background: var(--green);
   }
 }

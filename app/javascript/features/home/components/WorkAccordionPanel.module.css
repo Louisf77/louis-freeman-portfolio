@@ -1,5 +1,4 @@
 .panel {
-  --panel-hover: #e3ded2;
   --panel-open-grow: 6;
   --panel-body-width: 840px;
   --diagram-hover-zoom: 1.05;
@@ -12,13 +11,13 @@
   border-radius: 24px;
   background: var(--surface-3);
   transition:
-    flex-grow 0.8s var(--ease-ui),
-    background 0.5s,
-    border-color 0.4s;
+    flex-grow var(--duration-glide) var(--ease-ui),
+    background var(--duration-fade),
+    border-color var(--duration-emphasis);
 }
 
 .panel:hover {
-  background: var(--panel-hover);
+  background: var(--surface-hover);
 }
 
 .panel:has(.toggle:focus-visible) {
@@ -56,9 +55,9 @@
   right: 0;
   left: 0;
   color: var(--muted);
-  font: 400 12px/1 var(--font-mono);
+  font: 400 var(--text-12)/1 var(--font-mono);
   text-align: center;
-  transition: opacity 0.3s;
+  transition: opacity var(--duration-quick);
 }
 
 .verticalTitle {
@@ -68,11 +67,11 @@
   left: 0;
   display: flex;
   justify-content: center;
-  transition: opacity 0.3s;
+  transition: opacity var(--duration-quick);
 }
 
 .verticalTitle span {
-  font: 600 22px/1 var(--font-display);
+  font: 600 var(--text-22)/1 var(--font-display);
   letter-spacing: -0.01em;
   white-space: nowrap;
   transform: rotate(180deg);
@@ -96,15 +95,15 @@
   pointer-events: none;
   transform: translateY(12px);
   transition:
-    opacity 0.35s,
-    transform 0.5s;
+    opacity var(--duration-toggle),
+    transform var(--duration-fade);
 }
 
 .open .body {
   opacity: 1;
   pointer-events: auto;
   transform: none;
-  transition-delay: 0.3s;
+  transition-delay: var(--delay-panel-reveal);
 }
 
 .visual {
@@ -118,11 +117,13 @@
 }
 
 .visual > * {
-  transition: transform 1.4s var(--ease-enter);
+  transition: transform var(--duration-diagram-hover) var(--ease-enter);
 }
 
-.open:hover .visual > * {
-  transform: scale(var(--diagram-hover-zoom));
+@media (prefers-reduced-motion: no-preference) {
+  .open:hover .visual > * {
+    transform: scale(var(--diagram-hover-zoom));
+  }
 }
 
 .footer {
@@ -142,20 +143,28 @@
 
 .meta {
   color: var(--muted);
-  font: 600 11px/1.4 var(--font-display);
+  font: 600 var(--text-11)/1.4 var(--font-display);
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .title {
-  font: 600 34px/1.04 var(--font-display);
+  font: 600 var(--text-34)/1.04 var(--font-display);
   letter-spacing: -0.03em;
 }
 
 .headline {
   color: var(--ink-3);
-  font-size: 16.5px;
+  font-size: var(--text-16-5);
   line-height: 1.5;
+}
+
+.tags {
+  margin-top: var(--space-4);
+}
+
+.metric {
+  align-self: flex-start;
 }
 
 .readLink {
@@ -178,6 +187,6 @@
   }
 
   .title {
-    font-size: 28px;
+    font-size: var(--text-28);
   }
 }

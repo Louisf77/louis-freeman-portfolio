@@ -43,6 +43,27 @@ describe("HobbiesSection", () => {
     vi.unstubAllGlobals();
   });
 
+  it("gives every hobby image its intrinsic size", () => {
+    renderHobbies();
+
+    const unsized = screen
+      .getAllByRole("img")
+      .filter((image) => !image.getAttribute("width") || !image.getAttribute("height"));
+
+    expect(unsized).toEqual([]);
+  });
+
+  it("sizes an image it has no measurements for by its fit", () => {
+    const [first, ...rest] = hobbiesFixture().items;
+    if (!first) throw new Error("Expected a hobby in the fixture");
+    renderHobbies({
+      ...hobbiesFixture(),
+      items: [{ ...first, image_path: "/images/hobbies/new-hobby.png", photo: false }, ...rest],
+    });
+
+    expect(within(hobbyCard(first.name)).getByRole("img")).toHaveAttribute("height", "560");
+  });
+
   it("renders the section heading as a labelled region", () => {
     renderHobbies();
 

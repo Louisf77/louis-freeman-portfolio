@@ -3,8 +3,8 @@
   flex-grow: 1;
   flex-direction: column;
   justify-content: space-between;
-  gap: 72px;
-  padding: 110px var(--page-gutter) 40px;
+  gap: var(--space-72);
+  padding: var(--space-110) var(--page-gutter) var(--space-40);
   border-top: 1px solid var(--line);
   background: var(--paper);
 }
@@ -12,16 +12,16 @@
 .connect {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: var(--space-26);
 }
 
 .heading {
-  font: 600 128px/0.92 var(--font-display);
+  font: 600 var(--text-128)/0.92 var(--font-display);
   letter-spacing: -0.05em;
 }
 
 .headingHome {
-  font-size: 168px;
+  font-size: var(--text-168);
 }
 
 .accent {
@@ -44,10 +44,10 @@
 }
 
 .mail {
-  padding-bottom: 6px;
+  padding-bottom: var(--space-6);
   border-bottom: 1px solid var(--ink);
   color: var(--ink);
-  font: 400 36px/1.2 var(--font-display);
+  font: 400 var(--text-36)/1.2 var(--font-display);
   text-decoration: none;
 }
 
@@ -71,11 +71,11 @@
   border: 1px solid var(--ink);
   border-radius: var(--radius-pill);
   color: var(--ink);
-  font: 500 15px/1 var(--font-body);
+  font: 500 var(--text-15)/1 var(--font-body);
   text-decoration: none;
   transition:
-    background 0.25s,
-    color 0.25s;
+    background var(--duration-hover),
+    color var(--duration-hover);
 }
 
 .pill:hover {
@@ -86,7 +86,7 @@
 .blurb {
   max-width: 360px;
   color: var(--muted);
-  font-size: 16px;
+  font-size: var(--text-16);
   line-height: 1.6;
 }
 
@@ -98,7 +98,7 @@
   padding-top: var(--space-20);
   border-top: 1px solid var(--ink);
   color: var(--muted);
-  font: 600 11px/1.4 var(--font-display);
+  font: 600 var(--text-11)/1.4 var(--font-display);
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -147,7 +147,7 @@
   background: var(--surface);
   box-shadow: var(--shadow-deck-active);
   color: var(--ink);
-  font: 400 16px/1.6 var(--font-body);
+  font: 400 var(--text-16)/1.6 var(--font-body);
   letter-spacing: normal;
   text-transform: none;
 }
@@ -160,22 +160,22 @@
 }
 
 .privacyDialog::backdrop {
-  background: rgba(23, 22, 15, 0.35);
+  background: var(--ink-backdrop);
 }
 
 .privacyTitle {
-  font: 600 26px/1.1 var(--font-display);
+  font: 600 var(--text-26)/1.1 var(--font-display);
   letter-spacing: -0.02em;
 }
 
 .privacyBody {
   color: var(--ink-3);
-  font-size: 16px;
+  font-size: var(--text-16);
   line-height: 1.6;
 }
 
 .privacyPolicyLink {
-  font-size: 16px;
+  font-size: var(--text-16);
 }
 
 .privacyClose {
@@ -190,7 +190,7 @@
 
   .heading,
   .headingHome {
-    font-size: 88px;
+    font-size: var(--text-88);
   }
 
   .contactRow {
@@ -202,7 +202,7 @@
 @media (max-width: 760px) {
   .footer {
     gap: var(--space-48);
-    padding: 72px var(--page-gutter-compact) 28px;
+    padding: var(--space-72) var(--page-gutter-compact) var(--space-28);
   }
 
   .connect {
@@ -211,7 +211,7 @@
 
   .heading,
   .headingHome {
-    font-size: 64px;
+    font-size: var(--text-64);
   }
 
   .contactRow {
@@ -226,17 +226,17 @@
   .mail {
     padding-bottom: var(--space-4);
     font-weight: 600;
-    font-size: 20px;
+    font-size: var(--text-20);
   }
 
   .blurb {
     max-width: none;
-    font-size: 15px;
+    font-size: var(--text-15);
   }
 
   .bottomRow {
     padding-top: var(--space-16);
-    font-size: 10.5px;
+    font-size: var(--text-10-5);
   }
 
   .signature {
@@ -256,10 +256,10 @@
   }
 
   .privacyTitle {
-    font-size: 22px;
+    font-size: var(--text-22);
   }
 
   .privacyBody {
-    font-size: 15px;
+    font-size: var(--text-15);
   }
 }

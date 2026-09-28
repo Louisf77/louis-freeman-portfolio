@@ -1,9 +1,9 @@
 import { useLocation } from "react-router";
 
-import logoMark from "~/assets/logo-mark.png";
 import ExternalLink from "~/components/ExternalLink/ExternalLink";
 import styles from "~/components/Footer/Footer.module.css";
 import PrivacyNote from "~/components/Footer/PrivacyNote";
+import LogoMark from "~/components/LogoMark/LogoMark";
 import useMediaQuery, { COMPACT_MEDIA_QUERY } from "~/hooks/useMediaQuery";
 import useTrackContactClick from "~/hooks/useTrackContactClick";
 import classNames from "~/lib/classNames";
@@ -72,7 +72,7 @@ function Footer({ profile }: FooterProps) {
       </div>
       <div className={styles.bottomRow}>
         <span className={styles.signature}>
-          <img alt="" className={styles.logo} src={logoMark} />
+          <LogoMark className={styles.logo} />
           {profile && t("copyright", { name: profile.name, year: new Date().getFullYear() })}
         </span>
         <span className={styles.bottomLinks}>

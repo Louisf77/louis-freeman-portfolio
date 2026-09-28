@@ -1,17 +1,19 @@
+import styles from "~/components/CaseStudyTags/CaseStudyTags.module.css";
 import Tag from "~/components/Tag/Tag";
-import styles from "~/features/home/components/CaseStudyTags.module.css";
+import classNames from "~/lib/classNames";
 import { useUi } from "~/lib/ui";
 
 interface CaseStudyTagsProps {
+  className?: string;
   tags: string[];
 }
 
-function CaseStudyTags({ tags }: CaseStudyTagsProps) {
+function CaseStudyTags({ className, tags }: CaseStudyTagsProps) {
   const t = useUi();
   if (tags.length === 0) return null;
 
   return (
-    <ul aria-label={t("selected_work_technologies")} className={styles.tags}>
+    <ul aria-label={t("case_study_technologies")} className={classNames(styles.tags, className)}>
       {tags.map((tag) => (
         <Tag key={tag}>{tag}</Tag>
       ))}

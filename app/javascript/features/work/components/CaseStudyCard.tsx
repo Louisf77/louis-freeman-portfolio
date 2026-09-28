@@ -1,7 +1,8 @@
 import { useRef, type CSSProperties } from "react";
 
+import CaseStudyMetric from "~/components/CaseStudyMetric/CaseStudyMetric";
+import CaseStudyTags from "~/components/CaseStudyTags/CaseStudyTags";
 import CaseStudyDiagram from "~/components/diagrams/CaseStudyDiagram";
-import Tag from "~/components/Tag/Tag";
 import styles from "~/features/work/components/CaseStudyCard.module.css";
 import useFittedDiagramScale from "~/features/work/hooks/useFittedDiagramScale";
 import useTrackCaseStudyView from "~/features/work/hooks/useTrackCaseStudyView";
@@ -72,17 +73,8 @@ function CaseStudyCard({ caseStudy, index, isLandingTarget = false }: CaseStudyC
           <span className={styles.roleLabel}>{t("case_study_role")}</span>
           {caseStudy.role}
         </p>
-        <ul aria-label={t("case_study_technologies")} className={styles.tags}>
-          {caseStudy.tags.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
-          ))}
-        </ul>
-        {caseStudy.metric !== null && (
-          <div className={styles.metric}>
-            <span className={styles.metricLabel}>{t("case_study_metric")}</span>
-            <span className={styles.metricValue}>{caseStudy.metric}</span>
-          </div>
-        )}
+        <CaseStudyTags tags={caseStudy.tags} />
+        <CaseStudyMetric metric={caseStudy.metric} />
       </div>
     </article>
   );

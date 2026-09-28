@@ -6,6 +6,9 @@
     <title><%= page_title %></title>
     <meta name="description" content="<%= page_description %>">
     <link rel="canonical" href="<%= canonical_url %>">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="<%= t("meta.site_name") %>">
     <meta property="og:title" content="<%= page_title %>">
@@ -24,7 +27,8 @@
     <%= csp_meta_tag %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+    <%= render "layouts/preloads", page: %>
     <%= yield :head %>
     <%= analytics_script_tag %>
     <%= vite_client_tag %>

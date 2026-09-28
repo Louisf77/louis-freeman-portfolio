@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 
-import logoMark from "~/assets/logo-mark.png";
+import LogoMark from "~/components/LogoMark/LogoMark";
 import ContactMenu from "~/components/Nav/ContactMenu";
 import styles from "~/components/Nav/Nav.module.css";
 import useScrolledPast from "~/hooks/useScrolledPast";
@@ -27,7 +27,7 @@ function Nav({ profile }: NavProps) {
           end
           to="/"
         >
-          <img alt="" className={styles.logo} src={logoMark} />
+          <LogoMark className={styles.logo} />
         </NavLink>
         <NavLink className={styles.item} to="/work">
           {t("nav_work")}

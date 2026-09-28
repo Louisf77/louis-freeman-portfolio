@@ -2,8 +2,8 @@
   --well-height: 280px;
   --well-radius: 14px;
   --image-zoom: 1.06;
-  --image-zoom-duration: 1.2s;
-  --label-inset: 6px;
+  --image-zoom-duration: var(--duration-image-zoom);
+  --label-inset: var(--space-6);
 
   display: flex;
   flex-direction: column;
@@ -57,14 +57,16 @@
   object-fit: cover;
 }
 
-.card:hover .cutOut,
-.card:hover .photo {
-  transform: scale(var(--image-zoom));
+@media (prefers-reduced-motion: no-preference) {
+  .card:hover .cutOut,
+  .card:hover .photo {
+    transform: scale(var(--image-zoom));
+  }
 }
 
 .label {
   padding-left: var(--label-inset);
-  font: 600 19px/1 var(--font-display);
+  font: 600 var(--text-19)/1 var(--font-display);
 }
 
 @media (max-width: 760px) {
@@ -89,6 +91,6 @@
   }
 
   .label {
-    font-size: 16px;
+    font-size: var(--text-16);
   }
 }

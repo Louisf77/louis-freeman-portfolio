@@ -9,9 +9,6 @@
 }
 
 .canvas {
-  --diagram-grid-line: rgba(23, 22, 15, 0.055);
-  --diagram-dot: rgba(23, 22, 15, 0.16);
-
   position: absolute;
   top: 0;
   left: 0;
@@ -23,7 +20,7 @@
   background-color: var(--surface-3);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: var(--text-16);
   line-height: normal;
 }
 
@@ -50,6 +47,6 @@
   top: 408px;
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--text-10);
   letter-spacing: 0.14em;
 }

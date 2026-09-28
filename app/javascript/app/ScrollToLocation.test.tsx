@@ -12,6 +12,7 @@ const NATURAL_VIEWPORT_TOP = 500;
 const STUCK_VIEWPORT_TOP = 104;
 const SCROLL_MARGIN_TOP = 104;
 const STUCK_FRAME_VIEWPORT_TOP = -3000;
+const PAGE_ENTER_OFFSET = 28;
 
 function renderAt(path: string, target = <div id="[redacted]" />) {
   return renderWithProviders(
@@ -66,6 +67,22 @@ function stuckFrame() {
   );
 }
 
+function enteringTarget() {
+  return (
+    <div style={{ transform: `matrix(1, 0, 0, 1, 0, ${String(PAGE_ENTER_OFFSET)})` }}>
+      <section
+        id="[redacted]"
+        ref={(element) => {
+          if (!element) return;
+
+          element.getBoundingClientRect = () =>
+            DOMRect.fromRect({ height: 640, width: 0, x: 0, y: NATURAL_VIEWPORT_TOP });
+        }}
+      />
+    </div>
+  );
+}
+
 function scrollPageTo(y: number) {
   vi.stubGlobal("scrollY", y);
 }
@@ -80,11 +97,35 @@ describe("ScrollToLocation", () => {
     expect(scrollTo).toHaveBeenCalledWith({ behavior: "instant", left: 0, top: 0 });
   });
 
-  it("scrolls the hash target into view", () => {
+  it("jumps straight to the hash target when arriving on the page", () => {
     const scrollIntoView = mockScrollIntoView();
     renderAt("/work#[redacted]");
 
-    expect(scrollIntoView).toHaveBeenCalledOnce();
+    expect(scrollIntoView).toHaveBeenCalledExactlyOnceWith({ behavior: "instant" });
+  });
+
+  it("scrolls to the hash target again once web fonts have reflowed the page", async () => {
+    scrollPageTo(SCROLLED_Y);
+    Object.defineProperty(document, "fonts", {
+      configurable: true,
+      value: { ready: Promise.resolve() },
+    });
+    const scrollTo = mockScrollTo();
+    renderAt("/work#[redacted]", stuckCard());
+
+    await act(async () => {
+      await Promise.resolve();
+    });
+    Reflect.deleteProperty(document, "fonts");
+
+    expect(scrollTo).toHaveBeenCalledTimes(2);
+  });
+
+  it("starts from the top while the arriving page's hash target is still loading", () => {
+    const scrollTo = mockScrollTo();
+    renderAt("/work#[redacted]", <div />);
+
+    expect(scrollTo).toHaveBeenCalledWith({ behavior: "instant", left: 0, top: 0 });
   });
 
   it("leaves the scroll position alone when a non-sticky hash target is present", () => {
@@ -101,7 +142,11 @@ describe("ScrollToLocation", () => {
     const scrollTo = mockScrollTo();
     renderAt("/work#[redacted]", stuckCard());
 
-    expect(scrollTo).toHaveBeenCalledWith({ left: 0, top: EXPECTED_STICKY_TOP });
+    expect(scrollTo).toHaveBeenCalledWith({
+      behavior: "instant",
+      left: 0,
+      top: EXPECTED_STICKY_TOP,
+    });
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
 
@@ -111,7 +156,11 @@ describe("ScrollToLocation", () => {
     const scrollTo = mockScrollTo();
     renderAt("/#[redacted]", stuckFrame());
 
-    expect(scrollTo).toHaveBeenCalledWith({ left: 0, top: SCROLLED_Y + NATURAL_VIEWPORT_TOP });
+    expect(scrollTo).toHaveBeenCalledWith({
+      behavior: "instant",
+      left: 0,
+      top: SCROLLED_Y + NATURAL_VIEWPORT_TOP,
+    });
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
 
@@ -120,6 +169,42 @@ describe("ScrollToLocation", () => {
     renderAt("/work#[redacted]", stuckCard());
 
     expect(document.getElementById("[redacted]")).toHaveStyle({ position: "sticky" });
+  });
+
+  it("hands scroll restoration to the app so Back lands on the hash target", () => {
+    renderAt("/work");
+
+    expect(window.history.scrollRestoration).toBe("manual");
+  });
+
+  it("measures a target under the page-enter offset at its settled position", () => {
+    scrollPageTo(SCROLLED_Y);
+    const scrollIntoView = mockScrollIntoView();
+    const scrollTo = mockScrollTo();
+    renderAt("/#[redacted]", enteringTarget());
+
+    expect(scrollTo).toHaveBeenCalledWith({
+      behavior: "instant",
+      left: 0,
+      top: SCROLLED_Y + NATURAL_VIEWPORT_TOP - PAGE_ENTER_OFFSET,
+    });
+    expect(scrollIntoView).not.toHaveBeenCalled();
+  });
+
+  it("scrolls to the same hash again when it is followed a second time", async () => {
+    scrollPageTo(SCROLLED_Y);
+    const scrollTo = mockScrollTo();
+    renderAt("/work", stuckCard());
+    scrollTo.mockClear();
+
+    await act(async () => {
+      await userEvent.click(screen.getByRole("link", { name: "[redacted]" }));
+    });
+    await act(async () => {
+      await userEvent.click(screen.getByRole("link", { name: "[redacted]" }));
+    });
+
+    expect(scrollTo).toHaveBeenCalledTimes(2);
   });
 
   it("scrolls back to an earlier stuck card on an in-page hash change", async () => {
@@ -132,6 +217,10 @@ describe("ScrollToLocation", () => {
       await userEvent.click(screen.getByRole("link", { name: "[redacted]" }));
     });
 
-    expect(scrollTo).toHaveBeenCalledWith({ left: 0, top: EXPECTED_STICKY_TOP });
+    expect(scrollTo).toHaveBeenCalledWith({
+      behavior: "auto",
+      left: 0,
+      top: EXPECTED_STICKY_TOP,
+    });
   });
 });

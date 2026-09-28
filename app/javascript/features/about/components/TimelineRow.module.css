@@ -1,7 +1,7 @@
 .row {
   --year-column: 110px;
   --dates-column: 280px;
-  --row-padding-block: 22px;
+  --row-padding-block: var(--space-22);
 
   display: grid;
   grid-template-columns: var(--year-column) minmax(0, 1fr) minmax(0, 1.3fr) var(--dates-column);
@@ -12,28 +12,29 @@
 }
 
 .education {
+  border-color: var(--line-dash);
   border-style: dashed;
   background: transparent;
 }
 
 .year {
   color: var(--green);
-  font: 600 30px/1 var(--font-display);
+  font: 600 var(--text-30)/1 var(--font-display);
   letter-spacing: -0.04em;
 }
 
 .company {
-  font: 600 22px/1.1 var(--font-display);
+  font: 600 var(--text-22)/1.1 var(--font-display);
 }
 
 .role {
   color: var(--ink-3);
-  font-size: 16px;
+  font-size: var(--text-16);
 }
 
 .dates {
   color: var(--muted);
-  font: 400 12px/1.4 var(--font-mono);
+  font: 400 var(--text-12)/1.4 var(--font-mono);
   text-align: right;
 }
 
@@ -57,22 +58,22 @@
 
   .year {
     grid-row: 1 / span 3;
-    font-size: 22px;
+    font-size: var(--text-22);
     line-height: 1.1;
   }
 
   .company {
-    font-size: 18px;
+    font-size: var(--text-18);
     line-height: 1.15;
   }
 
   .role {
-    font-size: 14px;
+    font-size: var(--text-14);
     line-height: 1.4;
   }
 
   .dates {
-    font-size: 11.5px;
+    font-size: var(--text-11-5);
     text-align: left;
   }
 }

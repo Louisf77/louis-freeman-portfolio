@@ -1,6 +1,4 @@
 .section {
-  --section-spacing: 128px;
-
   display: flex;
   flex-direction: column;
   gap: var(--space-32);
@@ -23,11 +21,11 @@
   border-radius: var(--radius-pill);
   background: transparent;
   color: var(--ink);
-  font: 600 14px/1 var(--font-display);
+  font: 600 var(--text-14)/1 var(--font-display);
   cursor: pointer;
   transition:
-    background 0.25s,
-    color 0.25s;
+    background var(--duration-hover),
+    color var(--duration-hover);
 }
 
 .toggle:hover {

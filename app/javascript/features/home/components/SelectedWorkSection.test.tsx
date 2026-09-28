@@ -8,21 +8,21 @@ import { contractFixture } from "@test/contracts";
 import { renderWithProviders } from "@test/utils";
 import SelectedWorkSection from "~/features/home/components/SelectedWorkSection";
 import { COMPACT_MEDIA_QUERY } from "~/hooks/useMediaQuery";
-import { REDUCED_MOTION_MEDIA_QUERY } from "~/hooks/useReducedMotion";
 import type {
   HomeResponse,
   SelectedWorkSection as SelectedWorkSectionContent,
 } from "~/types/contracts";
 
 const UI = {
+  case_study_metric: "Metric",
+  case_study_technologies: "Technologies",
   selected_work_heading: "Selected work",
-  selected_work_metric_label: "Metric",
   selected_work_read_case_study: "Read case study",
-  selected_work_technologies: "Technologies",
+  selected_work_read_case_study_title: ": %{title}",
   selected_work_view_all: "View all work",
 };
 
-const AUTOPLAY_INTERVAL_MS = 4500;
+const IDLE_MS = 30_000;
 const CASE_STUDY_TITLES = [
   "[redacted]",
   "[redacted]",
@@ -81,6 +81,10 @@ describe("SelectedWorkSection", () => {
       vi.useRealTimers();
     });
 
+    function panelToggles() {
+      return screen.getAllByRole("button").filter((button) => button.hasAttribute("aria-expanded"));
+    }
+
     function panelToggle(title: string) {
       return screen.getByRole("button", { name: title });
     }
@@ -103,9 +107,9 @@ describe("SelectedWorkSection", () => {
     it("shows a panel per featured case study with the first open", () => {
       renderSection();
 
-      expect(
-        screen.getAllByRole("button").map((toggle) => toggle.getAttribute("aria-label")),
-      ).toEqual(CASE_STUDY_TITLES);
+      expect(panelToggles().map((toggle) => toggle.getAttribute("aria-label"))).toEqual(
+        CASE_STUDY_TITLES,
+      );
       expect(openTitle()).toBe(CASE_STUDY_TITLES[0]);
     });
 
@@ -114,7 +118,7 @@ describe("SelectedWorkSection", () => {
       selectedWork.case_studies = selectedWork.case_studies.slice(0, 2);
       renderSection(selectedWork);
 
-      expect(screen.getAllByRole("button")).toHaveLength(2);
+      expect(panelToggles()).toHaveLength(2);
     });
 
     it("opens a panel on hover", () => {
@@ -186,49 +190,10 @@ describe("SelectedWorkSection", () => {
       ).toBeNull();
     });
 
-    it("autoplays to the next panel", () => {
+    it("keeps the open panel until the visitor picks another", () => {
       renderSection();
       act(() => {
-        vi.advanceTimersByTime(AUTOPLAY_INTERVAL_MS);
-      });
-
-      expect(openTitle()).toBe(CASE_STUDY_TITLES[1]);
-    });
-
-    it("wraps autoplay back to the first panel", () => {
-      renderSection();
-      act(() => {
-        vi.advanceTimersByTime(AUTOPLAY_INTERVAL_MS * 4);
-      });
-
-      expect(openTitle()).toBe(CASE_STUDY_TITLES[0]);
-    });
-
-    it("stops autoplaying once the visitor picks a panel", async () => {
-      renderSection();
-      await userEvent.click(panelToggle(CASE_STUDY_TITLES[2] ?? ""));
-      act(() => {
-        vi.advanceTimersByTime(AUTOPLAY_INTERVAL_MS * 3);
-      });
-
-      expect(openTitle()).toBe(CASE_STUDY_TITLES[2]);
-    });
-
-    it("stops autoplaying once the pointer leaves the section", () => {
-      renderSection();
-      fireEvent.mouseLeave(screen.getByRole("region"));
-      act(() => {
-        vi.advanceTimersByTime(AUTOPLAY_INTERVAL_MS * 2);
-      });
-
-      expect(openTitle()).toBe(CASE_STUDY_TITLES[0]);
-    });
-
-    it("does not autoplay with reduced motion", () => {
-      mockMatchMedia([REDUCED_MOTION_MEDIA_QUERY]);
-      renderSection();
-      act(() => {
-        vi.advanceTimersByTime(AUTOPLAY_INTERVAL_MS * 2);
+        vi.advanceTimersByTime(IDLE_MS);
       });
 
       expect(openTitle()).toBe(CASE_STUDY_TITLES[0]);
@@ -299,6 +264,16 @@ describe("SelectedWorkSection", () => {
 
       return article;
     }
+
+    it("names each read link after its case study", () => {
+      renderSection();
+
+      const names = CASE_STUDY_TITLES.map(
+        (title) => screen.getByRole("link", { name: `Read case study: ${title}` }).textContent,
+      );
+
+      expect(names).toHaveLength(CASE_STUDY_TITLES.length);
+    });
 
     it("stacks a card per featured case study", () => {
       renderSection();

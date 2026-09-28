@@ -15,7 +15,7 @@ RSpec.describe "Home" do
       expect(page).to have_css("#hero", text: hero.tagline)
     end
 
-    it "writes the typed greeting from the seeded endings" do
+    it "writes the seeded greeting prefix" do
       expect(page).to have_css("[data-testid='typed-greeting']", text: hero.greeting_prefix.strip)
     end
 
@@ -61,6 +61,95 @@ RSpec.describe "Home" do
 
     it "scrolls the case study into view" do
       expect(find("##{featured_case_study.slug}")).to be_in_viewport
+    end
+  end
+
+  shared_examples "an address-bar jump back to an earlier section" do
+    before do
+      visit root_path(anchor: "capabilities")
+      wait_for_viewport_top(id: "capabilities")
+      navigate_from_address_bar(path: root_path(anchor: earlier_section))
+    end
+
+    it "lands on the earlier section's own position, not where it sits stuck" do
+      expect(find_by_id(earlier_section)).to be_at_the_viewport_top
+    end
+  end
+
+  context "when the address-bar hash moves up to experience", :smooth_scrolling do
+    let(:earlier_section) { "experience" }
+
+    it_behaves_like "an address-bar jump back to an earlier section"
+  end
+
+  context "when the address-bar hash moves up to selected work", :smooth_scrolling do
+    let(:earlier_section) { "work" }
+
+    it_behaves_like "an address-bar jump back to an earlier section"
+  end
+
+  context "when the address-bar hash moves up to experience on a phone", :compact, :smooth_scrolling do
+    let(:earlier_section) { "experience" }
+
+    it_behaves_like "an address-bar jump back to an earlier section"
+  end
+
+  context "when the address-bar hash moves up to selected work on a phone", :compact, :smooth_scrolling do
+    let(:earlier_section) { "work" }
+
+    it_behaves_like "an address-bar jump back to an earlier section"
+  end
+
+  shared_examples "a focused control brought out from under the next card" do
+    before do
+      visit root_path
+      page.assert_selector(:css, "h1#hero-title")
+      page.scroll_to(find_by_id(covering_section_id), align: :top)
+      control.execute_script("this.focus()")
+    end
+
+    it "scrolls the focused control into sight" do
+      expect(control).to be_uncovered
+    end
+  end
+
+  context "when focus reaches a control under a later card on a phone", :compact, :smooth_scrolling do
+    context "with View all work under the Capabilities card" do
+      let(:covering_section_id) { "capabilities" }
+      let(:control) { find_link(I18n.t("ui.selected_work_view_all")) }
+
+      it_behaves_like "a focused control brought out from under the next card"
+    end
+
+    context "with Next role under the Selected work card" do
+      let(:covering_section_id) { "work" }
+      let(:control) { find_button(I18n.t("ui.experience_next")) }
+
+      it_behaves_like "a focused control brought out from under the next card"
+    end
+
+    context "with Previous role under the Selected work card" do
+      let(:covering_section_id) { "work" }
+      let(:control) do
+        find_button(I18n.t("ui.experience_next")).trigger("click")
+        find_button(I18n.t("ui.experience_previous"))
+      end
+
+      it_behaves_like "a focused control brought out from under the next card"
+    end
+
+    context "when tabbing from the top to View all work" do
+      let(:last_stop_text) { I18n.t("ui.selected_work_view_all") }
+      let(:covered_stops) { covered_tab_stops_until(text: last_stop_text) }
+
+      before do
+        visit root_path
+        page.assert_selector(:css, "#work article")
+      end
+
+      it "keeps every focused control out from under a later card" do
+        expect(covered_stops).to be_empty
+      end
     end
   end
 

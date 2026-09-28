@@ -1,7 +1,7 @@
 .card {
   --diagram-zoom: 1.08;
   --diagram-zoom-hover: 1.13;
-  --diagram-zoom-duration: 1.6s;
+  --diagram-zoom-duration: var(--duration-diagram-zoom);
 
   position: sticky;
   top: var(--stack-top-wide);
@@ -15,7 +15,7 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-case-study);
   box-shadow: var(--shadow-stack-card);
-  transition: border-color 0.3s;
+  transition: border-color var(--duration-quick);
 }
 
 .card::after {
@@ -56,8 +56,10 @@
   transition: transform var(--diagram-zoom-duration) var(--ease-enter);
 }
 
-.card:hover .diagram {
-  transform: scale(var(--diagram-zoom-hover));
+@media (prefers-reduced-motion: no-preference) {
+  .card:hover .diagram {
+    transform: scale(var(--diagram-zoom-hover));
+  }
 }
 
 .body {
@@ -86,10 +88,9 @@
 }
 
 .eyebrow,
-.roleLabel,
-.metricLabel {
+.roleLabel {
   color: var(--muted);
-  font: 600 11px/1.4 var(--font-display);
+  font: 600 var(--text-11)/1.4 var(--font-display);
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -100,51 +101,27 @@
 }
 
 .title {
-  font: 600 38px/1.04 var(--font-display);
+  font: 600 var(--text-38)/1.04 var(--font-display);
   letter-spacing: -0.035em;
 }
 
 .headline {
   color: var(--ink);
-  font: 500 18px/1.45 var(--font-display);
+  font: 500 var(--text-18)/1.45 var(--font-display);
 }
 
 .description {
   color: var(--ink-3);
-  font-size: 15px;
+  font-size: var(--text-15);
   line-height: 1.6;
 }
 
 .role {
-  font-size: 14px;
+  font-size: var(--text-14);
 }
 
 .roleLabel {
   margin-right: var(--space-10);
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-8);
-}
-
-.metric {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-  padding: var(--space-12) var(--space-14);
-  border: 1px dashed var(--line-dash);
-  border-radius: var(--radius-well);
-}
-
-.metricLabel {
-  font-size: 10px;
-}
-
-.metricValue {
-  color: var(--ink-3);
-  font-size: 14px;
 }
 
 @media (max-width: 900px) {
@@ -197,24 +174,20 @@
 
   .eyebrow,
   .roleLabel {
-    font-size: 10.5px;
+    font-size: var(--text-10-5);
   }
 
   .title {
-    font-size: 26px;
+    font-size: var(--text-26);
     line-height: 1.05;
   }
 
   .headline {
-    font-size: 16px;
+    font-size: var(--text-16);
   }
 
   .description {
-    font-size: 14.5px;
-  }
-
-  .tags {
-    gap: var(--space-6);
+    font-size: var(--text-14-5);
   }
 }
 

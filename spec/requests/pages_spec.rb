@@ -19,6 +19,23 @@ RSpec.describe "Pages" do
       expect(html_response.at_css("title").text).to eq(I18n.t("meta.#{page}.title"))
     end
 
+    it "titles the page as the app does after client navigation" do
+      show_page
+      expect(html_response.at_css("title").text).to eq(I18n.t("ui.page_title_#{page}"))
+    end
+
+    it "links the favicon set" do
+      show_page
+      expect(html_response.css("link[rel='icon'], link[rel='apple-touch-icon']").pluck("href"))
+        .to eq(%w[/favicon.ico /icon.svg /apple-touch-icon.png])
+    end
+
+    it "links favicons that exist in the public folder" do
+      show_page
+      icon_paths = html_response.css("link[rel='icon'], link[rel='apple-touch-icon']").pluck("href")
+      expect(icon_paths.map { |href| Rails.public_path.join(href.delete_prefix("/")) }).to all(be_file)
+    end
+
     it "renders the meta description" do
       show_page
       expect(meta_content(name: "description")).to eq(I18n.t("meta.#{page}.description"))

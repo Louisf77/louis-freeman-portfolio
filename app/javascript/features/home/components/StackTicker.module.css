@@ -6,13 +6,19 @@
 
 .marquee {
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    var(--mask-opaque) 8%,
+    var(--mask-opaque) 92%,
+    transparent
+  );
 }
 
 .track {
   display: flex;
   width: max-content;
-  animation: ticker-scroll 70s linear infinite;
+  animation: ticker-scroll var(--duration-ticker) linear infinite;
 }
 
 .marquee:hover .track {
@@ -22,12 +28,12 @@
 .item {
   display: flex;
   align-items: center;
-  gap: 40px;
-  padding-right: 40px;
-  font: 600 60px/1.2 var(--font-display);
+  gap: var(--space-40);
+  padding-right: var(--space-40);
+  font: 600 var(--text-60)/1.2 var(--font-display);
   letter-spacing: -0.03em;
   white-space: nowrap;
-  transition: color 0.3s;
+  transition: color var(--duration-quick);
 }
 
 .item:hover {
@@ -43,19 +49,19 @@
 
 @media (max-width: 900px) {
   .item {
-    font-size: 40px;
+    font-size: var(--text-40);
   }
 }
 
 @media (max-width: 760px) {
   .track {
-    animation-duration: 50s;
+    animation-duration: var(--duration-ticker-compact);
   }
 
   .item {
     gap: var(--space-22);
     padding-right: var(--space-22);
-    font-size: 30px;
+    font-size: var(--text-30);
   }
 
   .diamond {

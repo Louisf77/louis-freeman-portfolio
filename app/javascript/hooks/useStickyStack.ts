@@ -1,13 +1,19 @@
-import { useEffect, type RefObject } from "react";
+import { useCallback, useEffect, useRef, type RefObject } from "react";
 
 import useReducedMotion from "~/hooks/useReducedMotion";
-import { coveredProgressOf, driftProgressOf, stickyTopOf } from "~/lib/stickyStack";
+import useScrollFrameMeasure from "~/hooks/useScrollFrameMeasure";
+import useUncoveredFocus from "~/hooks/useUncoveredFocus";
+import {
+  COVERED_PROGRESS_PROPERTY,
+  coveredProgressOf,
+  driftProgressOf,
+  formatProgress,
+  stickyTopOf,
+} from "~/lib/stickyStack";
 
 export const STACK_FRAME_ATTRIBUTE = "data-stack-frame";
 export const STACK_TOP_PROPERTY = "--stack-top";
-export const COVERED_PROGRESS_PROPERTY = "--covered-progress";
 export const DRIFT_PROGRESS_PROPERTY = "--drift-progress";
-const PROGRESS_DECIMALS = 3;
 const STACK_PROPERTIES = [STACK_TOP_PROPERTY, COVERED_PROGRESS_PROPERTY, DRIFT_PROGRESS_PROPERTY];
 
 interface FrameStyle {
@@ -57,10 +63,10 @@ function applyFrameStyle({ coveredProgress, driftProgress, frame, stickyTop }: F
     frame.style.setProperty(STACK_TOP_PROPERTY, top);
   }
   if (coveredProgress !== undefined) {
-    frame.style.setProperty(COVERED_PROGRESS_PROPERTY, coveredProgress.toFixed(PROGRESS_DECIMALS));
+    frame.style.setProperty(COVERED_PROGRESS_PROPERTY, formatProgress(coveredProgress));
   }
   if (driftProgress !== undefined) {
-    frame.style.setProperty(DRIFT_PROGRESS_PROPERTY, driftProgress.toFixed(PROGRESS_DECIMALS));
+    frame.style.setProperty(DRIFT_PROGRESS_PROPERTY, formatProgress(driftProgress));
   }
 }
 
@@ -77,39 +83,29 @@ export default function useStickyStack(
   followerId: string,
 ): void {
   const isReducedMotion = useReducedMotion();
+  const framesRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
+    framesRef.current = leadRef.current ? framesFrom(leadRef.current) : [];
+  });
+
+  const setUp = useCallback(() => {
     const lead = leadRef.current;
-    if (!lead || isReducedMotion) return undefined;
+    if (!lead) return null;
 
     const frames = framesFrom(lead);
-    let animationFrame = 0;
 
-    const measure = () => {
-      animationFrame = 0;
-      measureFrames(frames, followerId).forEach(applyFrameStyle);
+    return {
+      cleanUp: () => {
+        clearFrameStyles(frames);
+      },
+      measure: () => {
+        measureFrames(frames, followerId).forEach(applyFrameStyle);
+      },
+      observed: frames,
     };
+  }, [followerId, leadRef]);
 
-    const scheduleMeasure = () => {
-      if (animationFrame === 0) animationFrame = window.requestAnimationFrame(measure);
-    };
-
-    const resizeObserver =
-      typeof ResizeObserver === "function" ? new ResizeObserver(scheduleMeasure) : undefined;
-    frames.forEach((child) => {
-      resizeObserver?.observe(child);
-    });
-
-    measure();
-    window.addEventListener("scroll", scheduleMeasure, { passive: true });
-    window.addEventListener("resize", scheduleMeasure);
-
-    return () => {
-      window.cancelAnimationFrame(animationFrame);
-      window.removeEventListener("scroll", scheduleMeasure);
-      window.removeEventListener("resize", scheduleMeasure);
-      resizeObserver?.disconnect();
-      clearFrameStyles(frames);
-    };
-  }, [followerId, isReducedMotion, leadRef]);
+  useScrollFrameMeasure(setUp, !isReducedMotion);
+  useUncoveredFocus(framesRef, !isReducedMotion);
 }

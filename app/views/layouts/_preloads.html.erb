@@ -1,0 +1,15 @@
+<% case page %>
+<% when :home %>
+  <link rel="preload" as="image" href="<%= vite_asset_path("assets/hero-poster.jpg") %>" fetchpriority="high">
+<% when :about %>
+  <% portrait_srcset = [448, 672, 896].map do |width|
+       "#{vite_asset_path("assets/louis-waving-#{width}.avif")} #{width}w"
+     end %>
+  <link
+    rel="preload"
+    as="image"
+    type="image/avif"
+    imagesrcset="<%= portrait_srcset.join(", ") %>"
+    imagesizes="(max-width: 760px) 246px, 896px"
+    fetchpriority="high">
+<% end %>

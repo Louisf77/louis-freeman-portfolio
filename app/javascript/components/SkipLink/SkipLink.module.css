@@ -1,15 +1,15 @@
 .skip {
-  position: absolute;
-  top: -80px;
+  position: fixed;
+  top: calc(-1 * var(--space-80));
   left: var(--space-16);
   z-index: 100;
   padding: var(--space-14) var(--space-20);
   border-radius: var(--radius-pill);
   background: var(--ink);
   color: var(--paper);
-  font: 500 14px/1 var(--font-body);
+  font: 500 var(--text-14)/1 var(--font-body);
   text-decoration: none;
-  transition: top 0.2s;
+  transition: top var(--duration-snap);
 }
 
 .skip:focus {

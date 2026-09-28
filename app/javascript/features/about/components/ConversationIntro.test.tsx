@@ -40,6 +40,17 @@ describe("ConversationIntro", () => {
     expect(screen.getByRole("img", { name: UI.about_portrait_alt })).toBeInTheDocument();
   });
 
+  it("offers the portrait as AVIF and WebP ahead of the PNG fallback", () => {
+    renderIntro();
+
+    const picture = screen.getByRole("img", { name: UI.about_portrait_alt }).closest("picture");
+    const sourceTypes = Array.from(picture?.querySelectorAll("source") ?? []).map(
+      (source) => source.type,
+    );
+
+    expect(sourceTypes).toEqual(["image/avif", "image/webp"]);
+  });
+
   it("lists every question followed by its answer", () => {
     renderIntro();
 

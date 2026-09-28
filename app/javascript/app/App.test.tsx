@@ -5,17 +5,29 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { mockFetchJson, mockScrollTo } from "@test/browser";
 import { contractFixture } from "@test/contracts";
 import App from "~/app/App";
-import type { HomeResponse, PageBootstrap, ProfileResponse, WorkResponse } from "~/types/contracts";
+import type {
+  AboutResponse,
+  HomeResponse,
+  PageBootstrap,
+  ProfileResponse,
+  WorkResponse,
+} from "~/types/contracts";
 
 const PROFILE = contractFixture("api/v1/profile/show") as ProfileResponse;
 const HOME = contractFixture("api/v1/home/show") as HomeResponse;
 const WORK = contractFixture("api/v1/work/show") as WorkResponse;
+const ABOUT = contractFixture("api/v1/about/show") as AboutResponse;
 
 const UI = {
   contact: "Contact",
+  nav_about: "About",
+  nav_home: "Louis Freeman, home",
   hero_greeting_sentence: "%{greeting}: %{roles}.",
   nav_work: "Work",
   page_load_error: "Couldn't load this page.",
+  page_title_about: "About — Louis Freeman",
+  page_title_home: "Louis Freeman — Senior Full Stack Engineer, London",
+  page_title_work: "Work — Louis Freeman",
   retry: "Retry",
   work_heading: "Work",
 };
@@ -106,6 +118,46 @@ describe("App", () => {
       await user.click(screen.getByRole("link", { name: "Work" }));
 
       expect(screen.getByTestId("page-enter")).not.toBe(pageEnterBefore);
+    });
+
+    describe("with the document title", () => {
+      it("names the first page", () => {
+        mockFetchJson({});
+        renderHomeFromBootstrap();
+
+        expect(document.title).toBe(UI.page_title_home);
+      });
+
+      it("names the Work page after navigating to it", async () => {
+        const user = userEvent.setup();
+        mockFetchJson({ "/api/v1/work": WORK });
+        renderHomeFromBootstrap();
+
+        await user.click(screen.getByRole("link", { name: "Work" }));
+
+        expect(document.title).toBe(UI.page_title_work);
+      });
+
+      it("names the About page after navigating to it", async () => {
+        const user = userEvent.setup();
+        mockFetchJson({ "/api/v1/about": ABOUT });
+        renderHomeFromBootstrap();
+
+        await user.click(screen.getByRole("link", { name: "About" }));
+
+        expect(document.title).toBe(UI.page_title_about);
+      });
+
+      it("names the Home page after navigating back to it", async () => {
+        const user = userEvent.setup();
+        mockFetchJson({ "/api/v1/work": WORK });
+        renderHomeFromBootstrap();
+
+        await user.click(screen.getByRole("link", { name: "Work" }));
+        await user.click(screen.getByRole("link", { name: UI.nav_home }));
+
+        expect(document.title).toBe(UI.page_title_home);
+      });
     });
 
     it("scrolls back to the top", async () => {

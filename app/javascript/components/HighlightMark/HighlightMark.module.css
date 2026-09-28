@@ -1,5 +1,5 @@
 .mark {
-  padding: 0 2px;
+  padding: 0 var(--space-2);
   background: linear-gradient(
     transparent 62%,
     var(--green-tint) 62%,

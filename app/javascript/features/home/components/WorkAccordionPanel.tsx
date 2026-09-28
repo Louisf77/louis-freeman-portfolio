@@ -1,9 +1,9 @@
 import type { KeyboardEvent, Ref } from "react";
 
 import Button from "~/components/Button/Button";
+import CaseStudyMetric from "~/components/CaseStudyMetric/CaseStudyMetric";
+import CaseStudyTags from "~/components/CaseStudyTags/CaseStudyTags";
 import CaseStudyDiagram from "~/components/diagrams/CaseStudyDiagram";
-import CaseStudyMetric from "~/features/home/components/CaseStudyMetric";
-import CaseStudyTags from "~/features/home/components/CaseStudyTags";
 import styles from "~/features/home/components/WorkAccordionPanel.module.css";
 import classNames from "~/lib/classNames";
 import { caseStudyLandingState, track } from "~/lib/analytics";
@@ -63,8 +63,8 @@ function WorkAccordionPanel({
             <p className={styles.meta}>{meta}</p>
             <h3 className={styles.title}>{caseStudy.title}</h3>
             <p className={styles.headline}>{caseStudy.headline}</p>
-            <CaseStudyTags tags={caseStudy.tags} />
-            <CaseStudyMetric metric={caseStudy.metric} />
+            <CaseStudyTags className={styles.tags} tags={caseStudy.tags} />
+            <CaseStudyMetric className={styles.metric} metric={caseStudy.metric} />
           </div>
           <Button
             className={styles.readLink}
@@ -77,6 +77,9 @@ function WorkAccordionPanel({
             variant="ghost"
           >
             {t("selected_work_read_case_study")}
+            <span className="visually-hidden">
+              {t("selected_work_read_case_study_title", { title: caseStudy.title })}
+            </span>
           </Button>
         </div>
       </div>

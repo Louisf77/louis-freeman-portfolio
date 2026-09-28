@@ -1,20 +1,16 @@
-import { useCallback, useRef, useState, type KeyboardEvent } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 
 import styles from "~/features/home/components/WorkAccordion.module.css";
 import WorkAccordionPanel from "~/features/home/components/WorkAccordionPanel";
-import useAutoplay from "~/features/home/hooks/useAutoplay";
 import useMediaQuery from "~/hooks/useMediaQuery";
-import useReducedMotion from "~/hooks/useReducedMotion";
 import type { CaseStudy } from "~/types/contracts";
 
 interface WorkAccordionProps {
   caseStudies: CaseStudy[];
-  isAutoplayAllowed: boolean;
 }
 
 type PanelTarget = (index: number, count: number) => number;
 
-export const WORK_AUTOPLAY_INTERVAL_MS = 4500;
 const MEDIUM_MEDIA_QUERY = "(max-width: 1100px)";
 const DIAGRAM_SCALE = 0.8;
 const DIAGRAM_SCALE_MEDIUM = 0.55;
@@ -28,27 +24,14 @@ const PANEL_TARGET_BY_KEY: Record<string, PanelTarget> = {
   Home: () => 0,
 };
 
-function WorkAccordion({ caseStudies, isAutoplayAllowed }: WorkAccordionProps) {
+function WorkAccordion({ caseStudies }: WorkAccordionProps) {
   const [openIndex, setOpenIndex] = useState(0);
-  const [isAutoplayStopped, setIsAutoplayStopped] = useState(false);
-  const isReducedMotion = useReducedMotion();
   const isMedium = useMediaQuery(MEDIUM_MEDIA_QUERY);
   const toggleRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const panelCount = caseStudies.length;
 
-  const showNextPanel = useCallback(() => {
-    setOpenIndex((index) => (index + 1) % panelCount);
-  }, [panelCount]);
-
-  useAutoplay(
-    isAutoplayAllowed && !isAutoplayStopped && !isReducedMotion && panelCount > 1,
-    WORK_AUTOPLAY_INTERVAL_MS,
-    showNextPanel,
-  );
-
   const openPanel = (index: number) => {
     setOpenIndex(index);
-    setIsAutoplayStopped(true);
   };
 
   const focusPanelForKey = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {

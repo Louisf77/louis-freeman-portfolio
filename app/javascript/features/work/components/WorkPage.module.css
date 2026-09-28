@@ -16,14 +16,14 @@
 
 .heading {
   grid-column: 1 / span 7;
-  font: 600 96px/1 var(--font-display);
+  font: 600 var(--text-96)/1 var(--font-display);
   letter-spacing: -0.05em;
 }
 
 .intro {
   grid-column: 9 / span 4;
   color: var(--ink-3);
-  font-size: 17px;
+  font-size: var(--text-17);
   line-height: 1.55;
 }
 
@@ -80,11 +80,11 @@
   }
 
   .heading {
-    font-size: 64px;
+    font-size: var(--text-64);
   }
 
   .intro {
-    font-size: 15.5px;
+    font-size: var(--text-15-5);
   }
 
   .stack {
