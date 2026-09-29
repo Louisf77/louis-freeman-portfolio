@@ -150,13 +150,16 @@ describe("ExperienceSection", () => {
       expect(currentCompany()).toBe("Soho House");
     });
 
-    it("shows at most three highlights", () => {
+    it("shows every highlight", () => {
       renderSection();
       const card = screen.getByRole("group", { name: "1 of 6" });
       const highlights = experienceFixture().experiences[0]?.highlights ?? [];
 
-      expect(within(card).getByText(highlights[2] ?? "")).toBeInTheDocument();
-      expect(within(card).queryByText(highlights[3] ?? "")).not.toBeInTheDocument();
+      expect(
+        within(card)
+          .getAllByRole("listitem")
+          .map((item) => item.textContent),
+      ).toEqual(expect.arrayContaining(highlights));
     });
   });
 

@@ -15,7 +15,7 @@ const PROFILE: Profile = {
   linkedin_url: "https://www.linkedin.com/in/louis-freeman7/",
   location: "London",
   name: "Louis Freeman",
-  role: "Senior Full Stack Engineer",
+  role: "Senior Full Stack Software Engineer",
   work_published: true,
 };
 

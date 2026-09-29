@@ -26,7 +26,6 @@ interface ExperienceCardProps {
 }
 
 const SPARSE_HIGHLIGHT_THRESHOLD = 3;
-const COMPACT_HIGHLIGHT_LIMIT = 3;
 const LONG_WATERMARK_LENGTH = 8;
 const TOP_STACK_LAYER = 10;
 
@@ -63,9 +62,6 @@ function ExperienceCard({
   const isSparse = experience.highlights.length < SPARSE_HIGHLIGHT_THRESHOLD;
   const isLeadSummary = isSparse && !isCompact;
   const isDurationShown = experience.duration_label !== null && (isCompact || isSparse);
-  const highlights = isCompact
-    ? experience.highlights.slice(0, COMPACT_HIGHLIGHT_LIMIT)
-    : experience.highlights;
   const isSubsShown = !isCompact && experience.subs.length > 0;
   const layerStyle: CSSProperties = { zIndex: TOP_STACK_LAYER - stackIndex };
 
@@ -109,9 +105,9 @@ function ExperienceCard({
           <span>{experience.duration_label}</span>
         </p>
       )}
-      {highlights.length > 0 && (
+      {experience.highlights.length > 0 && (
         <ul className={styles.highlights}>
-          {highlights.map((highlight) => (
+          {experience.highlights.map((highlight) => (
             <li className={styles.highlight} key={highlight}>
               <span aria-hidden="true" className={styles.bullet} />
               <span>{highlight}</span>

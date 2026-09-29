@@ -27,7 +27,7 @@ const UI = {
   nav_work: "Work",
   page_load_error: "Couldn't load this page.",
   page_title_about: "About — Louis Freeman",
-  page_title_home: "Louis Freeman — Senior Full Stack Engineer, London",
+  page_title_home: "Louis Freeman — Senior Full Stack Software Engineer, London",
   page_title_work: "Work — Louis Freeman",
   retry: "Retry",
   work_heading: "Work",

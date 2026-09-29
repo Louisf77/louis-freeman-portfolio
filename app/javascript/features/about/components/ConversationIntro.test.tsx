@@ -36,7 +36,7 @@ describe("ConversationIntro", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "Hello! I'm Louis Freeman." }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Senior Full Stack Engineer · London")).toBeInTheDocument();
+    expect(screen.getByText("Senior Full Stack Software Engineer · London")).toBeInTheDocument();
     expect(screen.getByRole("img", { name: UI.about_portrait_alt })).toBeInTheDocument();
   });
 
@@ -72,8 +72,8 @@ describe("ConversationIntro", () => {
     expect(marks).toEqual([
       "full-stack engineer",
       "one of the first two engineers on the UK team",
-      "end-to-end ownership of hard integrations",
-      "line-manage three engineers",
+      "own delivery end to end",
+      "line-manage three intermediate engineers",
       "lead AI engineering for the UK business",
       "Product Design & Manufacture Engineering",
     ]);

@@ -212,7 +212,7 @@ RSpec.describe "Pages" do
           "@type" => "Person",
           "address" => { "@type" => "PostalAddress", "addressLocality" => "London" },
           "email" => "hello@louisfreeman.co.uk",
-          "jobTitle" => "Senior Full Stack Engineer",
+          "jobTitle" => "Senior Full Stack Software Engineer",
           "name" => "Louis Freeman",
           "sameAs" => ["https://www.linkedin.com/in/louis-freeman7/", "https://github.com/Louisf77"],
           "url" => "#{base_url}/",

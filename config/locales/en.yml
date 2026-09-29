@@ -1,15 +1,15 @@
 en:
   meta:
     about:
-      description: "Senior full stack engineer in London: team lead, AI engineering lead, and product design engineer by training."
+      description: "Senior full-stack software engineer in London: team lead, AI engineering lead, and product design engineer by training."
       title: :ui.page_title_about
     home:
-      description: "Senior full-stack engineer (React, TypeScript, Ruby on Rails) building fintech integrations and AI tooling at Hnry."
+      description: "Senior full-stack software engineer (React, TypeScript, Ruby on Rails) building fintech integrations and AI tooling at Hnry."
       title: :ui.page_title_home
-    share_image_alt: "Louis Freeman — Senior Full Stack Engineer"
+    share_image_alt: "Louis Freeman — Senior Full Stack Software Engineer"
     site_name: "Louis Freeman"
     work:
-      description: "Projects by Louis Freeman, a senior full stack engineer in London: the problem, the approach and the result for each."
+      description: "Projects by Louis Freeman, a senior full-stack software engineer in London: the problem, the approach and the result for each."
       title: :ui.page_title_work
   ui:
     about_chat_hint: "Keep scrolling to chat ↓"
@@ -60,7 +60,7 @@ en:
     opens_in_new_tab: "(opens in a new tab)"
     page_load_error: "Couldn't load this page."
     page_title_about: "About — Louis Freeman"
-    page_title_home: "Louis Freeman — Senior Full Stack Engineer, London"
+    page_title_home: "Louis Freeman — Senior Full Stack Software Engineer, London"
     page_title_work: "Work — Louis Freeman"
     privacy_body: "This site counts visits with Umami, a privacy-friendly analytics tool. It records page views, which case studies are viewed and clicks on the contact links, along with the referring site, your browser, device type and country. It uses no cookies, stores nothing on your device and collects nothing that identifies you."
     privacy_link: "Privacy"

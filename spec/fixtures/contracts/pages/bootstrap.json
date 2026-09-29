@@ -7,7 +7,7 @@
     "profile": {
       "profile": {
         "name": "Louis Freeman",
-        "role": "Senior Full Stack Engineer",
+        "role": "Senior Full Stack Software Engineer",
         "location": "London",
         "email": "hello@louisfreeman.co.uk",
         "linkedin_url": "https://www.linkedin.com/in/louis-freeman7/",
@@ -19,7 +19,7 @@
       "home": {
         "hero": {
           "greeting_prefix": "Hi, I'm ",
-          "tagline": "Senior Full Stack Engineer",
+          "tagline": "Senior Full Stack Software Engineer",
           "greetings": [
             {
               "id": 1,
@@ -52,14 +52,14 @@
               "dates_label": "Jan 2024 — Present",
               "year_label": "Now",
               "duration_label": null,
-              "summary": "Multi-region financial services platform (UK, Australia, New Zealand) handling customers' income, tax and payments. One of the first two members of the UK engineering team, now eight strong within a 70-person engineering function.",
+              "summary": "Multi-region fintech platform (UK, AU, NZ) for income, tax and payments. One of the first two UK engineers; the team is now eight.",
               "highlights": [
+                "Line-manage three intermediate engineers",
+                "Lead AI engineering for the UK business",
                 "Owned a new UK banking and card provider integration end to end",
-                "Rolled out a third-party identity verification provider across the UK, Australia and New Zealand",
+                "Rolled out identity verification across the UK, Australia and New Zealand",
                 "Led full-stack delivery of the UK Self Assessment tax return",
-                "Built an HMRC API client gem; delivered Confirmation of Payee and Return-to-Payor across two jurisdictions",
-                "Line-manage three engineers and run team-wide engineering chapter sessions",
-                "Lead AI engineering for the UK business across engineering, operations and marketing"
+                "Re-architected a production payments gem"
               ],
               "subs": [
                 {

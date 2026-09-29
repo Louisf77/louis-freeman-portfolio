@@ -45,7 +45,7 @@ describe("HeroSection", () => {
   it("shows the tagline and a scroll cue to the experience section", () => {
     renderHero();
 
-    expect(screen.getByText("Senior Full Stack Engineer")).toBeInTheDocument();
+    expect(screen.getByText("Senior Full Stack Software Engineer")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Scroll" })).toHaveAttribute("href", "#experience");
   });
 
