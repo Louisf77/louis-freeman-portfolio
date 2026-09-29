@@ -8,11 +8,16 @@ require "action_view/railtie"
 
 Bundler.require(*Rails.groups)
 
+require_relative "../lib/middleware/public_file_caching"
+
 module Portfolio
   class Application < Rails::Application
     config.load_defaults 8.1
 
-    config.autoload_lib(ignore: %w[tasks])
+    config.autoload_lib(ignore: %w[middleware tasks])
+
+    config.public_file_server.headers = { "cache-control" => PublicFileCaching::SHORT_CACHE_CONTROL }
+    config.middleware.insert_before ActionDispatch::Static, PublicFileCaching
 
     config.generators.system_tests = nil
 

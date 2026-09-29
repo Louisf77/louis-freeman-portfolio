@@ -9,8 +9,6 @@ Rails.application.configure do
 
   config.action_controller.perform_caching = true
 
-  config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
-
   config.assume_ssl = true
 
   config.force_ssl = true
