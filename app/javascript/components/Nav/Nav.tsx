@@ -29,9 +29,11 @@ function Nav({ profile }: NavProps) {
         >
           <LogoMark className={styles.logo} />
         </NavLink>
-        <NavLink className={styles.item} to="/work">
-          {t("nav_work")}
-        </NavLink>
+        {profile?.work_published && (
+          <NavLink className={styles.item} to="/work">
+            {t("nav_work")}
+          </NavLink>
+        )}
         <NavLink className={styles.item} to="/about">
           {t("nav_about")}
         </NavLink>

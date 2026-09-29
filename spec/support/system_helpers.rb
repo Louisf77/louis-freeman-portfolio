@@ -1,5 +1,8 @@
 module SystemHelpers
   API_PATH_PREFIX = "/api/".freeze
+  EXAMPLE_CASE_STUDY_DESCRIPTION = ("Placeholder description for an example project, long enough to fill a card. " * 4)
+                                   .strip.freeze
+  EXAMPLE_CASE_STUDY_HEADLINE = "Placeholder headline for an example project, about as long as a real one.".freeze
   INTERNAL_ERROR_BODY = {
     errors: [{ code: "internal_error", field: nil, message: "Something went wrong loading this page" }],
   }.freeze
@@ -9,6 +12,16 @@ module SystemHelpers
 
   def seed_content
     Content::Seeder.from_file(path: Content::Seeder::SOURCE_PATH).call
+  end
+
+  def publish_work
+    CaseStudy::DIAGRAM_KEYS.each.with_index(1) do |diagram_key, position|
+      create(
+        :case_study, :featured,
+        description: EXAMPLE_CASE_STUDY_DESCRIPTION, diagram_key:, headline: EXAMPLE_CASE_STUDY_HEADLINE,
+        number: format("%02d", position), position:, title: "Example project #{position}",
+      )
+    end
   end
 
   def browser

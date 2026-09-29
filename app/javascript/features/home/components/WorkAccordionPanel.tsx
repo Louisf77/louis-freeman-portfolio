@@ -3,7 +3,7 @@ import type { KeyboardEvent, Ref } from "react";
 import Button from "~/components/Button/Button";
 import CaseStudyMetric from "~/components/CaseStudyMetric/CaseStudyMetric";
 import CaseStudyTags from "~/components/CaseStudyTags/CaseStudyTags";
-import CaseStudyDiagram from "~/components/diagrams/CaseStudyDiagram";
+import CaseStudyFigure from "~/components/diagrams/CaseStudyFigure";
 import styles from "~/features/home/components/WorkAccordionPanel.module.css";
 import classNames from "~/lib/classNames";
 import { caseStudyLandingState, track } from "~/lib/analytics";
@@ -56,7 +56,7 @@ function WorkAccordionPanel({
       </div>
       <div className={styles.body} id={bodyId} inert={!isOpen}>
         <div className={styles.visual}>
-          <CaseStudyDiagram diagramKey={caseStudy.diagram_key} scale={diagramScale} />
+          <CaseStudyFigure caseStudy={caseStudy} scale={diagramScale} />
         </div>
         <div className={styles.footer}>
           <div className={styles.details}>

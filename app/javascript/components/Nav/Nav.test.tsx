@@ -17,6 +17,7 @@ const PROFILE: Profile = {
   location: "London",
   name: "Louis Freeman",
   role: "Senior Full Stack Engineer",
+  work_published: true,
 };
 
 const UI = {
@@ -50,6 +51,18 @@ describe("Nav", () => {
     renderNav({ path: "/work" });
 
     expect(screen.getByRole("link", { name: "About" })).not.toHaveAttribute("aria-current");
+  });
+
+  it("hides the Work link while work is unpublished", () => {
+    renderNav({ profile: { ...PROFILE, work_published: false } });
+
+    expect(screen.queryByRole("link", { name: "Work" })).not.toBeInTheDocument();
+  });
+
+  it("hides the Work link when the profile is unavailable", () => {
+    renderWithProviders(<Nav profile={undefined} />, { ui: UI });
+
+    expect(screen.queryByRole("link", { name: "Work" })).not.toBeInTheDocument();
   });
 
   it("hides the Contact button when the profile is unavailable", () => {

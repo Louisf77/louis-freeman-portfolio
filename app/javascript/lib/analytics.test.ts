@@ -19,10 +19,10 @@ describe("track", () => {
   it("sends a case study view", () => {
     const umami = mockUmami();
 
-    track("case_study_view", { case_study_slug: "[redacted]", source: "work_scroll" });
+    track("case_study_view", { case_study_slug: "example-project-one", source: "work_scroll" });
 
     expect(umami.track).toHaveBeenCalledWith("case_study_view", {
-      case_study_slug: "[redacted]",
+      case_study_slug: "example-project-one",
       source: "work_scroll",
     });
   });

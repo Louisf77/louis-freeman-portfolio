@@ -8,7 +8,7 @@ export type DiagramPattern = "dots" | "grid" | "plain";
 interface DiagramFrameProps {
   caption: string;
   captionLeft?: number;
-  children: ReactNode;
+  children?: ReactNode;
   label: string;
   pattern: DiagramPattern;
   scale?: number;

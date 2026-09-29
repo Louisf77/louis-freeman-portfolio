@@ -1,22 +1,12 @@
 module Content
   class CaseStudiesSeeder
-    DIAGRAM_KEYS = {
-      "[redacted].dc.html" => "ai",
-      "[redacted].dc.html" => "cards",
-      "[redacted].dc.html" => "identity",
-      "[redacted].dc.html" => "tax",
-    }.freeze
-    SLUGS = {
-      "01" => "[redacted]",
-      "02" => "[redacted]",
-      "03" => "[redacted]",
-      "04" => "[redacted]",
-    }.freeze
     FIELDS = {
       description: "description",
+      diagram_key: "diagramKey",
       headline: "headline",
       number: "id",
       role: "role",
+      slug: "slug",
       title: "title",
       years_label: "years",
     }.freeze
@@ -41,20 +31,7 @@ module Content
     attr_reader :case_studies, :logger
 
     def attributes(case_study:)
-      number = case_study.fetch("id")
-      Fields.map(source: case_study, required: FIELDS, optional: OPTIONAL_FIELDS).merge(
-        diagram_key: diagram_key(diagram: case_study.fetch("diagram")),
-        featured: true,
-        slug: slug(number:),
-      )
-    end
-
-    def diagram_key(diagram:)
-      DIAGRAM_KEYS.fetch(diagram) { raise UnknownContentError, "Case study diagram #{diagram} has no diagram key" }
-    end
-
-    def slug(number:)
-      SLUGS.fetch(number) { raise UnknownContentError, "Case study #{number} has no slug" }
+      Fields.map(source: case_study, required: FIELDS, optional: OPTIONAL_FIELDS).merge(featured: true)
     end
   end
 end

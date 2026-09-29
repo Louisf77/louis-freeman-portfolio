@@ -1,8 +1,11 @@
 RSpec.describe "Work" do
   let(:case_studies) { CaseStudy.ordered }
 
-  context "with seeded content" do
-    before { seed_content }
+  context "with published work" do
+    before do
+      seed_content
+      publish_work
+    end
 
     context "when loading the page" do
       before do
@@ -54,6 +57,7 @@ RSpec.describe "Work" do
 
     before do
       seed_content
+      publish_work
       WorkHeader.delete_all
       visit work_path
     end

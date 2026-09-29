@@ -196,6 +196,16 @@ RSpec.describe "Pages" do
       expect(structured_data_types).to include("WebSite")
     end
 
+    it "tells the app that work is unpublished" do
+      show_page
+      expect(bootstrap.dig("queries", "profile", "profile", "work_published")).to be(false)
+    end
+
+    it "embeds no case studies" do
+      show_page
+      expect(bootstrap.dig("queries", "home", "home", "selected_work", "case_studies")).to be_empty
+    end
+
     context "with the seeded profile" do
       let(:person) do
         {
@@ -265,11 +275,34 @@ RSpec.describe "Pages" do
     let(:path) { "/work" }
     let(:missing_section) { WorkHeader }
 
-    it_behaves_like "a page shell"
+    context "with work published" do
+      before { create(:case_study) }
 
-    it "leaves out the WebSite structured data" do
-      show_page
-      expect(structured_data_types).not_to include("WebSite")
+      it_behaves_like "a page shell"
+
+      it "leaves out the WebSite structured data" do
+        show_page
+        expect(structured_data_types).not_to include("WebSite")
+      end
+    end
+
+    context "with work unpublished" do
+      it "returns not found" do
+        show_page
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "renders the styled 404 page" do
+        show_page
+        expect(html_response.at_css("a[href='/']").text).to start_with("Back home")
+      end
+
+      it "logs why the page is missing" do
+        allow(Rails.logger).to receive(:warn)
+        show_page
+        expect(Rails.logger).to have_received(:warn)
+          .with("WorkPublication::NotPublishedError: Work has not been published")
+      end
     end
   end
 

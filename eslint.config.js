@@ -63,7 +63,7 @@ export default tseslint.config(
       "@typescript-eslint/naming-convention": [
         "error",
         {
-          filter: { match: false, regex: "^(education|photo)$" },
+          filter: { match: false, regex: "^(education|photo|work_published)$" },
           format: ["PascalCase"],
           prefix: ["is"],
           selector: ["parameter", "typeProperty", "variable"],

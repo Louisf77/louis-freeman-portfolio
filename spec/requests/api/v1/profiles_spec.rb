@@ -24,6 +24,28 @@ RSpec.describe "Api::V1::Profiles" do
         show_profile
         expect(response.headers["Cache-Control"].split(", ")).to contain_exactly("public", "max-age=300")
       end
+
+      it "says work is unpublished without case studies" do
+        show_profile
+        expect(json_response.dig("profile", "work_published")).to be(false)
+      end
+    end
+
+    context "with a seeded profile and a case study" do
+      before do
+        create(:profile)
+        create(:case_study)
+      end
+
+      it "matches the contract" do
+        show_profile
+        expect(json_response).to match_contract("api/v1/profile/show")
+      end
+
+      it "says work is published" do
+        show_profile
+        expect(json_response.dig("profile", "work_published")).to be(true)
+      end
     end
 
     context "without a seeded profile" do

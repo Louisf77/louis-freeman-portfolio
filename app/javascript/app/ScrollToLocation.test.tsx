@@ -14,11 +14,11 @@ const SCROLL_MARGIN_TOP = 104;
 const STUCK_FRAME_VIEWPORT_TOP = -3000;
 const PAGE_ENTER_OFFSET = 28;
 
-function renderAt(path: string, target = <div id="[redacted]" />) {
+function renderAt(path: string, target = <div id="example-project-one" />) {
   return renderWithProviders(
     <>
       {target}
-      <Link to="/work#[redacted]">{"[redacted]"}</Link>
+      <Link to="/work#example-project-one">{"Example project one"}</Link>
       <ScrollToLocation />
     </>,
     { initialEntries: [path] },
@@ -28,7 +28,7 @@ function renderAt(path: string, target = <div id="[redacted]" />) {
 function stuckCard() {
   return (
     <div
-      id="[redacted]"
+      id="example-project-one"
       ref={(element) => {
         if (!element) return;
 
@@ -62,7 +62,7 @@ function stuckFrame() {
       }}
       style={{ position: "sticky", top: STUCK_FRAME_VIEWPORT_TOP }}
     >
-      <section id="[redacted]" />
+      <section id="example-project-one" />
     </div>
   );
 }
@@ -71,7 +71,7 @@ function enteringTarget() {
   return (
     <div style={{ transform: `matrix(1, 0, 0, 1, 0, ${String(PAGE_ENTER_OFFSET)})` }}>
       <section
-        id="[redacted]"
+        id="example-project-one"
         ref={(element) => {
           if (!element) return;
 
@@ -99,7 +99,7 @@ describe("ScrollToLocation", () => {
 
   it("jumps straight to the hash target when arriving on the page", () => {
     const scrollIntoView = mockScrollIntoView();
-    renderAt("/work#[redacted]");
+    renderAt("/work#example-project-one");
 
     expect(scrollIntoView).toHaveBeenCalledExactlyOnceWith({ behavior: "instant" });
   });
@@ -111,7 +111,7 @@ describe("ScrollToLocation", () => {
       value: { ready: Promise.resolve() },
     });
     const scrollTo = mockScrollTo();
-    renderAt("/work#[redacted]", stuckCard());
+    renderAt("/work#example-project-one", stuckCard());
 
     await act(async () => {
       await Promise.resolve();
@@ -123,7 +123,7 @@ describe("ScrollToLocation", () => {
 
   it("starts from the top while the arriving page's hash target is still loading", () => {
     const scrollTo = mockScrollTo();
-    renderAt("/work#[redacted]", <div />);
+    renderAt("/work#example-project-one", <div />);
 
     expect(scrollTo).toHaveBeenCalledWith({ behavior: "instant", left: 0, top: 0 });
   });
@@ -131,7 +131,7 @@ describe("ScrollToLocation", () => {
   it("leaves the scroll position alone when a non-sticky hash target is present", () => {
     mockScrollIntoView();
     const scrollTo = mockScrollTo();
-    renderAt("/work#[redacted]");
+    renderAt("/work#example-project-one");
 
     expect(scrollTo).not.toHaveBeenCalled();
   });
@@ -140,7 +140,7 @@ describe("ScrollToLocation", () => {
     scrollPageTo(SCROLLED_Y);
     const scrollIntoView = mockScrollIntoView();
     const scrollTo = mockScrollTo();
-    renderAt("/work#[redacted]", stuckCard());
+    renderAt("/work#example-project-one", stuckCard());
 
     expect(scrollTo).toHaveBeenCalledWith({
       behavior: "instant",
@@ -154,7 +154,7 @@ describe("ScrollToLocation", () => {
     scrollPageTo(SCROLLED_Y);
     const scrollIntoView = mockScrollIntoView();
     const scrollTo = mockScrollTo();
-    renderAt("/#[redacted]", stuckFrame());
+    renderAt("/#example-project-one", stuckFrame());
 
     expect(scrollTo).toHaveBeenCalledWith({
       behavior: "instant",
@@ -166,9 +166,9 @@ describe("ScrollToLocation", () => {
 
   it("restores the sticky target's position after measuring it", () => {
     scrollPageTo(SCROLLED_Y);
-    renderAt("/work#[redacted]", stuckCard());
+    renderAt("/work#example-project-one", stuckCard());
 
-    expect(document.getElementById("[redacted]")).toHaveStyle({ position: "sticky" });
+    expect(document.getElementById("example-project-one")).toHaveStyle({ position: "sticky" });
   });
 
   it("hands scroll restoration to the app so Back lands on the hash target", () => {
@@ -181,7 +181,7 @@ describe("ScrollToLocation", () => {
     scrollPageTo(SCROLLED_Y);
     const scrollIntoView = mockScrollIntoView();
     const scrollTo = mockScrollTo();
-    renderAt("/#[redacted]", enteringTarget());
+    renderAt("/#example-project-one", enteringTarget());
 
     expect(scrollTo).toHaveBeenCalledWith({
       behavior: "instant",
@@ -198,10 +198,10 @@ describe("ScrollToLocation", () => {
     scrollTo.mockClear();
 
     await act(async () => {
-      await userEvent.click(screen.getByRole("link", { name: "[redacted]" }));
+      await userEvent.click(screen.getByRole("link", { name: "Example project one" }));
     });
     await act(async () => {
-      await userEvent.click(screen.getByRole("link", { name: "[redacted]" }));
+      await userEvent.click(screen.getByRole("link", { name: "Example project one" }));
     });
 
     expect(scrollTo).toHaveBeenCalledTimes(2);
@@ -214,7 +214,7 @@ describe("ScrollToLocation", () => {
     scrollTo.mockClear();
 
     await act(async () => {
-      await userEvent.click(screen.getByRole("link", { name: "[redacted]" }));
+      await userEvent.click(screen.getByRole("link", { name: "Example project one" }));
     });
 
     expect(scrollTo).toHaveBeenCalledWith({

@@ -17,3 +17,9 @@ export function useProfileQuery() {
     }),
   );
 }
+
+export function useIsWorkPublished(): boolean {
+  const { data } = useProfileQuery();
+
+  return data?.profile.work_published ?? false;
+}

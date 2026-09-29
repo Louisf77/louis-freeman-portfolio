@@ -5,6 +5,7 @@ RSpec.describe "Analytics", :umami do
 
   before do
     seed_content
+    publish_work
     stub_umami_script
   end
 

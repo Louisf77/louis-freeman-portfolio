@@ -10,8 +10,8 @@ RSpec.describe "Api::V1::Homes" do
       create(:hero_greeting, text: "a problem solver.", position: 2)
       create(:hero_greeting, text: "Louis.", position: 1)
       create(:experience, company: "Hnry", position: 1)
-      create(:case_study, slug: "[redacted]", position: 2)
-      create(:case_study, :featured, slug: "[redacted]", position: 1)
+      create(:case_study, slug: "example-project-four", position: 2)
+      create(:case_study, :featured, slug: "example-project-one", position: 1)
       create(:domain, label: "Banking & card integrations", position: 1)
       create(:capability, capability_group: leadership, name: "Mentoring", position: 2)
       create(:capability, capability_group: leadership, name: "Line management", position: 1)
@@ -46,7 +46,7 @@ RSpec.describe "Api::V1::Homes" do
 
     it "returns only featured case studies in selected work" do
       show_home
-      expect(json_response.dig("home", "selected_work", "case_studies").pluck("slug")).to eq(["[redacted]"])
+      expect(json_response.dig("home", "selected_work", "case_studies").pluck("slug")).to eq(["example-project-one"])
     end
 
     it "returns the capability groups by position" do
@@ -80,7 +80,7 @@ RSpec.describe "Api::V1::Homes" do
     context "without featured case studies" do
       let(:seed_home_page) do
         seeded_sections.each { |section| create(section) }
-        create(:case_study, slug: "[redacted]")
+        create(:case_study, slug: "example-project-four")
       end
 
       it "returns an empty selected work list" do

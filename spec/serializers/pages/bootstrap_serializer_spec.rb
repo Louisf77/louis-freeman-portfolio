@@ -18,6 +18,7 @@ RSpec.describe Pages::BootstrapSerializer do
     before do
       create(:profile)
       create(:work_header)
+      create(:case_study)
     end
 
     it "includes the given UI strings" do
@@ -30,6 +31,14 @@ RSpec.describe Pages::BootstrapSerializer do
 
     it "matches the contract" do
       expect(serializer.as_json.deep_stringify_keys).to match_contract("pages/bootstrap")
+    end
+
+    context "with work unpublished" do
+      before { CaseStudy.delete_all }
+
+      it "raises the named not-published error" do
+        expect { serializer.as_json }.to raise_error(WorkPublication::NotPublishedError)
+      end
     end
   end
 end

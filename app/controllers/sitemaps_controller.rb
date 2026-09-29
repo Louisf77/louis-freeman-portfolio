@@ -6,6 +6,6 @@ class SitemapsController < ApplicationController
   private
 
   def page_paths
-    [root_path, work_path, about_path]
+    PublicPages.new.paths
   end
 end

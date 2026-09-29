@@ -14,6 +14,7 @@
         "email",
         "linkedin_url",
         "github_url",
+        "work_published",
         "footer_blurb"
       ],
       "additionalProperties": false,
@@ -24,6 +25,7 @@
         "email": { "type": "string" },
         "linkedin_url": { "type": "string" },
         "github_url": { "type": "string" },
+        "work_published": { "type": "boolean" },
         "footer_blurb": { "type": "string" }
       }
     }

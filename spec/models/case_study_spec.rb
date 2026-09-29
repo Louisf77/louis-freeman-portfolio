@@ -18,7 +18,7 @@ RSpec.describe CaseStudy do
     subject(:case_study) { build(:case_study, diagram_key:, slug:) }
 
     let(:diagram_key) { "cards" }
-    let(:slug) { "[redacted]" }
+    let(:slug) { "example-project" }
 
     CaseStudy::DIAGRAM_KEYS.each do |key|
       context "with the #{key} diagram" do
@@ -29,7 +29,7 @@ RSpec.describe CaseStudy do
     end
 
     context "with an unknown diagram" do
-      let(:diagram_key) { "[redacted].dc.html" }
+      let(:diagram_key) { "unknown" }
 
       it { is_expected.not_to be_valid }
     end

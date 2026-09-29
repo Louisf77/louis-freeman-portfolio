@@ -7,6 +7,7 @@ module Api
 
       rescue_from StandardError, with: :render_internal_error
       rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+      rescue_from WorkPublication::NotPublishedError, with: :render_unpublished
 
       private
 
@@ -18,6 +19,11 @@ module Api
       def render_not_found(error)
         Rails.logger.warn("#{error.class}: #{error.message}")
         render_error(code: "not_found", message: not_found_message(error:), status: :not_found)
+      end
+
+      def render_unpublished(error)
+        Rails.logger.warn("#{error.class}: #{error.message}")
+        render_error(code: "not_found", message: error.message, status: :not_found)
       end
 
       def render_internal_error(error)

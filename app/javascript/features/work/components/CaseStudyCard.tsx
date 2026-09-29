@@ -2,7 +2,7 @@ import { useRef, type CSSProperties } from "react";
 
 import CaseStudyMetric from "~/components/CaseStudyMetric/CaseStudyMetric";
 import CaseStudyTags from "~/components/CaseStudyTags/CaseStudyTags";
-import CaseStudyDiagram from "~/components/diagrams/CaseStudyDiagram";
+import CaseStudyFigure from "~/components/diagrams/CaseStudyFigure";
 import styles from "~/features/work/components/CaseStudyCard.module.css";
 import useFittedDiagramScale from "~/features/work/hooks/useFittedDiagramScale";
 import useTrackCaseStudyView from "~/features/work/hooks/useTrackCaseStudyView";
@@ -56,7 +56,7 @@ function CaseStudyCard({ caseStudy, index, isLandingTarget = false }: CaseStudyC
     >
       <div className={styles.well} ref={wellRef}>
         <div className={styles.diagram}>
-          <CaseStudyDiagram diagramKey={caseStudy.diagram_key} scale={diagramScale} />
+          <CaseStudyFigure caseStudy={caseStudy} scale={diagramScale} />
         </div>
       </div>
       <div className={styles.body}>

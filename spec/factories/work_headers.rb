@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :work_header do
-    intro { "[redacted]." }
+    intro { "Placeholder intro for the work page." }
   end
 end

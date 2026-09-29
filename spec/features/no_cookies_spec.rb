@@ -9,7 +9,7 @@ RSpec.describe "No non-essential cookies", :js do
     before do
       Content::Seeder.from_file(path: Content::Seeder::SOURCE_PATH).call
       visit root_path
-      page.assert_selector(:css, "nav", text: I18n.t("ui.nav_work"))
+      page.assert_selector(:css, "nav", text: I18n.t("ui.nav_about"))
     end
 
     it "sets no cookies other than the Rails session" do

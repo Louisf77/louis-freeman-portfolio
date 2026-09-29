@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import Button from "~/components/Button/Button";
 import CaseStudyMetric from "~/components/CaseStudyMetric/CaseStudyMetric";
 import CaseStudyTags from "~/components/CaseStudyTags/CaseStudyTags";
-import CaseStudyDiagram from "~/components/diagrams/CaseStudyDiagram";
+import CaseStudyFigure from "~/components/diagrams/CaseStudyFigure";
 import { MIN_DIAGRAM_SCALE } from "~/components/diagrams/DiagramFrame";
 import styles from "~/features/home/components/WorkStackCard.module.css";
 import { caseStudyLandingState, track } from "~/lib/analytics";
@@ -25,7 +25,7 @@ function WorkStackCard({ caseStudy, stackIndex }: WorkStackCardProps) {
   return (
     <article className={styles.card} style={stackStyle}>
       <div className={styles.visual}>
-        <CaseStudyDiagram diagramKey={caseStudy.diagram_key} scale={MIN_DIAGRAM_SCALE} />
+        <CaseStudyFigure caseStudy={caseStudy} scale={MIN_DIAGRAM_SCALE} />
       </div>
       <div className={styles.details}>
         <p className={styles.meta}>

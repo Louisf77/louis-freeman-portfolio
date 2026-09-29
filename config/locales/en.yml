@@ -9,7 +9,7 @@ en:
     share_image_alt: "Louis Freeman — Senior Full Stack Engineer"
     site_name: "Louis Freeman"
     work:
-      description: "Case studies: [redacted], [redacted], a [redacted], and [redacted]."
+      description: "Projects by Louis Freeman, a senior full stack engineer in London: the problem, the approach and the result for each."
       title: :ui.page_title_work
   ui:
     about_chat_hint: "Keep scrolling to chat ↓"
@@ -19,6 +19,8 @@ en:
     back_to_top: "Back to top ↑"
     back_to_top_short: "Top ↑"
     capabilities_domain_label: "Domain"
+    case_study_figure_caption: "FIG. %{number}"
+    case_study_figure_label: "Illustration for %{title}"
     case_study_metric: "Metric"
     case_study_role: "Role"
     case_study_technologies: "Technologies"
@@ -28,86 +30,6 @@ en:
     contact_github: "GitHub"
     contact_linkedin: "LinkedIn"
     copyright: "© %{year} %{name}"
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
-    [redacted]
     experience_companies_label: "Companies"
     experience_counter: "%{current} / %{total}"
     experience_deck_description: "carousel"
@@ -146,6 +68,8 @@ en:
     privacy_title: "Privacy"
     retry: "Retry"
     retrying: "Retrying…"
+    selected_work_coming_soon_body: "I'm working on some personal projects at the moment. They'll be here soon."
+    selected_work_coming_soon_label: "Coming soon"
     selected_work_heading: "Selected work"
     selected_work_read_case_study: "Read case study"
     selected_work_read_case_study_title: ": %{title}"

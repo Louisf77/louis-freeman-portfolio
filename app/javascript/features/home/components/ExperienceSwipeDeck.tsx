@@ -2,8 +2,6 @@ import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react
 
 import ExperienceCard, { deckPositionOf } from "~/features/home/components/ExperienceCard";
 import styles from "~/features/home/components/ExperienceSwipeDeck.module.css";
-import useAutoplay from "~/features/home/hooks/useAutoplay";
-import useReducedMotion from "~/hooks/useReducedMotion";
 import classNames from "~/lib/classNames";
 import { useUi } from "~/lib/ui";
 import type { Experience } from "~/types/contracts";
@@ -18,7 +16,6 @@ interface TouchPoint {
   y: number;
 }
 
-const AUTOPLAY_INTERVAL_MS = 4200;
 const SWIPE_THRESHOLD_PX = 40;
 const COUNTER_DIGITS = 2;
 const PREVIOUS_ARROW = "←";
@@ -37,22 +34,14 @@ function padCount(value: number): string {
 
 function ExperienceSwipeDeck({ experiences, headingId }: ExperienceSwipeDeckProps) {
   const t = useUi();
-  const isReducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isAutoplaying, setIsAutoplaying] = useState(true);
   const touchStartRef = useRef<TouchPoint | null>(null);
   const deckRef = useRef<HTMLDivElement>(null);
   const count = experiences.length;
   const lastIndex = count - 1;
-  const isAdvancing = isAutoplaying && !isReducedMotion;
-
-  useAutoplay(isAdvancing, AUTOPLAY_INTERVAL_MS, () => {
-    setActiveIndex((index) => (index + 1) % count);
-  });
 
   const moveBy = useCallback(
     (direction: number) => {
-      setIsAutoplaying(false);
       setActiveIndex((index) => Math.min(lastIndex, Math.max(0, index + direction)));
     },
     [lastIndex],
@@ -101,7 +90,7 @@ function ExperienceSwipeDeck({ experiences, headingId }: ExperienceSwipeDeckProp
         <h2 className={styles.heading} id={headingId}>
           {t("experience_heading")}
         </h2>
-        <span aria-live={isAdvancing ? "off" : "polite"} className={styles.counter}>
+        <span aria-live="polite" className={styles.counter}>
           {t("experience_counter", {
             current: padCount(activeIndex + 1),
             total: padCount(count),
@@ -112,9 +101,6 @@ function ExperienceSwipeDeck({ experiences, headingId }: ExperienceSwipeDeckProp
         aria-labelledby={headingId}
         aria-roledescription={t("experience_deck_description")}
         className={styles.deck}
-        onFocus={() => {
-          setIsAutoplaying(false);
-        }}
         onTouchEnd={handleTouchEnd}
         onTouchStart={handleTouchStart}
         ref={deckRef}

@@ -28,7 +28,7 @@ const UI = {
   experience_time_there: "Time there",
 };
 
-const AUTOPLAY_INTERVAL_MS = 4200;
+const LONG_IDLE_MS = 60_000;
 const TRACK_TOP = 100;
 const TRACK_HEIGHT = 4000;
 const SWIPE_DISTANCE = 120;
@@ -107,33 +107,30 @@ describe("ExperienceSection", () => {
       expect(nextButton()).toBeDisabled();
     });
 
-    it("autoplays to the next role", () => {
+    it("holds the first role while the visitor waits", () => {
       renderSection();
       act(() => {
-        vi.advanceTimersByTime(AUTOPLAY_INTERVAL_MS);
-      });
-
-      expect(currentCompany()).toBe("Soho House");
-    });
-
-    it("stops autoplaying once the visitor interacts", async () => {
-      renderSection();
-      await userEvent.click(nextButton());
-      act(() => {
-        vi.advanceTimersByTime(AUTOPLAY_INTERVAL_MS * 3);
-      });
-
-      expect(currentCompany()).toBe("Soho House");
-    });
-
-    it("does not autoplay with reduced motion", () => {
-      mockMatchMedia([COMPACT_MEDIA_QUERY, REDUCED_MOTION_MEDIA_QUERY]);
-      renderSection();
-      act(() => {
-        vi.advanceTimersByTime(AUTOPLAY_INTERVAL_MS * 2);
+        vi.advanceTimersByTime(LONG_IDLE_MS);
       });
 
       expect(currentCompany()).toBe("Hnry");
+      expect(screen.getByText("01 / 06")).toBeInTheDocument();
+    });
+
+    it("holds the chosen role after the visitor moves on", async () => {
+      renderSection();
+      await userEvent.click(nextButton());
+      act(() => {
+        vi.advanceTimersByTime(LONG_IDLE_MS);
+      });
+
+      expect(currentCompany()).toBe("Soho House");
+    });
+
+    it("announces the counter politely", () => {
+      renderSection();
+
+      expect(screen.getByText("01 / 06")).toHaveAttribute("aria-live", "polite");
     });
 
     it("moves with the arrow keys", async () => {

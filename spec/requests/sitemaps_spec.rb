@@ -18,11 +18,22 @@ RSpec.describe "Sitemaps" do
       expect(response.media_type).to eq("application/xml")
     end
 
-    it "lists the three public pages on the production origin" do
-      show_sitemap
-      expect(sitemap_locations).to eq(
-        ["https://louisfreeman.co.uk/", "https://louisfreeman.co.uk/work", "https://louisfreeman.co.uk/about"],
-      )
+    context "with work unpublished" do
+      it "lists Home and About on the production origin" do
+        show_sitemap
+        expect(sitemap_locations).to eq(["https://louisfreeman.co.uk/", "https://louisfreeman.co.uk/about"])
+      end
+    end
+
+    context "with work published" do
+      before { create(:case_study) }
+
+      it "lists the three public pages on the production origin" do
+        show_sitemap
+        expect(sitemap_locations).to eq(
+          ["https://louisfreeman.co.uk/", "https://louisfreeman.co.uk/work", "https://louisfreeman.co.uk/about"],
+        )
+      end
     end
 
     context "when requested on another host" do

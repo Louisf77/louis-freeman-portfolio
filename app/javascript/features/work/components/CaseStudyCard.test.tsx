@@ -25,11 +25,11 @@ function renderCard(caseStudy: CaseStudy, index = 0) {
 
 describe("CaseStudyCard", () => {
   it("anchors the card on its slug and labels it by its title", () => {
-    const caseStudy = caseStudyFixture({ slug: "[redacted]", title: "Tax return" });
+    const caseStudy = caseStudyFixture({ slug: "example-project-three", title: "Tax return" });
     renderCard(caseStudy);
 
     const card = screen.getByRole("article", { name: "Tax return" });
-    expect(card).toHaveAttribute("id", "[redacted]");
+    expect(card).toHaveAttribute("id", "example-project-three");
   });
 
   it("shows the number, years, headline, description, role and tags", () => {

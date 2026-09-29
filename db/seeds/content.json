@@ -17,7 +17,7 @@
       "a team lead."
     ],
     "tagline": "Senior Full Stack Engineer",
-    "selectedWorkIntro": "[redacted]: [redacted].",
+    "selectedWorkIntro": "Projects I've built, and the thinking behind them.",
     "capabilitiesTitle": "What I do",
     "capabilitiesIntro": "Leading a team, building with AI, and shipping across the whole stack.",
     "capabilities": [
@@ -172,53 +172,8 @@
     }
   ],
   "work": {
-    "intro": "[redacted]. [redacted].",
-    "caseStudies": [
-      {
-        "id": "01",
-        "title": "[redacted]",
-        "years": "2024–25",
-        "headline": "Replacing an [redacted] [redacted].",
-        "description": "[redacted] [redacted], a [redacted] ([redacted], [redacted], [redacted]), and [redacted].",
-        "role": "Lead engineer",
-        "tags": ["Rails", "SOAP", "[redacted]", "React"],
-        "diagram": "[redacted].dc.html",
-        "metric": null
-      },
-      {
-        "id": "02",
-        "title": "[redacted]",
-        "years": "2024–25",
-        "headline": "[redacted].",
-        "description": "[redacted], [redacted]. [redacted].",
-        "role": "Lead engineer",
-        "tags": ["Rails", "React", "Webhooks", "AML/KYC"],
-        "diagram": "[redacted].dc.html",
-        "metric": null
-      },
-      {
-        "id": "03",
-        "title": "[redacted]",
-        "years": "2025",
-        "headline": "A full-stack tax return, [redacted].",
-        "description": "[redacted], a [redacted] [redacted] with [redacted], [redacted] with a [redacted]. [redacted] and [redacted].",
-        "role": "[redacted]",
-        "tags": ["React", "[redacted]", "Rails", "[redacted]"],
-        "diagram": "[redacted].dc.html",
-        "metric": null
-      },
-      {
-        "id": "04",
-        "title": "[redacted]",
-        "years": "2025–26",
-        "headline": "[redacted].",
-        "description": "[redacted] [redacted], the [redacted] (intake → planning → per-commit lint and spec gating → pre-PR validation) and [redacted], designed to be [redacted] through shared configuration.",
-        "role": "[redacted]",
-        "tags": ["Claude Code", "[redacted]", "MCP", "[redacted]"],
-        "diagram": "[redacted].dc.html",
-        "metric": null
-      }
-    ]
+    "intro": "Projects I've built, with the problem, the approach and the result for each.",
+    "caseStudies": []
   },
   "about": {
     "heading": "Hello! I'm Louis Freeman.",

@@ -1,6 +1,12 @@
 module Pages
   class WorkSerializer
+    def initialize(work_publication: WorkPublication.new)
+      @work_publication = work_publication
+    end
+
     def as_json(*)
+      work_publication.ensure_published!
+
       {
         work: {
           header: Sections::WorkHeaderSerializer.new.as_json,
@@ -8,5 +14,9 @@ module Pages
         },
       }
     end
+
+    private
+
+    attr_reader :work_publication
   end
 end

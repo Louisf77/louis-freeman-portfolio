@@ -16,6 +16,8 @@ import type {
 const UI = {
   case_study_metric: "Metric",
   case_study_technologies: "Technologies",
+  selected_work_coming_soon_body: "Personal projects are on the way.",
+  selected_work_coming_soon_label: "Coming soon",
   selected_work_heading: "Selected work",
   selected_work_read_case_study: "Read case study",
   selected_work_read_case_study_title: ": %{title}",
@@ -24,10 +26,10 @@ const UI = {
 
 const IDLE_MS = 30_000;
 const CASE_STUDY_TITLES = [
-  "[redacted]",
-  "[redacted]",
-  "[redacted]",
-  "[redacted]",
+  "Example Project One",
+  "Example Project Two",
+  "Example Project Three",
+  "Example Project Four",
 ];
 
 function selectedWorkFixture(): SelectedWorkSectionContent {
@@ -43,8 +45,11 @@ function withMetric(metric: string): SelectedWorkSectionContent {
   return selectedWork;
 }
 
-function renderSection(selectedWork = selectedWorkFixture()) {
-  return renderWithProviders(<SelectedWorkSection selectedWork={selectedWork} />, { ui: UI });
+function renderSection(selectedWork = selectedWorkFixture(), isWorkPublished = true) {
+  return renderWithProviders(
+    <SelectedWorkSection isWorkPublished={isWorkPublished} selectedWork={selectedWork} />,
+    { ui: UI },
+  );
 }
 
 function readLinks() {
@@ -52,6 +57,43 @@ function readLinks() {
 }
 
 describe("SelectedWorkSection", () => {
+  describe("while work is unpublished", () => {
+    function renderUnpublished() {
+      return renderSection({ ...selectedWorkFixture(), case_studies: [] }, false);
+    }
+
+    it("keeps the Selected work heading", () => {
+      renderUnpublished();
+
+      expect(screen.getByRole("heading", { level: 2, name: "Selected work" })).toBeInTheDocument();
+    });
+
+    it("shows the coming-soon card", () => {
+      renderUnpublished();
+
+      expect(screen.getByText("Coming soon")).toBeInTheDocument();
+      expect(screen.getByText("Personal projects are on the way.")).toBeInTheDocument();
+    });
+
+    it("leaves out the intro", () => {
+      renderUnpublished();
+
+      expect(screen.queryByText(selectedWorkFixture().intro)).not.toBeInTheDocument();
+    });
+
+    it("links nowhere", () => {
+      renderUnpublished();
+
+      expect(screen.queryByRole("link")).not.toBeInTheDocument();
+    });
+
+    it("shows no case studies even if some are passed", () => {
+      renderSection(selectedWorkFixture(), false);
+
+      expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    });
+  });
+
   it("renders nothing without featured case studies", () => {
     renderSection({ ...selectedWorkFixture(), case_studies: [] });
 
@@ -211,10 +253,10 @@ describe("SelectedWorkSection", () => {
       renderSection();
 
       expect(readLinks().map((link) => link.getAttribute("href"))).toEqual([
-        "/work#[redacted]",
-        "/work#[redacted]",
-        "/work#[redacted]",
-        "/work#[redacted]",
+        "/work#example-project-one",
+        "/work#example-project-two",
+        "/work#example-project-three",
+        "/work#example-project-four",
       ]);
     });
 
@@ -225,10 +267,10 @@ describe("SelectedWorkSection", () => {
     });
 
     it("shows the metric when there is one", () => {
-      renderSection(withMetric("[redacted]"));
+      renderSection(withMetric("Example metric"));
 
       expect(
-        within(panel(CASE_STUDY_TITLES[0] ?? "")).getByText("[redacted]"),
+        within(panel(CASE_STUDY_TITLES[0] ?? "")).getByText("Example metric"),
       ).toBeInTheDocument();
     });
 
@@ -239,7 +281,7 @@ describe("SelectedWorkSection", () => {
       await userEvent.click(within(panel(CASE_STUDY_TITLES[2] ?? "")).getByRole("link"));
 
       expect(umami.track).toHaveBeenCalledWith("case_study_view", {
-        case_study_slug: "[redacted]",
+        case_study_slug: "example-project-three",
         source: "home_link",
       });
     });
@@ -296,10 +338,10 @@ describe("SelectedWorkSection", () => {
       renderSection();
 
       expect(readLinks().map((link) => link.getAttribute("href"))).toEqual([
-        "/work#[redacted]",
-        "/work#[redacted]",
-        "/work#[redacted]",
-        "/work#[redacted]",
+        "/work#example-project-one",
+        "/work#example-project-two",
+        "/work#example-project-three",
+        "/work#example-project-four",
       ]);
     });
 
@@ -310,10 +352,10 @@ describe("SelectedWorkSection", () => {
     });
 
     it("shows the metric when there is one", () => {
-      renderSection(withMetric("[redacted]"));
+      renderSection(withMetric("Example metric"));
 
       expect(
-        within(card(CASE_STUDY_TITLES[0] ?? "")).getByText("[redacted]"),
+        within(card(CASE_STUDY_TITLES[0] ?? "")).getByText("Example metric"),
       ).toBeInTheDocument();
     });
 
@@ -323,7 +365,7 @@ describe("SelectedWorkSection", () => {
       await userEvent.click(within(card(CASE_STUDY_TITLES[3] ?? "")).getByRole("link"));
 
       expect(umami.track).toHaveBeenCalledWith("case_study_view", {
-        case_study_slug: "[redacted]",
+        case_study_slug: "example-project-four",
         source: "home_link",
       });
     });

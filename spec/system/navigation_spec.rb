@@ -1,7 +1,10 @@
 RSpec.describe "Navigation" do
   let(:profile) { Profile.current }
 
-  before { seed_content }
+  before do
+    seed_content
+    publish_work
+  end
 
   context "when following the nav from Home to Work" do
     before do

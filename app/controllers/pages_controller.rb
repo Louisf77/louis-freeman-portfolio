@@ -1,9 +1,11 @@
 class PagesController < ApplicationController
+  NOT_FOUND_PAGE_PATH = Rails.public_path.join("404.html")
   UNAVAILABLE_PAGE_PATH = Rails.public_path.join("503.html")
 
   helper_method :page
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_unavailable
+  rescue_from WorkPublication::NotPublishedError, with: :render_not_found
 
   def home
     render_page
@@ -25,6 +27,11 @@ class PagesController < ApplicationController
 
   def render_page
     render html: "", layout: true
+  end
+
+  def render_not_found(error)
+    Rails.logger.warn("#{error.class}: #{error.message}")
+    render file: NOT_FOUND_PAGE_PATH, layout: false, content_type: "text/html", status: :not_found
   end
 
   def render_unavailable(error)

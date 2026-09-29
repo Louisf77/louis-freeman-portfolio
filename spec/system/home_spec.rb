@@ -3,7 +3,10 @@ RSpec.describe "Home" do
   let(:experiences) { Experience.ordered }
   let(:featured_case_study) { CaseStudy.featured.ordered.last }
 
-  before { seed_content }
+  before do
+    seed_content
+    publish_work
+  end
 
   context "when loading the page" do
     before do

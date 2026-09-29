@@ -2,6 +2,22 @@ RSpec.describe Content::Seeder do
   subject(:seeder) { described_class.new(content:) }
 
   let(:content) { JSON.parse(described_class::SOURCE_PATH.read) }
+  let(:example_case_studies) do
+    %w[one two three].map.with_index(1) do |word, number|
+      {
+        "id" => format("%02d", number),
+        "slug" => "example-project-#{word}",
+        "title" => "Example project #{word}",
+        "years" => "2025",
+        "headline" => "Placeholder headline.",
+        "description" => "Placeholder description.",
+        "role" => "Lead engineer",
+        "tags" => ["Rails"],
+        "diagramKey" => CaseStudy::DIAGRAM_KEYS.fetch(number - 1),
+        "metric" => nil,
+      }
+    end
+  end
 
   describe ".from_file" do
     subject(:seeder) { described_class.from_file(path: described_class::SOURCE_PATH) }
@@ -28,7 +44,7 @@ RSpec.describe Content::Seeder do
         AboutIntro => 1,
         HeroGreeting => 4,
         Experience => 6,
-        CaseStudy => 4,
+        CaseStudy => 0,
         CapabilityGroup => 4,
         Capability => 26,
         Domain => 8,
@@ -39,10 +55,6 @@ RSpec.describe Content::Seeder do
         it "leaves #{expected_count} #{model.name.pluralize(expected_count)}" do
           expect(model.count).to eq(expected_count)
         end
-      end
-
-      it "features every case study" do
-        expect(CaseStudy.featured.count).to eq(4)
       end
 
       it "puts 12 capabilities in the ticker" do
@@ -80,19 +92,6 @@ RSpec.describe Content::Seeder do
 
       it "defaults missing highlights to an empty list" do
         expect(Experience.find_by!(company: "Academy").highlights).to eq([])
-      end
-
-      it "gives case studies their slugs in order" do
-        expect(CaseStudy.ordered.pluck(:slug))
-          .to eq(%w[[redacted] [redacted] [redacted] [redacted]])
-      end
-
-      it "maps case study diagrams to diagram keys" do
-        expect(CaseStudy.ordered.pluck(:diagram_key)).to eq(%w[cards identity tax ai])
-      end
-
-      it "maps the case study id to its number" do
-        expect(CaseStudy.find_by!(slug: "[redacted]").number).to eq("03")
       end
 
       it "orders the ticker as in the content" do
@@ -154,8 +153,32 @@ RSpec.describe Content::Seeder do
       end
     end
 
+    context "with case studies in the content" do
+      before do
+        content["work"]["caseStudies"] = example_case_studies
+        seeder.call
+      end
+
+      it "keeps the case studies' slugs in order" do
+        expect(CaseStudy.ordered.pluck(:slug)).to eq(%w[example-project-one example-project-two example-project-three])
+      end
+
+      it "stores each case study's diagram key" do
+        expect(CaseStudy.ordered.pluck(:diagram_key)).to eq(%w[cards identity tax])
+      end
+
+      it "maps the case study id to its number" do
+        expect(CaseStudy.find_by!(slug: "example-project-three").number).to eq("03")
+      end
+
+      it "features every case study" do
+        expect(CaseStudy.featured.count).to eq(3)
+      end
+    end
+
     context "with case studies that have moved" do
       before do
+        content["work"]["caseStudies"] = example_case_studies
         seeder.call
         content["work"]["caseStudies"].reverse!
         described_class.new(content:).call
@@ -163,7 +186,7 @@ RSpec.describe Content::Seeder do
 
       it "reorders the case studies" do
         expect(CaseStudy.ordered.pluck(:slug))
-          .to eq(%w[[redacted] [redacted] [redacted] [redacted]])
+          .to eq(%w[example-project-three example-project-two example-project-one])
       end
     end
 
@@ -171,17 +194,18 @@ RSpec.describe Content::Seeder do
       let(:logger) { instance_double(Logger, info: nil) }
 
       before do
+        content["work"]["caseStudies"] = example_case_studies
         seeder.call
         content["work"]["caseStudies"].pop
         described_class.new(content:, logger:).call
       end
 
       it "removes the case study" do
-        expect(CaseStudy.pluck(:slug)).not_to include("[redacted]")
+        expect(CaseStudy.pluck(:slug)).not_to include("example-project-three")
       end
 
       it "logs the removed case study by slug" do
-        expect(logger).to have_received(:info).with('Content::Seeder: removing CaseStudy slug="[redacted]"')
+        expect(logger).to have_received(:info).with('Content::Seeder: removing CaseStudy slug="example-project-three"')
       end
     end
 
@@ -228,15 +252,18 @@ RSpec.describe Content::Seeder do
       end
     end
 
-    context "with an unknown diagram" do
-      before { content["work"]["caseStudies"].first["diagram"] = "VizUnknown.dc.html" }
+    context "with an unknown diagram key" do
+      before do
+        content["work"]["caseStudies"] = example_case_studies
+        content["work"]["caseStudies"].first["diagramKey"] = "unknown"
+      end
 
-      it "raises naming the diagram" do
-        expect { seeder.call }.to raise_error(Content::UnknownContentError, /VizUnknown\.dc\.html/)
+      it "raises naming the invalid diagram key" do
+        expect { seeder.call }.to raise_error(ActiveRecord::RecordInvalid, /Diagram key/)
       end
 
       it "stores nothing" do
-        expect { suppress(Content::UnknownContentError) { seeder.call } }.not_to change(Profile, :count)
+        expect { suppress(ActiveRecord::RecordInvalid) { seeder.call } }.not_to change(Profile, :count)
       end
     end
 
@@ -245,14 +272,6 @@ RSpec.describe Content::Seeder do
 
       it "raises naming the ticker entry" do
         expect { seeder.call }.to raise_error(Content::UnknownContentError, /Kubernetes/)
-      end
-    end
-
-    context "with a case study number that has no slug" do
-      before { content["work"]["caseStudies"].first["id"] = "09" }
-
-      it "raises naming the number" do
-        expect { seeder.call }.to raise_error(Content::UnknownContentError, /09/)
       end
     end
   end

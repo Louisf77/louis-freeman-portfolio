@@ -35,11 +35,11 @@ describe("WorkPage", () => {
     );
   });
 
-  it("puts [redacted] third so /work#[redacted] lands on card 03", () => {
+  it("puts example-project-three third so /work#example-project-three lands on card 03", () => {
     renderWithProviders(<WorkPage />, { bootstrapQueries: { work: workFixture() }, ui: UI });
 
     const card = screen.getAllByRole("article")[2];
-    expect(card).toHaveAttribute("id", "[redacted]");
+    expect(card).toHaveAttribute("id", "example-project-three");
     expect(card).toHaveTextContent("03");
   });
 
@@ -101,11 +101,11 @@ describe("WorkPage", () => {
     it("tracks a card that stays half visible for the dwell time", () => {
       const { observer, umami } = renderTrackedWorkPage();
 
-      showCard(observer, "[redacted]", 0.5);
+      showCard(observer, "example-project-two", 0.5);
       wait(CASE_STUDY_VIEW_DWELL_MS);
 
       expect(umami.track).toHaveBeenCalledWith("case_study_view", {
-        case_study_slug: "[redacted]",
+        case_study_slug: "example-project-two",
         source: "work_scroll",
       });
     });
@@ -113,7 +113,7 @@ describe("WorkPage", () => {
     it("does not track a card before the dwell time", () => {
       const { observer, umami } = renderTrackedWorkPage();
 
-      showCard(observer, "[redacted]", 1);
+      showCard(observer, "example-project-two", 1);
       wait(CASE_STUDY_VIEW_DWELL_MS / 2);
 
       expect(umami.track).not.toHaveBeenCalled();
@@ -122,9 +122,9 @@ describe("WorkPage", () => {
     it("does not track a card that scrolls straight past", () => {
       const { observer, umami } = renderTrackedWorkPage();
 
-      showCard(observer, "[redacted]", 1);
+      showCard(observer, "example-project-three", 1);
       wait(CASE_STUDY_VIEW_DWELL_MS / 2);
-      showCard(observer, "[redacted]", 0);
+      showCard(observer, "example-project-three", 0);
       wait(CASE_STUDY_VIEW_DWELL_MS * 3);
 
       expect(umami.track).not.toHaveBeenCalled();
@@ -133,7 +133,7 @@ describe("WorkPage", () => {
     it("does not track a card that is less than half visible", () => {
       const { observer, umami } = renderTrackedWorkPage();
 
-      showCard(observer, "[redacted]", 0.49);
+      showCard(observer, "example-project-two", 0.49);
       wait(CASE_STUDY_VIEW_DWELL_MS * 3);
 
       expect(umami.track).not.toHaveBeenCalled();
@@ -141,9 +141,9 @@ describe("WorkPage", () => {
 
     it("does not track a card covered by the card stacked over it", () => {
       const { observer, umami } = renderTrackedWorkPage();
-      topElement = () => cardFor("[redacted]");
+      topElement = () => cardFor("example-project-four");
 
-      showCard(observer, "[redacted]", 1);
+      showCard(observer, "example-project-three", 1);
       wait(CASE_STUDY_VIEW_DWELL_MS * 3);
 
       expect(umami.track).not.toHaveBeenCalled();
@@ -151,8 +151,8 @@ describe("WorkPage", () => {
 
     it("tracks a covered card once it stays uncovered for the dwell time", () => {
       const { observer, umami } = renderTrackedWorkPage();
-      topElement = () => cardFor("[redacted]");
-      showCard(observer, "[redacted]", 1);
+      topElement = () => cardFor("example-project-four");
+      showCard(observer, "example-project-three", 1);
       wait(CASE_STUDY_VIEW_DWELL_MS * 3);
 
       topElement = (card) => card;
@@ -164,10 +164,10 @@ describe("WorkPage", () => {
     it("tracks each card only once per page view", () => {
       const { observer, umami } = renderTrackedWorkPage();
 
-      showCard(observer, "[redacted]", 1);
+      showCard(observer, "example-project-one", 1);
       wait(CASE_STUDY_VIEW_DWELL_MS * 2);
-      showCard(observer, "[redacted]", 0);
-      showCard(observer, "[redacted]", 1);
+      showCard(observer, "example-project-one", 0);
+      showCard(observer, "example-project-one", 1);
       wait(CASE_STUDY_VIEW_DWELL_MS * 2);
 
       expect(umami.track).toHaveBeenCalledOnce();
@@ -175,12 +175,12 @@ describe("WorkPage", () => {
 
     it("tracks again on a new page view", () => {
       const { observer, umami, unmount } = renderTrackedWorkPage();
-      showCard(observer, "[redacted]", 1);
+      showCard(observer, "example-project-one", 1);
       wait(CASE_STUDY_VIEW_DWELL_MS * 2);
       unmount();
 
       renderWithProviders(<WorkPage />, { bootstrapQueries: { work: workFixture() }, ui: UI });
-      showCard(observer, "[redacted]", 1);
+      showCard(observer, "example-project-one", 1);
       wait(CASE_STUDY_VIEW_DWELL_MS * 2);
 
       expect(umami.track).toHaveBeenCalledTimes(2);
@@ -188,15 +188,15 @@ describe("WorkPage", () => {
 
     describe("after landing from a Home case study link", () => {
       const landing: InitialEntry = {
-        hash: "#[redacted]",
+        hash: "#example-project-three",
         pathname: "/work",
-        state: caseStudyLandingState("[redacted]"),
+        state: caseStudyLandingState("example-project-three"),
       };
 
       it("does not track the card it landed on", () => {
         const { observer, umami } = renderTrackedWorkPage(landing);
 
-        showCard(observer, "[redacted]", 1);
+        showCard(observer, "example-project-three", 1);
         wait(CASE_STUDY_VIEW_DWELL_MS * 3);
 
         expect(umami.track).not.toHaveBeenCalled();
@@ -205,11 +205,11 @@ describe("WorkPage", () => {
       it("still tracks the other cards", () => {
         const { observer, umami } = renderTrackedWorkPage(landing);
 
-        showCard(observer, "[redacted]", 1);
+        showCard(observer, "example-project-four", 1);
         wait(CASE_STUDY_VIEW_DWELL_MS * 2);
 
         expect(umami.track).toHaveBeenCalledWith("case_study_view", {
-          case_study_slug: "[redacted]",
+          case_study_slug: "example-project-four",
           source: "work_scroll",
         });
       });

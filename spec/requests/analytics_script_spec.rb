@@ -74,6 +74,8 @@ RSpec.describe "Analytics script" do
   describe "GET /work" do
     let(:path) { "/work" }
 
+    before { create(:case_study) }
+
     it_behaves_like "a page with the Umami script"
   end
 

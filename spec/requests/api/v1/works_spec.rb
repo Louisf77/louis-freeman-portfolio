@@ -3,10 +3,10 @@ RSpec.describe "Api::V1::Works" do
     subject(:show_work) { get api_v1_work_path, headers: RequestHelpers::JSON_HEADERS }
 
     let(:work_header) { create(:work_header) }
-    let(:non_featured_case_study) { create(:case_study, slug: "[redacted]", position: 2) }
-    let(:featured_case_study) { create(:case_study, :featured, slug: "[redacted]", position: 1) }
+    let(:non_featured_case_study) { create(:case_study, slug: "example-project-two", position: 2) }
+    let(:featured_case_study) { create(:case_study, :featured, slug: "example-project-one", position: 1) }
 
-    context "with the work header seeded" do
+    context "with work published" do
       before do
         work_header
         non_featured_case_study
@@ -30,11 +30,47 @@ RSpec.describe "Api::V1::Works" do
 
       it "returns every case study by position, featured or not" do
         show_work
-        expect(json_response.dig("work", "case_studies").pluck("slug")).to eq(%w[[redacted] [redacted]])
+        expect(json_response.dig("work", "case_studies").pluck("slug"))
+          .to eq(%w[example-project-one example-project-two])
+      end
+    end
+
+    context "with work unpublished" do
+      before { work_header }
+
+      it "returns not found" do
+        show_work
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "matches the error contract" do
+        show_work
+        expect(json_response).to match_contract("api/v1/error")
+      end
+
+      it "says the work is not published" do
+        show_work
+        expect(json_response["errors"]).to contain_exactly(
+          "code" => "not_found", "field" => nil, "message" => "Work has not been published",
+        )
+      end
+
+      it "is not publicly cached" do
+        show_work
+        expect(response.headers["Cache-Control"]).not_to include("public")
+      end
+
+      it "logs why the work is missing" do
+        allow(Rails.logger).to receive(:warn)
+        show_work
+        expect(Rails.logger).to have_received(:warn)
+          .with("WorkPublication::NotPublishedError: Work has not been published")
       end
     end
 
     context "without the work header seeded" do
+      before { featured_case_study }
+
       it "returns not found" do
         show_work
         expect(response).to have_http_status(:not_found)

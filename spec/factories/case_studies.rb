@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :case_study do
-    sequence(:slug) { |n| "case-study-#{n}" }
+    sequence(:slug) { |n| "example-project-#{n}" }
     number { "01" }
-    title { "[redacted]" }
-    years_label { "2024–25" }
+    title { "Example project" }
+    years_label { "2025" }
     role { "Lead engineer" }
     diagram_key { "cards" }
-    headline { "Replacing an [redacted]." }
-    description { "[redacted] in the payments gem." }
+    headline { "Placeholder headline for an example project." }
+    description { "Placeholder description for an example project." }
     sequence(:position)
 
     trait :featured do

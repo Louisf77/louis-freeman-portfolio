@@ -17,6 +17,7 @@ const PROFILE: Profile = {
   location: "London",
   name: "Louis Freeman",
   role: "Senior Full Stack Engineer",
+  work_published: false,
 };
 
 const UI = {

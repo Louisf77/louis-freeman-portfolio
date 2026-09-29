@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import { mockUmami } from "@test/analytics";
 import { mockFetchJson, mockScrollTo } from "@test/browser";
 import { contractFixture } from "@test/contracts";
 import App from "~/app/App";
@@ -83,6 +84,50 @@ describe("App", () => {
       renderHomeFromBootstrap();
 
       expect(screen.getByRole("button", { name: "Contact" })).toBeInTheDocument();
+    });
+  });
+
+  describe("while work is unpublished", () => {
+    const UNPUBLISHED_PROFILE: ProfileResponse = {
+      profile: { ...PROFILE.profile, work_published: false },
+    };
+
+    function renderWorkFromBootstrap() {
+      installBootstrap({ queries: { home: HOME, profile: UNPUBLISHED_PROFILE }, ui: UI });
+      window.history.pushState({}, "", "/work");
+
+      return render(<App />);
+    }
+
+    it("hides the Work link", () => {
+      mockFetchJson({});
+      installBootstrap({ queries: { home: HOME, profile: UNPUBLISHED_PROFILE }, ui: UI });
+      window.history.pushState({}, "", "/");
+      render(<App />);
+
+      expect(screen.queryByRole("link", { name: "Work" })).not.toBeInTheDocument();
+    });
+
+    it("does not render the Work page at /work", () => {
+      mockFetchJson({ "/api/v1/work": WORK });
+      renderWorkFromBootstrap();
+
+      expect(screen.queryByRole("heading", { level: 1, name: "Work" })).not.toBeInTheDocument();
+    });
+
+    it("never fetches the work", () => {
+      const fetchSpy = mockFetchJson({ "/api/v1/work": WORK });
+      renderWorkFromBootstrap();
+
+      expect(fetchSpy).not.toHaveBeenCalled();
+    });
+
+    it("never tracks a case study view", () => {
+      const umami = mockUmami();
+      mockFetchJson({ "/api/v1/work": WORK });
+      renderWorkFromBootstrap();
+
+      expect(umami.track).not.toHaveBeenCalledWith("case_study_view", expect.anything());
     });
   });
 

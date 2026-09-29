@@ -68,6 +68,7 @@ export interface Profile {
   location: string;
   name: string;
   role: string;
+  work_published: boolean;
 }
 
 export interface ProfileResponse {
