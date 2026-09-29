@@ -77,28 +77,22 @@
 }
 
 .plus {
-  position: relative;
-  width: 10px;
-  height: 10px;
+  flex: none;
+  width: var(--toggle-icon-size);
+  height: var(--toggle-icon-size);
+  overflow: visible;
+  stroke: currentColor;
+  stroke-width: var(--toggle-icon-stroke);
 }
 
-.plus::before,
-.plus::after {
-  content: "";
-  position: absolute;
-  top: 4.5px;
-  left: 0;
-  width: 10px;
-  height: 1.5px;
-  background: currentColor;
+.plusStem {
+  transform: rotate(90deg);
+  transform-box: view-box;
+  transform-origin: center;
   transition: transform var(--duration-toggle);
 }
 
-.plus::after {
-  transform: rotate(90deg);
-}
-
-.contactButton[aria-expanded="true"] .plus::after {
+.contactButton[aria-expanded="true"] .plusStem {
   transform: rotate(0);
 }
 

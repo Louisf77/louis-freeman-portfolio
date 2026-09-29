@@ -176,6 +176,8 @@
   --stacked-footer-inset-compact: 110px;
   --button-height: 54px;
   --button-height-small: 48px;
+  --toggle-icon-size: 10px;
+  --toggle-icon-stroke: 2px;
 
   --focus-ring: 2px solid var(--green);
   --focus-offset: 4px;

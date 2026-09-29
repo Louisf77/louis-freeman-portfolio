@@ -13,6 +13,10 @@ interface ContactMenuProps {
   profile: Profile;
 }
 
+const PLUS_ICON_SIZE = 10;
+const PLUS_ICON_CENTRE = PLUS_ICON_SIZE / 2;
+const PLUS_ICON_VIEW_BOX = [0, 0, PLUS_ICON_SIZE, PLUS_ICON_SIZE].join(" ");
+
 type ContactVariant = "dropdown" | "slide-out";
 
 const LINKS_CLASS_BY_VARIANT: Record<ContactVariant, string | undefined> = {
@@ -76,7 +80,21 @@ function ContactMenu({ profile }: ContactMenuProps) {
         type="button"
       >
         {t("contact")}
-        <span aria-hidden="true" className={styles.plus} />
+        <svg
+          aria-hidden="true"
+          className={styles.plus}
+          focusable="false"
+          viewBox={PLUS_ICON_VIEW_BOX}
+        >
+          <line x1={0} x2={PLUS_ICON_SIZE} y1={PLUS_ICON_CENTRE} y2={PLUS_ICON_CENTRE} />
+          <line
+            className={styles.plusStem}
+            x1={0}
+            x2={PLUS_ICON_SIZE}
+            y1={PLUS_ICON_CENTRE}
+            y2={PLUS_ICON_CENTRE}
+          />
+        </svg>
       </button>
       <span
         className={classNames(LINKS_CLASS_BY_VARIANT[variant], isOpen && styles.open)}

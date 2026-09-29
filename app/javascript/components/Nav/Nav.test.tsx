@@ -71,6 +71,25 @@ describe("Nav", () => {
     expect(screen.queryByRole("button", { name: "Contact" })).not.toBeInTheDocument();
   });
 
+  it("hides the Contact plus icon from assistive technology", () => {
+    renderNav();
+
+    expect(screen.getByRole("button", { name: "Contact" }).querySelector("svg")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+  });
+
+  it("draws the Contact plus icon on a whole-pixel grid", () => {
+    renderNav();
+
+    const coordinates = Array.from(
+      screen.getByRole("button", { name: "Contact" }).querySelectorAll("line"),
+    ).flatMap((line) => ["x1", "x2", "y1", "y2"].map((name) => Number(line.getAttribute(name))));
+
+    expect(coordinates.every(Number.isInteger)).toBe(true);
+  });
+
   describe("on desktop", () => {
     it("starts with the contact links collapsed", () => {
       renderNav();
