@@ -32,41 +32,38 @@ function Footer({ profile }: FooterProps) {
           <span className={styles.accent}>{t("footer_heading_accent")}</span>
         </h2>
         {profile && (
-          <div className={styles.contactRow}>
-            <div className={styles.contactLinks}>
-              <a
-                className={styles.mail}
-                href={`mailto:${profile.email}`}
+          <div className={styles.contactLinks}>
+            <a
+              className={styles.mail}
+              href={`mailto:${profile.email}`}
+              onClick={() => {
+                trackContactClick("email");
+              }}
+            >
+              {profile.email}
+            </a>
+            <div className={styles.pills}>
+              <ExternalLink
+                className={styles.pill}
+                href={profile.linkedin_url}
                 onClick={() => {
-                  trackContactClick("email");
+                  trackContactClick("linkedin");
                 }}
               >
-                {profile.email}
-              </a>
-              <div className={styles.pills}>
-                <ExternalLink
-                  className={styles.pill}
-                  href={profile.linkedin_url}
-                  onClick={() => {
-                    trackContactClick("linkedin");
-                  }}
-                >
-                  {t("contact_linkedin")}
-                  <span aria-hidden="true">↗</span>
-                </ExternalLink>
-                <ExternalLink
-                  className={styles.pill}
-                  href={profile.github_url}
-                  onClick={() => {
-                    trackContactClick("github");
-                  }}
-                >
-                  {t("contact_github")}
-                  <span aria-hidden="true">↗</span>
-                </ExternalLink>
-              </div>
+                {t("contact_linkedin")}
+                <span aria-hidden="true">↗</span>
+              </ExternalLink>
+              <ExternalLink
+                className={styles.pill}
+                href={profile.github_url}
+                onClick={() => {
+                  trackContactClick("github");
+                }}
+              >
+                {t("contact_github")}
+                <span aria-hidden="true">↗</span>
+              </ExternalLink>
             </div>
-            <p className={styles.blurb}>{profile.footer_blurb}</p>
           </div>
         )}
       </div>

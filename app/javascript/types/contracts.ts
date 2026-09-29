@@ -62,7 +62,6 @@ export interface CaseStudy {
 
 export interface Profile {
   email: string;
-  footer_blurb: string;
   github_url: string;
   linkedin_url: string;
   location: string;

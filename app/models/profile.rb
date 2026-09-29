@@ -14,7 +14,9 @@
 #  updated_at   :datetime         not null
 #
 class Profile < ApplicationRecord
+  self.ignored_columns += ["footer_blurb"]
+
   include SingletonSection
 
-  validates :name, :role, :location, :email, :linkedin_url, :github_url, :footer_blurb, presence: true
+  validates :name, :role, :location, :email, :linkedin_url, :github_url, presence: true
 end

@@ -243,7 +243,7 @@ RSpec.describe "Pages" do
       let(:script_payload) { "</script><script>alert(1)</script>" }
       let(:seed_content) do
         super()
-        Profile.current.update!(name: script_payload, footer_blurb: script_payload)
+        Profile.current.update!(name: script_payload)
       end
 
       it "escapes it so the script cannot break out" do
@@ -253,7 +253,7 @@ RSpec.describe "Pages" do
 
       it "keeps the original text in the bootstrap" do
         show_page
-        expect(bootstrap.dig("queries", "profile", "profile", "footer_blurb")).to eq(script_payload)
+        expect(bootstrap.dig("queries", "profile", "profile", "name")).to eq(script_payload)
       end
 
       it "keeps the original text in the structured data" do

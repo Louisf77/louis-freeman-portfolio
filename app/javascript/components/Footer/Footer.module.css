@@ -28,19 +28,12 @@
   color: var(--green);
 }
 
-.contactRow {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-32);
-  margin-top: var(--space-12);
-}
-
 .contactLinks {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-18);
+  margin-top: var(--space-12);
 }
 
 .mail {
@@ -81,13 +74,6 @@
 .pill:hover {
   background: var(--ink);
   color: var(--paper);
-}
-
-.blurb {
-  max-width: 360px;
-  color: var(--muted);
-  font-size: var(--text-16);
-  line-height: 1.6;
 }
 
 .bottomRow {
@@ -192,11 +178,6 @@
   .headingHome {
     font-size: var(--text-88);
   }
-
-  .contactRow {
-    flex-direction: column;
-    align-items: stretch;
-  }
 }
 
 @media (max-width: 760px) {
@@ -214,24 +195,15 @@
     font-size: var(--text-64);
   }
 
-  .contactRow {
-    gap: var(--space-22);
-    margin-top: 0;
-  }
-
   .contactLinks {
     gap: var(--space-22);
+    margin-top: 0;
   }
 
   .mail {
     padding-bottom: var(--space-4);
     font-weight: 600;
     font-size: var(--text-20);
-  }
-
-  .blurb {
-    max-width: none;
-    font-size: var(--text-15);
   }
 
   .bottomRow {

@@ -5,7 +5,6 @@ module Content
     HOBBY_IMAGE_EXTENSION = "png".freeze
     PROFILE_FIELDS = {
       email: "email",
-      footer_blurb: "footerBlurb",
       github_url: "github",
       linkedin_url: "linkedin",
       location: "location",

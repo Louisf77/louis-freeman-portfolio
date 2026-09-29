@@ -11,7 +11,6 @@ import type { Profile } from "~/types/contracts";
 
 const PROFILE: Profile = {
   email: "hello@louisfreeman.co.uk",
-  footer_blurb: "Based in London. Happy to talk about AI tooling.",
   github_url: "https://github.com/Louisf77",
   linkedin_url: "https://www.linkedin.com/in/louis-freeman7/",
   location: "London",
@@ -60,12 +59,6 @@ describe("Footer", () => {
     renderFooter();
 
     expect(screen.getByRole("link", { name: /GitHub/ })).toHaveAttribute("target", "_blank");
-  });
-
-  it("shows the profile blurb", () => {
-    renderFooter();
-
-    expect(screen.getByText(PROFILE.footer_blurb)).toBeInTheDocument();
   });
 
   it("shows the copyright for the current year", () => {

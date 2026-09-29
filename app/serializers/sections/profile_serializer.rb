@@ -1,6 +1,6 @@
 module Sections
   class ProfileSerializer
-    ATTRIBUTES = %i[name role location email linkedin_url github_url footer_blurb].freeze
+    ATTRIBUTES = %i[name role location email linkedin_url github_url].freeze
 
     def initialize(profile: Profile.current, work_publication: WorkPublication.new)
       @profile = profile

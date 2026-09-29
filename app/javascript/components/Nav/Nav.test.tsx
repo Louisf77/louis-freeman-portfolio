@@ -11,7 +11,6 @@ import type { Profile } from "~/types/contracts";
 
 const PROFILE: Profile = {
   email: "hello@louisfreeman.co.uk",
-  footer_blurb: "Based in London.",
   github_url: "https://github.com/Louisf77",
   linkedin_url: "https://www.linkedin.com/in/louis-freeman7/",
   location: "London",
