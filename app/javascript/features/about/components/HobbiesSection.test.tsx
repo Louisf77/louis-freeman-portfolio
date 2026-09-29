@@ -111,7 +111,13 @@ describe("HobbiesSection", () => {
   });
 
   it("covers the well with photos and bottom-aligns cut-outs", () => {
-    renderHobbies();
+    const hobbies = hobbiesFixture();
+    renderHobbies({
+      ...hobbies,
+      items: hobbies.items.map((hobby) =>
+        hobby.name === "Football" ? { ...hobby, photo: true } : hobby,
+      ),
+    });
 
     expect(hobbyWell("Football")).toHaveAttribute("data-fit", "cover");
     expect(hobbyWell("Rugby")).toHaveAttribute("data-fit", "contain");

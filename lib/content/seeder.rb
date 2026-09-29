@@ -2,9 +2,7 @@ module Content
   class Seeder
     SOURCE_PATH = Rails.root.join("db/seeds/content.json")
     HOBBY_IMAGE_DIRECTORY = "/images/hobbies".freeze
-    PHOTO_HOBBIES = %w[Cooking Football].freeze
-    PHOTO_EXTENSION = "jpg".freeze
-    ILLUSTRATION_EXTENSION = "png".freeze
+    HOBBY_IMAGE_EXTENSION = "png".freeze
     PROFILE_FIELDS = {
       email: "email",
       footer_blurb: "footerBlurb",
@@ -103,9 +101,7 @@ module Content
     end
 
     def hobby_row(name:)
-      photo = PHOTO_HOBBIES.include?(name)
-      extension = photo ? PHOTO_EXTENSION : ILLUSTRATION_EXTENSION
-      { image_path: "#{HOBBY_IMAGE_DIRECTORY}/#{name.downcase}.#{extension}", name:, photo: }
+      { image_path: "#{HOBBY_IMAGE_DIRECTORY}/#{name.downcase}.#{HOBBY_IMAGE_EXTENSION}", name:, photo: false }
     end
 
     def upsert_section(model:, source:, fields:)

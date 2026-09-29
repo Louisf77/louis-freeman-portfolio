@@ -25,13 +25,13 @@ const TINT_CLASS: Record<HobbyTint, string | undefined> = {
 };
 
 const IMAGE_SIZE_BY_FILE: Record<string, ImageSize> = {
-  "cooking.jpg": { height: 571, width: 640 },
-  "football.jpg": { height: 571, width: 640 },
-  "golf.png": { height: 560, width: 382 },
-  "photography.png": { height: 560, width: 373 },
-  "rugby.png": { height: 560, width: 312 },
-  "surfing.png": { height: 560, width: 458 },
-  "travelling.png": { height: 560, width: 305 },
+  "cooking.png": { height: 560, width: 592 },
+  "football.png": { height: 560, width: 521 },
+  "golf.png": { height: 560, width: 338 },
+  "photography.png": { height: 560, width: 357 },
+  "rugby.png": { height: 560, width: 310 },
+  "surfing.png": { height: 560, width: 400 },
+  "travelling.png": { height: 560, width: 384 },
 };
 
 const FALLBACK_IMAGE_SIZE: Record<HobbyImageFit, ImageSize> = {

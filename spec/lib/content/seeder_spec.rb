@@ -117,13 +117,12 @@ RSpec.describe Content::Seeder do
         expect(ChatMessage.ordered.last.highlights).to eq(["Product Design & Manufacture Engineering"])
       end
 
-      it "points photo hobbies at jpg images" do
-        expect(Hobby.where(photo: true).pluck(:image_path))
-          .to contain_exactly("/images/hobbies/football.jpg", "/images/hobbies/cooking.jpg")
+      it "seeds every hobby as a cut-out" do
+        expect(Hobby.where(photo: true)).to be_empty
       end
 
-      it "points illustrated hobbies at png images" do
-        expect(Hobby.find_by!(name: "Rugby").image_path).to eq("/images/hobbies/rugby.png")
+      it "points hobbies at png cut-outs" do
+        expect(Hobby.find_by!(name: "Football").image_path).to eq("/images/hobbies/football.png")
       end
     end
 
