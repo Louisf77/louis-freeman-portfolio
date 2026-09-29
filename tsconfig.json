@@ -14,7 +14,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@test/*": ["./test/*"],
+      "@test/*": ["./spec/javascript/*"],
       "~/*": ["./app/javascript/*"]
     },
     "resolveJsonModule": true,
@@ -23,5 +23,11 @@
     "target": "ES2022",
     "types": ["vite/client"]
   },
-  "include": ["app/javascript", "test", "vite.config.ts", "vitest.config.ts", "eslint.config.js"]
+  "include": [
+    "app/javascript",
+    "spec/javascript",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "eslint.config.js"
+  ]
 }

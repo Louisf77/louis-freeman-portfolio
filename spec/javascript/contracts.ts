@@ -9,13 +9,13 @@ export type ContractName =
   | "pages/bootstrap";
 
 const CONTRACT_BASE_URI = "https://louisfreeman.co.uk/contracts/";
-const FIXTURES_DIRECTORY = "../spec/fixtures/contracts/";
+const FIXTURES_DIRECTORY = "../fixtures/contracts/";
 
-const schemaModules = import.meta.glob<AnySchemaObject>("../spec/contracts/**/*.json", {
+const schemaModules = import.meta.glob<AnySchemaObject>("../contracts/**/*.json", {
   eager: true,
   import: "default",
 });
-const fixtureModules = import.meta.glob<unknown>("../spec/fixtures/contracts/**/*.json", {
+const fixtureModules = import.meta.glob<unknown>("../fixtures/contracts/**/*.json", {
   eager: true,
   import: "default",
 });

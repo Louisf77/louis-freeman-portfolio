@@ -5,14 +5,14 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@test": new URL("./test", import.meta.url).pathname,
+      "@test": new URL("./spec/javascript", import.meta.url).pathname,
       "~": new URL("./app/javascript", import.meta.url).pathname,
     },
   },
   test: {
     environment: "jsdom",
     globals: false,
-    include: ["app/javascript/**/*.test.{ts,tsx}", "test/**/*.test.{ts,tsx}"],
-    setupFiles: ["./test/setup.ts"],
+    include: ["app/javascript/**/*.test.{ts,tsx}", "spec/javascript/**/*.test.{ts,tsx}"],
+    setupFiles: ["./spec/javascript/setup.ts"],
   },
 });

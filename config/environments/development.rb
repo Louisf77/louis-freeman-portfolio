@@ -27,11 +27,7 @@ Rails.application.configure do
 
   config.active_record.query_log_tags_enabled = true
 
-  config.active_job.verbose_enqueue_logs = true
-
   config.action_dispatch.verbose_redirect_logs = true
-
-  config.assets.quiet = true
 
   config.action_view.annotate_rendered_view_with_filenames = true
 

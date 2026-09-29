@@ -6,7 +6,6 @@ gem "bootsnap", require: false
 gem "json", "~> 2.18"
 gem "js-routes", "~> 2.4"
 gem "pg", "~> 1.1"
-gem "propshaft"
 gem "puma", ">= 5.0"
 gem "rails", "~> 8.1.3", ">= 8.1.3.1"
 gem "strong_migrations", "~> 2.8"
