@@ -1,0 +1,25 @@
+---
+:additional_file_patterns: []
+:auto_annotate_routes_after_migrate: false
+:classified_sort: true
+:exclude_controllers: true
+:exclude_factories: true
+:exclude_fixtures: true
+:exclude_helpers: true
+:exclude_scaffolds: true
+:exclude_serializers: true
+:exclude_sti_subclasses: false
+:exclude_tests: true
+:force: false
+:frozen: false
+:include_version: false
+:model_dir:
+- app/models
+:models: true
+:position: before
+:position_in_class: before
+:routes: false
+:show_foreign_keys: true
+:show_indexes: true
+:skip_on_db_migrate: false
+:timestamp: false

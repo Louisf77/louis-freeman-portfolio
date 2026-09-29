@@ -30,6 +30,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "annotaterb", "~> 4.25", require: false
   gem "web-console"
 end
 

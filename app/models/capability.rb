@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: capabilities
+#
+#  id                  :bigint           not null, primary key
+#  in_ticker           :boolean          default(FALSE), not null
+#  name                :string           not null
+#  position            :integer
+#  ticker_label        :string
+#  ticker_position     :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  capability_group_id :bigint
+#
+# Indexes
+#
+#  index_capabilities_on_capability_group_id               (capability_group_id)
+#  index_capabilities_on_capability_group_id_and_position  (capability_group_id,position) UNIQUE
+#  index_capabilities_on_ticker_position                   (ticker_position) UNIQUE WHERE (ticker_position IS NOT NULL)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (capability_group_id => capability_groups.id)
+#
 class Capability < ApplicationRecord
   belongs_to :capability_group, optional: true
 
