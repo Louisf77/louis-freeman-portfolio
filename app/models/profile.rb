@@ -4,7 +4,7 @@
 #
 #  id           :bigint           not null, primary key
 #  email        :string           not null
-#  footer_blurb :text             not null
+#  footer_blurb :text
 #  github_url   :string           not null
 #  linkedin_url :string           not null
 #  location     :string           not null
