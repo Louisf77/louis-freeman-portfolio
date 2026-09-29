@@ -162,5 +162,39 @@ RSpec.describe "Home" do
     it "shows the Hnry experience card with its dates" do
       expect(page).to have_css("#experience", text: experiences.first.dates_label)
     end
+
+    it "keeps the experience deck at its fixed design height" do
+      deck = find("#experience [role='group'][aria-labelledby='experience-title']")
+
+      expect(deck).to have_the_height_of_token("--experience-deck-height-compact")
+    end
+  end
+
+  [[320, 568], [360, 740]].each do |width, height|
+    context "with a #{width}px wide phone", :compact do
+      let(:hnry) { experiences.first }
+      let(:card) { find("#experience-slide-#{hnry.id}") }
+
+      before do
+        page.driver.resize(width, height)
+        visit root_path
+      end
+
+      after { page.driver.resize(*CUPRITE_COMPACT_WINDOW_SIZE) }
+
+      it "shows the whole Hnry summary inside its card" do
+        expect(card.find("p", exact_text: hnry.summary)).to be_unclipped_inside(card)
+      end
+
+      it "renders every Hnry highlight" do
+        expect(card.all("li", minimum: 1).map(&:text) & hnry.highlights).to eq(hnry.highlights)
+      end
+
+      it "shows every Hnry highlight inside its card" do
+        clipped = hnry.highlights.reject { be_unclipped_inside(card).matches?(card.find("li", exact_text: it)) }
+
+        expect(clipped).to be_empty
+      end
+    end
   end
 end

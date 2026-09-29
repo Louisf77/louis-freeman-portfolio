@@ -24,9 +24,15 @@
 
 .deck {
   position: relative;
-  height: 600px;
+  height: var(--experience-deck-height-compact);
   margin-right: var(--space-20);
   touch-action: pan-y;
+}
+
+.deckFitted {
+  display: grid;
+  height: auto;
+  min-height: var(--experience-deck-height-compact);
 }
 
 .deck:focus-visible {

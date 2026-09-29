@@ -245,6 +245,19 @@
   line-clamp: 4;
 }
 
+.fitted {
+  position: relative;
+  inset: auto;
+  grid-area: 1 / 1;
+}
+
+.fitted .summary {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+  line-clamp: none;
+}
+
 .compact .label {
   font-size: var(--text-10-5);
 }

@@ -20,6 +20,7 @@ interface ExperienceCardProps {
   aria: ExperienceCardAria;
   experience: Experience;
   isCompact: boolean;
+  isFitted: boolean;
   isHidden: boolean;
   position: DeckPosition;
   stackIndex: number;
@@ -53,6 +54,7 @@ function ExperienceCard({
   aria,
   experience,
   isCompact,
+  isFitted,
   isHidden,
   position,
   stackIndex,
@@ -72,6 +74,7 @@ function ExperienceCard({
       className={classNames(
         styles.card,
         isCompact && styles.compact,
+        isFitted && styles.fitted,
         experience.education && styles.education,
         POSITION_CLASS[position],
       )}

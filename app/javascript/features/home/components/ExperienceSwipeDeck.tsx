@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react
 
 import ExperienceCard, { deckPositionOf } from "~/features/home/components/ExperienceCard";
 import styles from "~/features/home/components/ExperienceSwipeDeck.module.css";
+import useMediaQuery, { NARROW_PHONE_MEDIA_QUERY } from "~/hooks/useMediaQuery";
 import classNames from "~/lib/classNames";
 import { useUi } from "~/lib/ui";
 import type { Experience } from "~/types/contracts";
@@ -34,6 +35,7 @@ function padCount(value: number): string {
 
 function ExperienceSwipeDeck({ experiences, headingId }: ExperienceSwipeDeckProps) {
   const t = useUi();
+  const isFitted = useMediaQuery(NARROW_PHONE_MEDIA_QUERY);
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartRef = useRef<TouchPoint | null>(null);
   const deckRef = useRef<HTMLDivElement>(null);
@@ -100,7 +102,7 @@ function ExperienceSwipeDeck({ experiences, headingId }: ExperienceSwipeDeckProp
       <div
         aria-labelledby={headingId}
         aria-roledescription={t("experience_deck_description")}
-        className={styles.deck}
+        className={classNames(styles.deck, isFitted && styles.deckFitted)}
         onTouchEnd={handleTouchEnd}
         onTouchStart={handleTouchStart}
         ref={deckRef}
@@ -117,6 +119,7 @@ function ExperienceSwipeDeck({ experiences, headingId }: ExperienceSwipeDeckProp
             }}
             experience={experience}
             isCompact
+            isFitted={isFitted}
             isHidden={index !== activeIndex}
             key={experience.id}
             position={deckPositionOf(index, activeIndex)}

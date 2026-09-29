@@ -134,6 +134,7 @@ function ExperienceDeck({ experiences, headingId }: ExperienceDeckProps) {
               }}
               experience={experience}
               isCompact={false}
+              isFitted={false}
               isHidden={index !== activeIndex}
               key={experience.id}
               position={deckPositionOf(index, activeIndex)}

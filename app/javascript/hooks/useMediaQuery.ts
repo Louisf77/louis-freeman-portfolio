@@ -1,6 +1,7 @@
 import { useCallback, useSyncExternalStore } from "react";
 
 export const COMPACT_MEDIA_QUERY = "(max-width: 760px)";
+export const NARROW_PHONE_MEDIA_QUERY = "(width < 390px)";
 
 function matches(query: string): boolean {
   return typeof window.matchMedia === "function" && window.matchMedia(query).matches;

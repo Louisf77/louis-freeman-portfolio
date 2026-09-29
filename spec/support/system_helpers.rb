@@ -159,3 +159,31 @@ RSpec::Matchers.define :be_the_marked_page_load do
     session.evaluate_script("window.#{SystemHelpers::PAGE_LOAD_MARKER} === true")
   end
 end
+
+RSpec::Matchers.define :be_unclipped_inside do |container|
+  match do |element|
+    element.evaluate_script(<<~JS, container)
+      (() => {
+        const box = this.getBoundingClientRect();
+        const container = arguments[0].getBoundingClientRect();
+        const isWhole = box.height > 0 && box.height >= this.scrollHeight - 1;
+        const isInside = box.top >= container.top - 0.5 && box.bottom <= container.bottom + 0.5;
+        return isWhole && isInside;
+      })()
+    JS
+  end
+end
+
+RSpec::Matchers.define :have_the_height_of_token do |token|
+  match do |element|
+    @heights = element.evaluate_script(<<~JS)
+      (() => {
+        const token = getComputedStyle(this).getPropertyValue(#{token.to_json}).trim();
+        return [`${this.offsetHeight}px`, token];
+      })()
+    JS
+    @heights.first == @heights.last
+  end
+
+  failure_message { "expected the rendered height #{@heights.first} to equal #{token} (#{@heights.last})" }
+end
