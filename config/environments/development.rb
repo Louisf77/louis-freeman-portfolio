@@ -35,6 +35,9 @@ Rails.application.configure do
 
   config.middleware.use(JsRoutes::Middleware)
 
+  config.hosts << "rush-abstain-disclose.ngrok-free.dev"
+  config.hosts << "rush-abstain-disclose.ngrok-free.dev"
+
   config.after_initialize do
     Bullet.enable = true
     Bullet.rails_logger = true
