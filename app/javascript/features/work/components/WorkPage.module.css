@@ -48,7 +48,7 @@
     position: relative;
     z-index: 10;
     min-height: calc(100vh - var(--stacked-footer-inset));
-    margin-top: -100vh;
+    margin-top: calc(var(--stacked-footer-inset) - 100vh);
     border-top: 0;
     border-radius: var(--radius-stacked) var(--radius-stacked) 0 0;
     box-shadow: var(--shadow-stacked);
@@ -100,6 +100,7 @@
   :global(main):has(.stack) ~ :global(footer) {
     z-index: 20;
     min-height: calc(100vh - var(--stacked-footer-inset-compact));
+    margin-top: calc(var(--stacked-footer-inset-compact) - 100vh);
     border-radius: var(--radius-stacked-compact) var(--radius-stacked-compact) 0 0;
     box-shadow: var(--shadow-stacked-compact);
   }

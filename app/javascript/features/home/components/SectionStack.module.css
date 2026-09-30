@@ -74,6 +74,6 @@
 
   :global(main):has(.runout) ~ :global(footer) {
     min-height: calc(100vh - var(--stacked-footer-inset-compact));
-    margin-top: -100vh;
+    margin-top: calc(var(--stacked-footer-inset-compact) - 100vh);
   }
 }
