@@ -83,7 +83,7 @@ RSpec.describe Content::Seeder do
 
       it "maps experience subs with date labels" do
         expect(Experience.find_by!(company: "Hnry").subs.first)
-          .to eq("date_label" => "Dec 2025", "label" => "Promoted to Senior Software Engineer")
+          .to eq("date_label" => "Sep 2025", "label" => "Promoted to Senior Software Engineer")
       end
 
       it "marks education with its watermark" do
