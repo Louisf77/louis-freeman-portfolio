@@ -9,7 +9,6 @@ export default tseslint.config(
       "app/javascript/lib/routes.d.ts",
       "app/javascript/lib/routes.js",
       "coverage/**",
-      "docs/**",
       "node_modules/**",
       "public/**",
       "tmp/**",

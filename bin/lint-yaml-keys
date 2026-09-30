@@ -3,7 +3,7 @@ require "psych"
 
 MERGE_KEY = "<<".freeze
 YAML_FILE_PATTERN = /\.ya?ml\z/
-IGNORED_PATH_PREFIXES = ["docs/", "node_modules/", "vendor/"].freeze
+IGNORED_PATH_PREFIXES = ["node_modules/", "vendor/"].freeze
 
 def tracked_yaml_files
   `git ls-files --cached --others --exclude-standard`.split("\n").select do |path|
